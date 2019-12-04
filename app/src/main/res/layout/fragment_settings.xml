@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragments.SettingFragment">
+
+    <TextView
+        android:id="@+id/settings_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/shape_inputbox_moreoval"
+        android:clickable="false"
+        android:ems="10"
+        android:enabled="false"
+        android:gravity="center"
+        android:inputType="textMultiLine"
+        android:linksClickable="false"
+        android:longClickable="false"
+        android:padding="8dp"
+        android:text="Settings"
+        android:textColor="#000"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settings_tv">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/selectlanguage__carvdiew"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="16dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="2dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/orange_nice_transparent"
+                    android:padding="12dp">
+
+                    <ImageView
+                        android:id="@+id/language_flag_imageview"
+                        android:layout_width="72dp"
+                        android:layout_height="48dp"
+                        android:background="#000"
+                        android:padding="1dp"
+                        android:scaleType="fitXY"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/flag_english" />
+
+                    <TextView
+                        android:id="@+id/selectlanguage_tv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:gravity="center|start|top"
+                        android:text="Change_language"
+                        android:textColor="#000"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/language_flag_imageview"
+                        app:layout_constraintStart_toEndOf="@+id/language_flag_imageview"
+                        app:layout_constraintTop_toTopOf="@+id/language_flag_imageview" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/auto_video_carvdiew"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="16dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="2dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/orange_nice_transparent"
+                    android:padding="12dp">
+
+                    <ImageView
+                        android:id="@+id/auto_video_icon"
+                        android:layout_width="72dp"
+                        android:layout_height="48dp"
+                        android:adjustViewBounds="true"
+                        android:clickable="false"
+                        android:longClickable="false"
+                        android:padding="1dp"
+                        android:saveEnabled="false"
+                        android:scaleType="fitCenter"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/videoplayimage" />
+
+                    <Switch
+                        android:id="@+id/auto_video_tv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="8dp"
+                        android:gravity="center_vertical"
+                        android:text="Auto play video"
+                        android:textColor="#000"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/auto_video_icon"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/auto_video_icon"
+                        app:layout_constraintTop_toTopOf="@+id/auto_video_icon" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/auto_image_carvdiew"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="16dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="2dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/orange_nice_transparent"
+                    android:padding="12dp">
+
+                    <ImageView
+                        android:id="@+id/auto_image_icon"
+                        android:layout_width="72dp"
+                        android:layout_height="48dp"
+                        android:adjustViewBounds="true"
+                        android:clickable="false"
+                        android:longClickable="false"
+                        android:padding="1dp"
+                        android:saveEnabled="false"
+                        android:scaleType="fitCenter"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/photo" />
+
+                    <Switch
+                        android:id="@+id/autoimage_switch"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="8dp"
+                        android:gravity="center_vertical"
+                        android:text="Auto play images"
+                        android:textColor="#000"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/auto_image_icon"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/auto_image_icon"
+                        app:layout_constraintTop_toTopOf="@+id/auto_image_icon" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/clear_carvdiew"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="16dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="2dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/orange_nice_transparent"
+                    android:padding="12dp">
+
+                    <ImageView
+                        android:id="@+id/clear_icon"
+                        android:layout_width="72dp"
+                        android:layout_height="48dp"
+                        android:adjustViewBounds="true"
+                        android:clickable="false"
+                        android:longClickable="false"
+                        android:padding="1dp"
+                        android:saveEnabled="false"
+                        android:scaleType="fitCenter"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/trash_icon" />
+
+                    <EditText
+                        android:id="@+id/clear_tv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:background="@null"
+                        android:clickable="false"
+                        android:enabled="false"
+                        android:gravity="center|start|top"
+                        android:longClickable="false"
+                        android:saveEnabled="false"
+                        android:text="Clear search history"
+                        android:textColor="#000"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/clear_icon"
+                        app:layout_constraintStart_toEndOf="@+id/clear_icon"
+                        app:layout_constraintTop_toTopOf="@+id/clear_icon" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/clear_favlist_carvdiew"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="16dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="2dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/orange_nice_transparent"
+                    android:padding="12dp">
+
+                    <ImageView
+                        android:id="@+id/clear_favlist_icon"
+                        android:layout_width="72dp"
+                        android:layout_height="48dp"
+                        android:adjustViewBounds="true"
+                        android:clickable="false"
+                        android:longClickable="false"
+                        android:padding="1dp"
+                        android:saveEnabled="false"
+                        android:scaleType="fitCenter"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/heart_emty" />
+
+                    <EditText
+                        android:id="@+id/clear_favlist_tv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:background="@null"
+                        android:clickable="false"
+                        android:enabled="false"
+                        android:gravity="center|start|top"
+                        android:longClickable="false"
+                        android:saveEnabled="false"
+                        android:text="Clear favorite list"
+                        android:textColor="#000"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/clear_favlist_icon"
+                        app:layout_constraintStart_toEndOf="@+id/clear_favlist_icon"
+                        app:layout_constraintTop_toTopOf="@+id/clear_favlist_icon" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

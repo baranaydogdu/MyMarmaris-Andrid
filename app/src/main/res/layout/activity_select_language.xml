@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".SelectLanguage">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textview_select_language"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/galada"
+            android:text="Select Your Language"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="26sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/linearbutton_english"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:gravity="center"
+            app:layout_constraintStart_toStartOf="@+id/textview_select_language"
+            app:layout_constraintTop_toBottomOf="@+id/textview_select_language">
+
+            <ImageView
+                android:id="@+id/image_englishflag"
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                android:background="#000"
+                android:padding="1dp"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/flag_english" />
+
+            <TextView
+                android:id="@+id/textView_select_english"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/galada"
+                android:text="English"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearbutton_turkish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="center|left"
+            app:layout_constraintStart_toStartOf="@+id/linearbutton_english"
+            app:layout_constraintTop_toBottomOf="@+id/linearbutton_english">
+
+            <ImageView
+                android:id="@+id/image_turkish_button"
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:background="#000"
+                android:padding="1dp"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/flag_turkish" />
+
+            <TextView
+                android:id="@+id/textView_select_turkish"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/galada"
+                android:text="Türkçe"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearbutton_russian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="center|left"
+            app:layout_constraintStart_toStartOf="@+id/linearbutton_english"
+            app:layout_constraintTop_toBottomOf="@+id/linearbutton_turkish">
+
+            <ImageView
+                android:id="@+id/image_russianflag"
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:background="#000"
+                android:padding="1dp"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/flag_russian" />
+
+            <TextView
+                android:id="@+id/textView_select_russian"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/galada"
+                android:text="русский"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearbutton_greek"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="center|left"
+            app:layout_constraintStart_toStartOf="@+id/linearbutton_english"
+            app:layout_constraintTop_toBottomOf="@+id/linearbutton_russian">
+
+            <ImageView
+                android:id="@+id/image_greekflag"
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:background="#000"
+                android:padding="1dp"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/flag_greek" />
+
+            <TextView
+                android:id="@+id/textView_select_greek"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/galada"
+                android:text="ελληνικά"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearbutton_german"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="32dp"
+            android:gravity="center|left"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/linearbutton_english"
+            app:layout_constraintTop_toBottomOf="@+id/linearbutton_greek">
+
+            <ImageView
+                android:id="@+id/image_germanflag"
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:background="#000"
+                android:padding="1dp"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/flag_german" />
+
+            <TextView
+                android:id="@+id/textView_select_german"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/galada"
+                android:text="Deutsch"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

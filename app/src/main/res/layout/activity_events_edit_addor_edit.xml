@@ -1,0 +1,1301 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:focusable="false"
+    tools:context=".EventsEdits.EventsEditAddorEdit">
+
+
+    <TextView
+        android:id="@+id/addorplace_textview"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/face_white"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:text="Add Activity"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/popupimage3"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/app_logo" />
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:focusable="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addorplace_textview">
+
+
+        <LinearLayout
+            android:id="@+id/alllinearlayot"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <CalendarView
+                android:id="@+id/calendarView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/orange_nice_transparent"
+                android:dateTextAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:firstDayOfWeek="2"
+                android:weekDayTextAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="600dp"
+                android:paddingTop="10dp">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/baglantı_cons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp">
+
+                <Button
+                    android:id="@+id/avent_add_link_place_button"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/shape_signinbutton"
+                    android:fontFamily="@font/alfa_slab_one"
+                    android:text="Add Place"
+                    android:textAllCaps="false"
+                    android:textColor="#000"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/avent_add_link_management_button"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/shape_signinbutton"
+                    android:fontFamily="@font/alfa_slab_one"
+                    android:text="Add  Management"
+                    android:textAllCaps="false"
+                    android:textColor="#000"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="@+id/avent_add_link_place_button"
+                    app:layout_constraintTop_toBottomOf="@+id/avent_add_link_place_button" />
+
+                <EditText
+                    android:id="@+id/add_linked_place_edx"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/shape_inputbox"
+                    android:clickable="false"
+                    android:enabled="false"
+                    android:hint="Place link"
+                    android:longClickable="false"
+                    android:maxLines="1"
+                    android:padding="10dp"
+                    android:textColor="#000"
+                    app:layout_constraintEnd_toStartOf="@+id/avent_add_link_place_button"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/add_linked_management_edx"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/shape_inputbox"
+                    android:clickable="false"
+                    android:enabled="false"
+                    android:hint="Management"
+                    android:longClickable="false"
+                    android:maxLines="1"
+                    android:padding="10dp"
+                    android:textColor="#000"
+                    app:layout_constraintEnd_toStartOf="@+id/avent_add_link_management_button"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/add_linked_place_edx" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/add_place_no_link_cons"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp"
+                android:padding="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <ImageView
+                    android:id="@+id/add_place_image_englishflag"
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="8dp"
+                    android:background="#CCCCCC"
+                    android:padding="1dp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/flag_english"
+                    tools:ignore="MissingConstraints" />
+
+                <EditText
+                    android:id="@+id/add_place_ll1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/shape_inputbox"
+                    android:hint="Linked Place Name"
+                    android:padding="10dp"
+                    android:textColor="#000"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/add_place_image_englishflag"
+                    app:layout_constraintTop_toTopOf="@+id/add_place_image_englishflag" />
+
+                <ImageView
+                    android:id="@+id/add_place_image_turkishflag"
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="16dp"
+                    android:background="#CCCCCC"
+                    android:padding="1dp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/add_place_ll1"
+                    app:srcCompat="@drawable/flag_turkish"
+                    tools:ignore="MissingConstraints" />
+
+                <EditText
+                    android:id="@+id/add_place_ll2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/shape_inputbox"
+                    android:hint="İşletme adı"
+                    android:padding="10dp"
+                    android:textColor="#000"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/add_place_image_turkishflag"
+                    app:layout_constraintTop_toTopOf="@+id/add_place_image_turkishflag" />
+
+                <ImageView
+                    android:id="@+id/add_place_image_russianflag"
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="16dp"
+                    android:background="#CCCCCC"
+                    android:padding="1dp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/add_place_ll2"
+                    app:srcCompat="@drawable/flag_russian"
+                    tools:ignore="MissingConstraints" />
+
+                <EditText
+                    android:id="@+id/add_place_ll3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/shape_inputbox"
+                    android:padding="10dp"
+                    android:textColor="#000"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/add_place_image_russianflag"
+                    app:layout_constraintTop_toTopOf="@+id/add_place_image_russianflag"
+                    tools:ignore="MissingConstraints" />
+
+                <ImageView
+                    android:id="@+id/add_place_image_greekflag"
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="16dp"
+                    android:background="#CCCCCC"
+                    android:padding="1dp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/add_place_ll3"
+                    app:srcCompat="@drawable/flag_greek"
+                    tools:ignore="MissingConstraints" />
+
+                <EditText
+                    android:id="@+id/add_place_ll4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/shape_inputbox"
+                    android:padding="10dp"
+                    android:textColor="#000"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/add_place_image_greekflag"
+                    app:layout_constraintTop_toTopOf="@+id/add_place_image_greekflag"
+                    tools:ignore="MissingConstraints" />
+
+                <ImageView
+                    android:id="@+id/add_place_image_germanflag"
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="16dp"
+                    android:background="#CCCCCC"
+                    android:padding="1dp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/add_place_ll4"
+                    app:srcCompat="@drawable/flag_german"
+                    tools:ignore="MissingConstraints" />
+
+                <EditText
+                    android:id="@+id/add_place_ll5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/shape_inputbox"
+                    android:padding="10dp"
+                    android:textColor="#000"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/add_place_image_germanflag"
+                    app:layout_constraintTop_toTopOf="@+id/add_place_image_germanflag"
+                    tools:ignore="MissingConstraints" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/add_management_no_link_cons"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp"
+                android:padding="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <ImageView
+                    android:id="@+id/add_management_image_englishflag"
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="8dp"
+                    android:background="#CCCCCC"
+                    android:padding="1dp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/flag_english"
+                    tools:ignore="MissingConstraints" />
+
+                <EditText
+                    android:id="@+id/add_management_ll1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/shape_inputbox"
+                    android:hint="Management Name"
+                    android:padding="10dp"
+                    android:textColor="#000"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/add_management_image_englishflag"
+                    app:layout_constraintTop_toTopOf="@+id/add_management_image_englishflag" />
+
+                <ImageView
+                    android:id="@+id/add_management_image_turkishflag"
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="16dp"
+                    android:background="#CCCCCC"
+                    android:padding="1dp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/add_management_ll1"
+                    app:srcCompat="@drawable/flag_turkish"
+                    tools:ignore="MissingConstraints" />
+
+                <ImageView
+                    android:id="@+id/add_management_image_russianflag"
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="16dp"
+                    android:background="#CCCCCC"
+                    android:padding="1dp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/add_management_ll2"
+                    app:srcCompat="@drawable/flag_russian"
+                    tools:ignore="MissingConstraints" />
+
+                <ImageView
+                    android:id="@+id/add_management_image_greekflag"
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="16dp"
+                    android:background="#CCCCCC"
+                    android:padding="1dp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/add_management_ll3"
+                    app:srcCompat="@drawable/flag_greek"
+                    tools:ignore="MissingConstraints" />
+
+                <ImageView
+                    android:id="@+id/add_management_image_germanflag"
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="16dp"
+                    android:background="#CCCCCC"
+                    android:padding="1dp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/add_management_image_greekflag"
+                    app:srcCompat="@drawable/flag_german"
+                    tools:ignore="MissingConstraints" />
+
+                <EditText
+                    android:id="@+id/add_management_ll2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/shape_inputbox"
+                    android:hint="Organizatör adı"
+                    android:padding="10dp"
+                    android:textColor="#000"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/add_management_image_turkishflag"
+                    app:layout_constraintTop_toTopOf="@+id/add_management_image_turkishflag" />
+
+                <EditText
+                    android:id="@+id/add_management_ll3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/shape_inputbox"
+                    android:padding="10dp"
+                    android:textColor="#000"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/add_management_image_russianflag"
+                    app:layout_constraintTop_toTopOf="@+id/add_management_image_russianflag"
+                    tools:ignore="MissingConstraints" />
+
+                <EditText
+                    android:id="@+id/add_management_ll4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/shape_inputbox"
+                    android:padding="10dp"
+                    android:textColor="#000"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/add_management_image_greekflag"
+                    app:layout_constraintTop_toTopOf="@+id/add_management_image_greekflag"
+                    tools:ignore="MissingConstraints" />
+
+                <EditText
+                    android:id="@+id/add_management_ll5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/shape_inputbox"
+                    android:padding="10dp"
+                    android:textColor="#000"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/add_management_image_germanflag"
+                    app:layout_constraintTop_toTopOf="@+id/add_management_image_germanflag"
+                    tools:ignore="MissingConstraints" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/llcons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:padding="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <ImageView
+                    android:id="@+id/image_englishflag1"
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="8dp"
+                    android:background="#CCCCCC"
+                    android:padding="1dp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/flag_english"
+                    tools:ignore="MissingConstraints" />
+
+                <EditText
+                    android:id="@+id/ll1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/shape_inputbox"
+                    android:hint="Place Name"
+                    android:padding="10dp"
+                    android:textColor="#000"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/image_englishflag1"
+                    app:layout_constraintTop_toTopOf="@+id/image_englishflag1" />
+
+                <ImageView
+                    android:id="@+id/image_turkishflag1"
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="16dp"
+                    android:background="#CCCCCC"
+                    android:padding="1dp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ll1"
+                    app:srcCompat="@drawable/flag_turkish"
+                    tools:ignore="MissingConstraints" />
+
+                <ImageView
+                    android:id="@+id/image_russianflag1"
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="16dp"
+                    android:background="#CCCCCC"
+                    android:padding="1dp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ll2"
+                    app:srcCompat="@drawable/flag_russian"
+                    tools:ignore="MissingConstraints" />
+
+                <ImageView
+                    android:id="@+id/image_greekflag1"
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="16dp"
+                    android:background="#CCCCCC"
+                    android:padding="1dp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ll3"
+                    app:srcCompat="@drawable/flag_greek"
+                    tools:ignore="MissingConstraints" />
+
+                <ImageView
+                    android:id="@+id/image_germanflag1"
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="16dp"
+                    android:background="#CCCCCC"
+                    android:padding="1dp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ll4"
+                    app:srcCompat="@drawable/flag_german"
+                    tools:ignore="MissingConstraints" />
+
+                <EditText
+                    android:id="@+id/ll2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/shape_inputbox"
+                    android:hint="Yer adı"
+                    android:padding="10dp"
+                    android:textColor="#000"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/image_turkishflag1"
+                    app:layout_constraintTop_toTopOf="@+id/image_turkishflag1" />
+
+                <EditText
+                    android:id="@+id/ll3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/shape_inputbox"
+                    android:hint="Укажите имя"
+                    android:padding="10dp"
+                    android:textColor="#000"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/image_russianflag1"
+                    app:layout_constraintTop_toTopOf="@+id/image_russianflag1"
+                    tools:ignore="MissingConstraints" />
+
+                <EditText
+                    android:id="@+id/ll4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/shape_inputbox"
+                    android:hint="ΟΝΟΜΑ ΤΟΠΟΘΕΣΙΑΣ"
+                    android:padding="10dp"
+                    android:textColor="#000"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/image_greekflag1"
+                    app:layout_constraintTop_toTopOf="@+id/image_greekflag1"
+                    tools:ignore="MissingConstraints" />
+
+                <EditText
+                    android:id="@+id/ll5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/shape_inputbox"
+                    android:hint="Ortsname"
+                    android:padding="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/image_germanflag1"
+                    app:layout_constraintTop_toTopOf="@+id/image_germanflag1"
+                    tools:ignore="MissingConstraints" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/eecons"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp"
+                android:padding="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/video">
+
+                <ImageView
+                    android:id="@+id/image_englishflag2"
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="8dp"
+                    android:background="#CCCCCC"
+                    android:padding="1dp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/flag_english"
+                    tools:ignore="MissingConstraints" />
+
+                <EditText
+                    android:id="@+id/ee1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/shape_inputbox"
+                    android:hint="Place Explanation"
+                    android:padding="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/image_englishflag2"
+                    app:layout_constraintTop_toTopOf="@+id/image_englishflag2"
+                    tools:ignore="MissingConstraints" />
+
+                <ImageView
+                    android:id="@+id/image_turkishflag2"
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="16dp"
+                    android:background="#CCCCCC"
+                    android:padding="1dp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ee1"
+                    app:srcCompat="@drawable/flag_turkish"
+                    tools:ignore="MissingConstraints" />
+
+                <ImageView
+                    android:id="@+id/image_russianflag2"
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="16dp"
+                    android:background="#CCCCCC"
+                    android:padding="1dp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ee2"
+                    app:srcCompat="@drawable/flag_russian"
+                    tools:ignore="MissingConstraints" />
+
+                <ImageView
+                    android:id="@+id/image_greekflag2"
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="16dp"
+                    android:background="#CCCCCC"
+                    android:padding="1dp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ee3"
+                    app:srcCompat="@drawable/flag_greek"
+                    tools:ignore="MissingConstraints" />
+
+                <ImageView
+                    android:id="@+id/image_germanflag2"
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="16dp"
+                    android:background="#CCCCCC"
+                    android:padding="1dp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ee4"
+                    app:srcCompat="@drawable/flag_german"
+                    tools:ignore="MissingConstraints" />
+
+                <EditText
+                    android:id="@+id/ee2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/shape_inputbox"
+                    android:hint="Yer Açıklaması"
+                    android:padding="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/image_turkishflag2"
+                    app:layout_constraintTop_toTopOf="@+id/image_turkishflag2"
+                    tools:ignore="MissingConstraints" />
+
+                <EditText
+                    android:id="@+id/ee3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/shape_inputbox"
+                    android:hint="Место Объяснение"
+                    android:padding="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/image_russianflag2"
+                    app:layout_constraintTop_toTopOf="@+id/image_russianflag2"
+                    tools:ignore="MissingConstraints" />
+
+                <EditText
+                    android:id="@+id/ee4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/shape_inputbox"
+                    android:hint="Τοποθετήστε την Επεξήγηση"
+                    android:padding="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/image_greekflag2"
+                    app:layout_constraintTop_toTopOf="@+id/image_greekflag2"
+                    tools:ignore="MissingConstraints" />
+
+                <EditText
+                    android:id="@+id/ee5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/shape_inputbox"
+                    android:hint="Platz Erklärung"
+                    android:padding="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/image_germanflag2"
+                    app:layout_constraintTop_toTopOf="@+id/image_germanflag2"
+                    tools:ignore="MissingConstraints" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/aacons"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp"
+                android:padding="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <ImageView
+                    android:id="@+id/image_englishflag3"
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="8dp"
+                    android:background="#CCCCCC"
+                    android:padding="1dp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/flag_english"
+                    tools:ignore="MissingConstraints" />
+
+                <EditText
+                    android:id="@+id/aa1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/shape_inputbox"
+                    android:hint="Place Adresse"
+                    android:padding="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/image_englishflag3"
+                    app:layout_constraintTop_toTopOf="@+id/image_englishflag3"
+                    tools:ignore="MissingConstraints" />
+
+                <ImageView
+                    android:id="@+id/image_turkishflag3"
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="16dp"
+                    android:background="#CCCCCC"
+                    android:padding="1dp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/aa1"
+                    app:srcCompat="@drawable/flag_turkish"
+                    tools:ignore="MissingConstraints" />
+
+                <ImageView
+                    android:id="@+id/image_russianflag3"
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="16dp"
+                    android:background="#CCCCCC"
+                    android:padding="1dp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/aa2"
+                    app:srcCompat="@drawable/flag_russian"
+                    tools:ignore="MissingConstraints" />
+
+                <ImageView
+                    android:id="@+id/image_greekflag3"
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="16dp"
+                    android:background="#CCCCCC"
+                    android:padding="1dp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/aa3"
+                    app:srcCompat="@drawable/flag_greek"
+                    tools:ignore="MissingConstraints" />
+
+                <ImageView
+                    android:id="@+id/image_germanflag3"
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="16dp"
+                    android:background="#CCCCCC"
+                    android:padding="1dp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/aa4"
+                    app:srcCompat="@drawable/flag_german"
+                    tools:ignore="MissingConstraints" />
+
+                <EditText
+                    android:id="@+id/aa2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/shape_inputbox"
+                    android:hint="Yer Adresi"
+                    android:padding="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/image_turkishflag3"
+                    app:layout_constraintTop_toTopOf="@+id/image_turkishflag3"
+                    tools:ignore="MissingConstraints" />
+
+                <EditText
+                    android:id="@+id/aa3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/shape_inputbox"
+                    android:hint="адрес места"
+                    android:padding="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/image_russianflag3"
+                    app:layout_constraintTop_toTopOf="@+id/image_russianflag3"
+                    tools:ignore="MissingConstraints" />
+
+                <EditText
+                    android:id="@+id/aa4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/shape_inputbox"
+                    android:hint="τοποθετήστε τη διεύθυνση"
+                    android:padding="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/image_greekflag3"
+                    app:layout_constraintTop_toTopOf="@+id/image_greekflag3"
+                    tools:ignore="MissingConstraints" />
+
+                <EditText
+                    android:id="@+id/aa5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/shape_inputbox"
+                    android:hint="ort adresse"
+                    android:padding="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/image_germanflag3"
+                    app:layout_constraintTop_toTopOf="@+id/image_germanflag3"
+                    tools:ignore="MissingConstraints" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/contactcons"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp"
+                android:padding="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <ImageView
+                    android:id="@+id/image_phone"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="8dp"
+                    android:padding="1dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/phonecall_icon"
+                    tools:ignore="MissingConstraints" />
+
+                <ImageView
+                    android:id="@+id/image_insta"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="32dp"
+                    android:padding="1dp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edittext_phone"
+                    app:srcCompat="@drawable/insta_icon"
+                    tools:ignore="MissingConstraints" />
+
+                <ImageView
+                    android:id="@+id/image_whatsapp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="32dp"
+                    android:padding="1dp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edittext_insta"
+                    app:srcCompat="@drawable/whatsapp_icon"
+                    tools:ignore="MissingConstraints" />
+
+                <ImageView
+                    android:id="@+id/image_face"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="32dp"
+                    android:padding="1dp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edittext_whatsapp"
+                    app:srcCompat="@drawable/faceicon"
+                    tools:ignore="MissingConstraints" />
+
+                <ImageView
+                    android:id="@+id/image_web"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="24dp"
+                    android:padding="1dp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edittext_face"
+                    app:srcCompat="@drawable/web_icon" />
+
+                <ImageView
+                    android:id="@+id/image_mail"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="24dp"
+                    android:padding="1dp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edittext_web"
+                    app:srcCompat="@drawable/mail_icon"
+                    tools:ignore="MissingConstraints" />
+
+                <ImageView
+                    android:id="@+id/image_ticket"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="24dp"
+                    android:padding="1dp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edittext_mail"
+                    app:srcCompat="@drawable/ticket_icon"
+                    tools:ignore="MissingConstraints" />
+
+                <EditText
+                    android:id="@+id/edittext_phone"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/shape_inputbox"
+                    android:hint="Phone number"
+                    android:padding="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/image_phone"
+                    app:layout_constraintTop_toTopOf="@+id/image_phone"
+                    tools:ignore="MissingConstraints" />
+
+                <EditText
+                    android:id="@+id/edittext_insta"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/shape_inputbox"
+                    android:hint="Instagram Adresse"
+                    android:padding="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/image_insta"
+                    app:layout_constraintTop_toTopOf="@+id/image_insta"
+                    tools:ignore="MissingConstraints" />
+
+                <EditText
+                    android:id="@+id/edittext_whatsapp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/shape_inputbox"
+                    android:hint="Whatsapp Adresse"
+                    android:padding="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/image_insta"
+                    app:layout_constraintTop_toTopOf="@+id/image_whatsapp"
+                    tools:ignore="MissingConstraints" />
+
+                <EditText
+                    android:id="@+id/edittext_face"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/shape_inputbox"
+                    android:hint="Facebook Adresse"
+                    android:padding="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/image_face"
+                    app:layout_constraintTop_toTopOf="@+id/image_face"
+                    tools:ignore="MissingConstraints" />
+
+                <EditText
+                    android:id="@+id/edittext_web"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/shape_inputbox"
+                    android:hint="WEB Adresse"
+                    android:padding="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/image_web"
+                    app:layout_constraintTop_toTopOf="@+id/image_web"
+                    tools:ignore="MissingConstraints" />
+
+                <EditText
+                    android:id="@+id/edittext_mail"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/shape_inputbox"
+                    android:hint="Mail Adresse"
+                    android:padding="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/image_mail"
+                    app:layout_constraintTop_toTopOf="@+id/image_mail"
+                    tools:ignore="MissingConstraints" />
+
+                <EditText
+                    android:id="@+id/edittext_sell_ticket"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/shape_inputbox"
+                    android:hint="Ticket sell website"
+                    android:padding="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/image_ticket"
+                    app:layout_constraintTop_toTopOf="@+id/image_ticket"
+                    tools:ignore="MissingConstraints" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="227dp"
+                    android:layout_height="100dp"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/location_icon" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/editText_latitude"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="24dp"
+                        android:background="@drawable/shape_inputbox"
+                        android:ems="10"
+                        android:hint="Latitude"
+                        android:inputType="textPersonName"
+                        android:padding="10dp" />
+
+                    <EditText
+                        android:id="@+id/editText_longitude"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="24dp"
+                        android:background="@drawable/shape_inputbox"
+                        android:ems="10"
+                        android:hint="Longitude"
+                        android:inputType="textPersonName"
+                        android:padding="10dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/addplace_upload_button"
+                style="@android:style/Widget.Button.Toggle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/shape_signinbutton"
+                android:fontFamily="@font/alfa_slab_one"
+                android:text="Add Activity"
+                android:textColor="#000"
+                android:textSize="18sp"
+                tools:layout_editor_absoluteY="1103dp" />
+
+            <Button
+                android:id="@+id/addplace_delete_button"
+                style="@android:style/Widget.Button.Toggle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="16dp"
+                android:layout_weight="1"
+                android:background="@drawable/shape_publish_button"
+                android:fontFamily="@font/alfa_slab_one"
+                android:text="Remove Activity"
+                android:textColor="#FFF"
+                android:textSize="18sp"
+                tools:layout_editor_absoluteY="1103dp" />
+
+            <TextView
+                android:id="@+id/progress_text"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_marginTop="32dp"
+                android:gravity="left"
+                android:padding="16dp"
+                android:text="Progress"
+                android:textColor="#000"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/addplace_upload_button" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/addplace_progressbar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/scrollView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

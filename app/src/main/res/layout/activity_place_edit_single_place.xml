@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:focusable="false"
+    tools:context=".PlaceEdits.PlaceEditSinglePlaces">
+
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/face_white"
+        android:focusable="false"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:text="Edit Places"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textColor="@color/colorAccent"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/popupimage"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:focusable="false"
+        app:layout_constraintEnd_toEndOf="@+id/textView4"
+        app:layout_constraintTop_toTopOf="@+id/textView4"
+        app:srcCompat="@drawable/app_logo" />
+
+    <Button
+        android:id="@+id/edit_sing_place_add_places_button"
+        style="@android:style/Widget.Button.Toggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/shape_signinbutton"
+        android:focusable="false"
+        android:fontFamily="@font/alfa_slab_one"
+        android:text="Add New Place"
+        android:textColor="#000"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/edit_sing_place_add__clone_places"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/collection_namee" />
+
+    <Button
+        android:id="@+id/edit_sing_place_add__clone_places"
+        style="@android:style/Widget.Button.Toggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/shape_signinbutton"
+        android:focusable="false"
+        android:fontFamily="@font/alfa_slab_one"
+        android:text="Add Clon Place"
+        android:textColor="#000"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/edit_sing_place_add_places_button"
+        app:layout_constraintTop_toBottomOf="@+id/collection_namee" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/edit_place_single_recyclerview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:focusable="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_sing_place_add_places_button" />
+
+
+    <TextView
+        android:id="@+id/collection_namee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:focusable="false"
+        android:fontFamily="@font/amiko_bold"
+        android:text="Place Collections"
+        android:textColor="@color/colorAccent"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/collection_image"
+        app:layout_constraintStart_toStartOf="@+id/collection_image"
+        app:layout_constraintTop_toBottomOf="@+id/collection_image" />
+
+    <TextView
+        android:id="@+id/subcollection_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:focusable="false"
+        android:fontFamily="@font/amiko_bold"
+        android:text="Place Sub Collections"
+        android:textColor="@color/colorAccent"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/subcollection_imagee"
+        app:layout_constraintStart_toStartOf="@+id/subcollection_imagee"
+        app:layout_constraintTop_toBottomOf="@+id/subcollection_imagee" />
+
+    <ImageView
+        android:id="@+id/collection_image"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginRight="40dp"
+        android:focusable="false"
+        app:srcCompat="@drawable/app_logo"
+        app:layout_constraintEnd_toStartOf="@+id/subcollection_imagee"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <ImageView
+        android:id="@+id/subcollection_imagee"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:focusable="false"
+        app:srcCompat="@drawable/app_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/collection_image"
+        app:layout_constraintTop_toTopOf="@+id/collection_image" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

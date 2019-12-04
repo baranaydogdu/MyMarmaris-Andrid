@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#000</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#000</color>
+    <!-- <color name="colorIcon">#ff007a</color>    00FF7A      00FF86-->
+    <color name="colorIcon">#000</color>
+    <color name="tabselectedcolor">#FFB200</color>
+    <color name="tabunslectcolor">#F3F6F7</color>
+    <color name="orange_nice">#AAA</color>
+    <color name="orange_nice_transparent">#EEE</color>
+    <color name="face_white">#F3F6F7</color>
+
+
+
+</resources>

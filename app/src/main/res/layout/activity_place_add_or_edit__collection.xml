@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".PlaceCollectionEdits.PlaceAddorEditCollection">
+
+    <TextView
+        android:id="@+id/addorplace_textview"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/face_white"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:text="Add Place Collection"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textColor="@color/colorAccent"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/popupimage3"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/app_logo" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addorplace_textview">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/add_place_subcons"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <ImageView
+                android:id="@+id/image_englishflag"
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="16dp"
+                android:background="#CCCCCC"
+                android:padding="1dp"
+                android:scaleType="fitXY"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/collection_type_icon"
+                app:srcCompat="@drawable/flag_english"
+                tools:ignore="MissingConstraints" />
+
+            <EditText
+                android:id="@+id/addplace_english_edittext"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@drawable/shape_inputbox"
+                android:hint="Collection Name"
+                android:padding="10dp"
+                app:layout_constraintBottom_toBottomOf="@+id/image_englishflag"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/image_englishflag"
+                app:layout_constraintTop_toTopOf="@+id/image_englishflag"
+                tools:ignore="MissingConstraints" />
+
+
+            <EditText
+                android:id="@+id/collection_link_edx"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@drawable/shape_inputbox"
+                android:hint="Collection Link"
+                android:padding="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/image_englishflag"
+                app:layout_constraintTop_toTopOf="@+id/collection_type_icon"
+                tools:ignore="MissingConstraints" />
+
+            <ImageView
+                android:id="@+id/image_turkishflag"
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="16dp"
+                android:background="#CCCCCC"
+                android:padding="1dp"
+                android:scaleType="fitXY"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/image_englishflag"
+                app:srcCompat="@drawable/flag_turkish"
+                tools:ignore="MissingConstraints" />
+
+
+            <ImageView
+                android:id="@+id/image_russianflag"
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="16dp"
+                android:background="#CCCCCC"
+                android:padding="1dp"
+                android:scaleType="fitXY"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/image_turkishflag"
+                app:srcCompat="@drawable/flag_russian"
+                tools:ignore="MissingConstraints" />
+
+            <ImageView
+                android:id="@+id/image_greekflag"
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="16dp"
+                android:background="#CCCCCC"
+                android:padding="1dp"
+                android:scaleType="fitXY"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/image_russianflag"
+                app:srcCompat="@drawable/flag_greek"
+                tools:ignore="MissingConstraints" />
+
+            <ImageView
+                android:id="@+id/image_germanflag"
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="16dp"
+                android:background="#CCCCCC"
+                android:padding="1dp"
+                android:scaleType="fitXY"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/image_greekflag"
+                app:srcCompat="@drawable/flag_german"
+                tools:ignore="MissingConstraints" />
+
+            <EditText
+                android:id="@+id/addplace_turkish_edittext"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@drawable/shape_inputbox"
+                android:hint="Koleksiyon ismi"
+                android:padding="10dp"
+                app:layout_constraintBottom_toBottomOf="@+id/image_turkishflag"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/image_turkishflag"
+                app:layout_constraintTop_toTopOf="@+id/image_turkishflag"
+                tools:ignore="MissingConstraints" />
+
+            <EditText
+                android:id="@+id/addplace_russian_edittext"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@drawable/shape_inputbox"
+                android:hint="название коллекции"
+                android:padding="10dp"
+                app:layout_constraintBottom_toBottomOf="@+id/image_russianflag"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/image_russianflag"
+                app:layout_constraintTop_toTopOf="@+id/image_russianflag"
+                tools:ignore="MissingConstraints" />
+
+            <EditText
+                android:id="@+id/addplace_greek_edittext"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@drawable/shape_inputbox"
+                android:hint="όνομα συλλογής"
+                android:padding="10dp"
+                app:layout_constraintBottom_toBottomOf="@+id/image_greekflag"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/image_greekflag"
+                app:layout_constraintTop_toTopOf="@+id/image_greekflag"
+                tools:ignore="MissingConstraints" />
+
+            <EditText
+                android:id="@+id/addplace_german_edittext"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@drawable/shape_inputbox"
+                android:hint="Name der Sammlung"
+                android:padding="10dp"
+                app:layout_constraintBottom_toBottomOf="@+id/image_germanflag"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/image_germanflag"
+                app:layout_constraintTop_toTopOf="@+id/image_germanflag"
+                tools:ignore="MissingConstraints" />
+
+            <Button
+                android:id="@+id/addplace_upload_button"
+                style="@android:style/Widget.Button.Toggle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginRight="24dp"
+                android:background="@drawable/shape_signinbutton"
+                android:fontFamily="@font/alfa_slab_one"
+                android:text="Add Collection"
+                android:textColor="#000"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/image_germanflag" />
+
+            <Button
+                android:id="@+id/addplace_delete_button"
+                style="@android:style/Widget.Button.Toggle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginRight="24dp"
+                android:background="@drawable/shape_publish_button"
+                android:fontFamily="@font/alfa_slab_one"
+                android:text="Delete Collection"
+                android:textColor="#FFF"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/addplace_upload_button" />
+
+            <ImageView
+                android:id="@+id/addplace_image"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="32dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/app_logo" />
+
+            <TextView
+                android:id="@+id/textView4567"
+                android:layout_width="0dp"
+                android:layout_height="400dp"
+                android:layout_marginTop="32dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/addplace_upload_button" />
+
+            <ImageView
+                android:id="@+id/collection_type_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/addplace_image"
+                app:srcCompat="@drawable/linked" />
+
+            <Switch
+                android:id="@+id/is_inside_switch"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginBottom="8dp"
+                android:shadowColor="#FFF"
+                android:text="is inside"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toTopOf="@+id/collection_link_edx"
+                app:layout_constraintEnd_toEndOf="@+id/collection_link_edx"
+                app:layout_constraintStart_toEndOf="@+id/addplace_image" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+
+    <ProgressBar
+        android:id="@+id/addplace_progressbar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

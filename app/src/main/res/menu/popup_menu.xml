@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/admin_place_edit"
+        android:title="Places" />
+    <item
+        android:id="@+id/admin_activity_edit"
+        android:title="Activities" />
+    <item
+        android:id="@+id/admin_notification_edit"
+        android:title="Notification" />
+</menu>

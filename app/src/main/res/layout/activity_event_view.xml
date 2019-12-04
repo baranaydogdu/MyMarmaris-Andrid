@@ -1,0 +1,1052 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/eventview_maincons"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:descendantFocusability="blocksDescendants"
+    tools:context=".EventView">
+
+    <TextView
+        android:id="@+id/main_textView2"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/face_white"
+        android:fontFamily="@font/galada"
+        android:gravity="center"
+        android:text="mymarmaris"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textColor="@color/colorAccent"
+        android:textSize="30sp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/popupimage2"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/app_logo" />
+
+    <ScrollView
+        android:id="@+id/scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:descendantFocusability="blocksDescendants"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/main_textView2">
+
+        <LinearLayout
+            android:id="@+id/layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:descendantFocusability="blocksDescendants"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="200dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/viewpager_cons"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:descendantFocusability="blocksDescendants">
+
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/viewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:descendantFocusability="blocksDescendants"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                </androidx.viewpager.widget.ViewPager>
+
+                <TextView
+                    android:id="@+id/place_rance_tv2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@color/orange_nice_transparent"
+                    android:maxLines="1"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp"
+                    android:text="12,3 km"
+                    android:textColor="#000"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/viewPager"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:id="@+id/viewpager_linear"
+                android:layout_width="wrap_content"
+                android:layout_height="16dp"
+                android:layout_marginTop="4dp"
+                android:descendantFocusability="blocksDescendants"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"></LinearLayout>
+
+            <EditText
+                android:id="@+id/place_name2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@null"
+                android:clickable="false"
+                android:ems="10"
+                android:enabled="false"
+                android:focusable="false"
+                android:gravity="center"
+                android:inputType="textMultiLine"
+                android:linksClickable="false"
+                android:longClickable="false"
+                android:text="Place Name"
+                android:textColor="#000"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/placeview_viewpager" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/date_carvdiew"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="16dp"
+                android:descendantFocusability="blocksDescendants"
+                android:padding="40dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="2dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/viewPager">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@color/orange_nice_transparent"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:id="@+id/imageView4"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginLeft="8dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/time_icon" />
+
+                    <TextView
+                        android:id="@+id/date_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="4dp"
+                        android:focusable="false"
+                        android:gravity="bottom|center_horizontal"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="1dp"
+                        android:text="15 Haziran 2019"
+                        android:textColor="#000"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imageView4"
+                        app:layout_constraintTop_toTopOf="@+id/imageView4" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <EditText
+                android:id="@+id/place_explain2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@null"
+                android:clickable="false"
+                android:ems="10"
+                android:enabled="false"
+                android:focusable="false"
+                android:gravity="start|top"
+                android:inputType="textMultiLine"
+                android:linksClickable="false"
+                android:longClickable="false"
+                android:text="Place Explanation"
+                android:textColor="#000"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/place_name" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/video_cons"
+                android:layout_width="wrap_content"
+                android:layout_height="300dp"
+                android:layout_marginTop="16dp"
+                android:descendantFocusability="blocksDescendants"
+                android:fadeScrollbars="false"
+                android:isScrollContainer="false"
+                android:keepScreenOn="false"
+                android:scrollbarAlwaysDrawHorizontalTrack="false"
+                android:scrollbarAlwaysDrawVerticalTrack="false">
+
+                <VideoView
+                    android:id="@+id/videoView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="300dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/videoimage"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/videoplayimage" />
+
+                <ProgressBar
+                    android:id="@+id/videoprogress"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="8dp"
+                    android:layout_marginBottom="4dp"
+                    android:indeterminate="true"
+                    android:theme="@style/Theme_MusicPlayer"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <ImageView
+                    android:id="@+id/fullscrenn_icon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginEnd="2dp"
+                    android:layout_marginRight="2dp"
+                    android:background="#FFF"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/fullscreen" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/linked_place_carvdiew"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/adresscarview">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/orange_nice_transparent"
+                    android:padding="8dp">
+
+                    <ImageView
+                        android:id="@+id/linked_place_icon"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/location_mark" />
+
+                    <EditText
+                        android:id="@+id/linked_place_edx"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="8dp"
+                        android:background="@null"
+                        android:clickable="false"
+                        android:ems="10"
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:gravity="start|top"
+                        android:inputType="textMultiLine"
+                        android:linksClickable="false"
+                        android:longClickable="false"
+                        android:text="Phone"
+                        android:textColor="#000"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/linked_place_icon"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/linked_place_icon"
+                        app:layout_constraintTop_toTopOf="@+id/linked_place_icon" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/linked_management_carvdiew"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/adresscarview">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/orange_nice_transparent"
+                    android:padding="8dp">
+
+                    <ImageView
+                        android:id="@+id/linked_managemet_icon"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/management" />
+
+                    <EditText
+                        android:id="@+id/linked_managemet_edx"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="8dp"
+                        android:background="@null"
+                        android:clickable="false"
+                        android:ems="10"
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:gravity="start|top"
+                        android:inputType="textMultiLine"
+                        android:linksClickable="false"
+                        android:longClickable="false"
+                        android:text="Phone"
+                        android:textColor="#000"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/linked_managemet_icon"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/linked_managemet_icon"
+                        app:layout_constraintTop_toTopOf="@+id/linked_managemet_icon" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/unlinked_place_carvdiew"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/adresscarview">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/orange_nice_transparent"
+                    android:padding="8dp">
+
+                    <ImageView
+                        android:id="@+id/unlinked_place_icon"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/location_mark" />
+
+                    <EditText
+                        android:id="@+id/unlinked_place_edx"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="8dp"
+                        android:background="@null"
+                        android:clickable="false"
+                        android:ems="10"
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:gravity="start|top"
+                        android:inputType="textMultiLine"
+                        android:linksClickable="false"
+                        android:longClickable="false"
+                        android:text="Phone"
+                        android:textColor="#000"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/unlinked_place_icon"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/unlinked_place_icon"
+                        app:layout_constraintTop_toTopOf="@+id/unlinked_place_icon" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/unlinked_management_carvdiew"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/adresscarview">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/orange_nice_transparent"
+                    android:padding="8dp">
+
+                    <ImageView
+                        android:id="@+id/unlinked_management_icon"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/management" />
+
+                    <EditText
+                        android:id="@+id/unlinked_management_edx"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="8dp"
+                        android:background="@null"
+                        android:clickable="false"
+                        android:ems="10"
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:gravity="start|top"
+                        android:inputType="textMultiLine"
+                        android:linksClickable="false"
+                        android:longClickable="false"
+                        android:text="Phone"
+                        android:textColor="#000"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/unlinked_management_icon"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/unlinked_management_icon"
+                        app:layout_constraintTop_toTopOf="@+id/unlinked_management_icon" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/adresscarview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/place_explain">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/orange_nice_transparent"
+                    android:padding="8dp">
+
+                    <ImageView
+                        android:id="@+id/adresicon"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/adress"
+                        app:srcCompat="@drawable/location_mark" />
+
+                    <EditText
+                        android:id="@+id/adresse_edx"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="8dp"
+                        android:background="@null"
+                        android:clickable="false"
+                        android:ems="10"
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:gravity="start|top"
+                        android:inputType="textMultiLine"
+                        android:linksClickable="false"
+                        android:longClickable="false"
+                        android:text="Address"
+                        android:textColor="#000"
+                        android:textSize="16sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <EditText
+                        android:id="@+id/adress"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="8dp"
+                        android:background="@null"
+                        android:clickable="false"
+                        android:ems="10"
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:gravity="start|top"
+                        android:inputType="textMultiLine"
+                        android:linksClickable="false"
+                        android:longClickable="false"
+                        android:text="Address"
+                        android:textColor="#000"
+                        android:textSize="16sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/adresse_edx" />
+
+                    <EditText
+                        android:id="@+id/adres_seeroute_edx"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="8dp"
+                        android:background="@null"
+                        android:clickable="false"
+                        android:ems="10"
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:gravity="start|top"
+                        android:inputType="textMultiLine"
+                        android:linksClickable="false"
+                        android:longClickable="false"
+                        android:text="See the route"
+                        android:textColor="#000"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/adresicon"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/adresicon"
+                        app:layout_constraintTop_toTopOf="@+id/adresicon" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/phone_carvdiew"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/adresscarview">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/orange_nice_transparent"
+                    android:padding="8dp">
+
+                    <ImageView
+                        android:id="@+id/phoneicon"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/phonecall_icon" />
+
+                    <EditText
+                        android:id="@+id/phone_edx"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="8dp"
+                        android:background="@null"
+                        android:clickable="false"
+                        android:ems="10"
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:gravity="start|top"
+                        android:inputType="textMultiLine"
+                        android:linksClickable="false"
+                        android:longClickable="false"
+                        android:text="Phone"
+                        android:textColor="#000"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/phoneicon"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/phoneicon"
+                        app:layout_constraintTop_toTopOf="@+id/phoneicon" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/whatsapp_carview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/phone_carvdiew">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/orange_nice_transparent"
+                    android:padding="8dp">
+
+                    <ImageView
+                        android:id="@+id/whatsappicon"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/whatsapp_icon" />
+
+                    <EditText
+                        android:id="@+id/whatsapp_edx"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="8dp"
+                        android:background="@null"
+                        android:clickable="false"
+                        android:ems="10"
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:gravity="start|top"
+                        android:inputType="textMultiLine"
+                        android:linksClickable="false"
+                        android:longClickable="false"
+                        android:text="Whatsapp"
+                        android:textColor="#000"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/whatsappicon"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/whatsappicon"
+                        app:layout_constraintTop_toTopOf="@+id/whatsappicon" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/web_carview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/whatsapp_carview">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/orange_nice_transparent"
+                    android:padding="8dp">
+
+                    <ImageView
+                        android:id="@+id/web_icon"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/web_icon" />
+
+                    <EditText
+                        android:id="@+id/web_edx"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="8dp"
+                        android:background="@null"
+                        android:clickable="false"
+                        android:ems="10"
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:gravity="start|top"
+                        android:inputType="textMultiLine"
+                        android:linksClickable="false"
+                        android:longClickable="false"
+                        android:text="Website"
+                        android:textColor="#000"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/web_icon"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/web_icon"
+                        app:layout_constraintTop_toTopOf="@+id/web_icon" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/facebook_carview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/web_carview">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/orange_nice_transparent"
+                    android:padding="8dp">
+
+                    <ImageView
+                        android:id="@+id/faceicon"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/faceicon" />
+
+                    <EditText
+                        android:id="@+id/face_edx"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="8dp"
+                        android:background="@null"
+                        android:clickable="false"
+                        android:ems="10"
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:gravity="start|top"
+                        android:inputType="textMultiLine"
+                        android:linksClickable="false"
+                        android:longClickable="false"
+                        android:text="Facebook"
+                        android:textColor="#000"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/faceicon"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/faceicon"
+                        app:layout_constraintTop_toTopOf="@+id/faceicon" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/insta_carview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/facebook_carview">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/orange_nice_transparent"
+                    android:padding="8dp">
+
+                    <ImageView
+                        android:id="@+id/instaicon"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/insta_icon" />
+
+                    <EditText
+                        android:id="@+id/insta_edx"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="8dp"
+                        android:background="@null"
+                        android:clickable="false"
+                        android:ems="10"
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:gravity="start|top"
+                        android:inputType="textMultiLine"
+                        android:linksClickable="false"
+                        android:longClickable="false"
+                        android:text="Instagram"
+                        android:textColor="#000"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/instaicon"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/instaicon"
+                        app:layout_constraintTop_toTopOf="@+id/instaicon" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/mail_carview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/insta_carview">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/orange_nice_transparent"
+                    android:padding="8dp">
+
+                    <ImageView
+                        android:id="@+id/mailicon"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/mail_icon" />
+
+                    <EditText
+                        android:id="@+id/mail_edx"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="8dp"
+                        android:background="@null"
+                        android:clickable="false"
+                        android:ems="10"
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:gravity="start|top"
+                        android:inputType="textMultiLine"
+                        android:linksClickable="false"
+                        android:longClickable="false"
+                        android:text="Mail"
+                        android:textColor="#000"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/mailicon"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/mailicon"
+                        app:layout_constraintTop_toTopOf="@+id/mailicon" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/ticket_carview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/insta_carview">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/orange_nice_transparent"
+                    android:padding="8dp">
+
+                    <ImageView
+                        android:id="@+id/ticketicon"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ticket_icon" />
+
+                    <EditText
+                        android:id="@+id/ticket_edx"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="8dp"
+                        android:background="@null"
+                        android:clickable="false"
+                        android:ems="10"
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:gravity="start|top"
+                        android:inputType="textMultiLine"
+                        android:linksClickable="false"
+                        android:longClickable="false"
+                        android:text="Buy Ticket"
+                        android:textColor="#000"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/ticketicon"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/ticketicon"
+                        app:layout_constraintTop_toTopOf="@+id/ticketicon" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:id="@+id/down_photo_linear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"></LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/next_days_linear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:background="@drawable/shape_inputbox_more_grey"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <EditText
+                    android:id="@+id/nextdays_edx"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@null"
+                    android:clickable="false"
+                    android:ems="10"
+                    android:enabled="false"
+                    android:focusable="false"
+                    android:gravity="center"
+                    android:inputType="textMultiLine"
+                    android:linksClickable="false"
+                    android:longClickable="false"
+                    android:text="Events"
+                    android:textColor="#000"
+                    android:textSize="24sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+            </LinearLayout>
+
+
+            <ImageView
+                android:id="@+id/map_image"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:adjustViewBounds="true"
+                app:srcCompat="@drawable/mapimage" />
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
