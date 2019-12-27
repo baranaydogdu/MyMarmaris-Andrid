@@ -1,33 +1,44 @@
 package com.baranaydogdu.mymarmaris.Fragments;
 
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baranaydogdu.mymarmaris.PreSets;
 import com.baranaydogdu.mymarmaris.R;
 
 public class NavigationDrawerFragment extends Fragment {
 
-    TextView tv;
-    LinearLayout linear_phone, linear_whatsapp, linear_mail, linear_insta, linear_face;
+    SharedPreferences sharedPreferences;
+    int selected_language;
+
+
+    EditText marmaris_rehberi_edx, diger_apps_edx;
+    CardView phone_card, whatsapp_card, mai_card, insta_card, face_card;
+    EditText phone_edx, whatsapp_edx, mai_edx, insta_edx, face_edx;
+    ImageView mydatca, mymugla;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
     }
 
@@ -35,14 +46,28 @@ public class NavigationDrawerFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        tv = view.findViewById(R.id.textView23);
-        linear_phone = view.findViewById(R.id.calling_button_drawer);
-        linear_whatsapp = view.findViewById(R.id.whatsapp_button_drawer);
-        linear_mail = view.findViewById(R.id.mail_button_drawer);
-        linear_insta = view.findViewById(R.id.insta_button_drawer);
-        linear_face = view.findViewById(R.id.face_button_drawer);
+        sharedPreferences = getActivity().getSharedPreferences("com.baranaydogdu.mymarmaris", Context.MODE_PRIVATE);
+        selected_language = sharedPreferences.getInt("language", 0);
 
-        linear_phone.setOnClickListener(new View.OnClickListener() {
+        marmaris_rehberi_edx = view.findViewById(R.id.marmaris_rehberi_edx);
+        diger_apps_edx = view.findViewById(R.id.diger_apps_edx);
+        phone_card = view.findViewById(R.id.phone_carvdiew);
+        whatsapp_card = view.findViewById(R.id.whatsapp_carview);
+        mai_card = view.findViewById(R.id.mail_carview);
+        insta_card = view.findViewById(R.id.insta_carview);
+        face_card = view.findViewById(R.id.facebook_carview);
+        phone_edx = view.findViewById(R.id.phone_edx);
+        whatsapp_edx = view.findViewById(R.id.whatsapp_edx);
+        mai_edx = view.findViewById(R.id.mail_edx);
+        insta_edx = view.findViewById(R.id.insta_edx);
+        face_edx = view.findViewById(R.id.face_edx);
+        mydatca = view.findViewById(R.id.mydatca);
+        mymugla = view.findViewById(R.id.mymugla);
+
+        setlanguages();
+
+
+        phone_card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -50,7 +75,7 @@ public class NavigationDrawerFragment extends Fragment {
             }
         });
 
-        linear_whatsapp.setOnClickListener(new View.OnClickListener() {
+        whatsapp_card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -58,14 +83,14 @@ public class NavigationDrawerFragment extends Fragment {
             }
         });
 
-        linear_mail.setOnClickListener(new View.OnClickListener() {
+        mai_card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            mailIntent();
+                mailIntent();
             }
         });
 
-        linear_insta.setOnClickListener(new View.OnClickListener() {
+        insta_card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -73,13 +98,91 @@ public class NavigationDrawerFragment extends Fragment {
             }
         });
 
-        linear_face.setOnClickListener(new View.OnClickListener() {
+        face_card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 faceIntent();
             }
         });
+
+
+        mydatca.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                mydatca_Intent();
+            }
+        });
+
+        mymugla.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                mymugla_Intent();
+            }
+        });
+
+
+    }
+
+    private void setlanguages() {
+
+        String[] phones = {"Phone", "Telefon", "Телефон", "τηλέφωνο", "Telefon"};
+        String[] whatsapps = {"Whatsapp", "Whatsapp", "Whatsapp", "Whatsapp", "Whatsapp"};
+        String[] faces = {"Facebook", "Facebook", "Facebook", "Facebook", "Facebook"};
+        String[] instas = {"Instagram", "Instagram", "Instagram", "Instagram", "Instagram"};
+        String[] mails = {"Mail", "Mail", "Mail", "Mail", "Mail"};
+        String[] marmarisrehberi = {"Marmaris Guide", "Marnaris Rehberi", "Путеводитель по Мармарису", "Οδηγός Μαρμαρίς", "Marmaris-Führer"};
+        String[] digerapps = {"Other Applications", "Diğer Uygulamalarımız", "Другие приложения", "Άλλες εφαρμογές", "Andere Anwendungen"};
+
+        phone_edx.setText(phones[selected_language]);
+        whatsapp_edx.setText(whatsapps[selected_language]);
+        mai_edx.setText(mails[selected_language]);
+        insta_edx.setText(instas[selected_language]);
+        face_edx.setText(faces[selected_language]);
+
+        marmaris_rehberi_edx.setText(marmarisrehberi[selected_language]);
+        diger_apps_edx.setText(digerapps[selected_language]);
+
+
+    }
+
+    private void mydatca_Intent() {
+
+        try {
+
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(
+                    "https://play.google.com/store/apps/details?id=com.mobiluygulamamerkezi.mydatca"));
+            intent.setPackage("com.android.vending");
+            startActivity(intent);
+
+
+        } catch (Exception e) {
+
+            Toast.makeText(getActivity(), "HATA : " + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+
+        }
+
+    }
+
+    private void mymugla_Intent() {
+
+        try {
+
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(
+                    "https://play.google.com/store/apps/details?id=com.knicode.lokal.mymugla"));
+            intent.setPackage("com.android.vending");
+            startActivity(intent);
+
+
+        } catch (Exception e) {
+
+            Toast.makeText(getActivity(), "HATA : " + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+
+        }
 
     }
 
@@ -162,7 +265,7 @@ public class NavigationDrawerFragment extends Fragment {
 
     private void mailIntent() {
 
-        String emailadres="mymarmaristeam@gmail.com";
+        String emailadres = "mymarmaristeam@gmail.com";
 
         try {           //SEND EMAIL        //SEND EMAIL        //SEND EMAIL        //SEND EMAIL        //SEND EMAIL
             //Intent emailIntent = new Intent(Intent.ACTION_SEND);
@@ -172,7 +275,6 @@ public class NavigationDrawerFragment extends Fragment {
             Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:" + emailadres));
 
             startActivity(Intent.createChooser(emailIntent, "Chooser Title"));
-
 
 
         } catch (ActivityNotFoundException ex) {

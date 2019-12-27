@@ -71,23 +71,23 @@ public class SearchMainFragment extends Fragment {
 
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
-        this.view=view;
-        activity=getActivity();
+        this.view = view;
+        activity = getActivity();
         sharedPreferences = activity.getSharedPreferences("com.baranaydogdu.mymarmaris", Context.MODE_PRIVATE);
-        selected_language=sharedPreferences.getInt("language",0);
+        selected_language = sharedPreferences.getInt("language", 0);
 
         initviews();
-        firstplacename=placestext[selected_language];
-        fisrteventname=eventstext[selected_language];
+        firstplacename = placestext[selected_language];
+        fisrteventname = eventstext[selected_language];
         editText.setHint(searctext[selected_language]);
 
-        adapter=new SercahAdapter(getChildFragmentManager());
+        adapter = new SercahAdapter(getChildFragmentManager());
 
         viewPager.setOffscreenPageLimit(2);
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
 
-        history_list=new ArrayList<>();
+        history_list = new ArrayList<>();
         history_list.add("ELLE EKLEME");
 
         sethistory();
@@ -102,7 +102,7 @@ public class SearchMainFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                if (s.length()>SEARCH_MIN_LENGHT){
+                if (s.length() > SEARCH_MIN_LENGHT) {
 
                     search();
 
@@ -122,37 +122,50 @@ public class SearchMainFragment extends Fragment {
 
         //ENTER A BASILIR ISE HISTORY EKLE
         editText.setOnKeyListener(new View.OnKeyListener() {
-            public boolean onKey(View v, int keyCode, KeyEvent event) { if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) { if (editText.getText().toString().length()>SEARCH_MIN_LENGHT)  addtohistory();return true; }return false;}});
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    if (editText.getText().toString().length() > SEARCH_MIN_LENGHT) addtohistory();
+                    return true;
+                }
+                return false;
+            }
+        });
 
         //ITEM SECILIR ISE HISTOR EKLE
-        editText.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {@Override
+        editText.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-            if (editText.getText().toString().length()>SEARCH_MIN_LENGHT)  addtohistory();
-            try{        //KLAVYE GIZLE
-                ((InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE)).
-                        hideSoftInputFromWindow(editText.getWindowToken(),0);
-            } catch (Exception e){
+                if (editText.getText().toString().length() > SEARCH_MIN_LENGHT) addtohistory();
+                try {        //KLAVYE GIZLE
+                    ((InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE)).
+                            hideSoftInputFromWindow(editText.getWindowToken(), 0);
+                } catch (Exception e) {
+
+                }
 
             }
 
-        }
-        @Override
-        public void onNothingSelected(AdapterView<?> parent) {
-            try{        //KLAVYE GIZLE
-                ((InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE)).
-                        hideSoftInputFromWindow(editText.getWindowToken(),0);
-            } catch (Exception e){
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                try {        //KLAVYE GIZLE
+                    ((InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE)).
+                            hideSoftInputFromWindow(editText.getWindowToken(), 0);
+                } catch (Exception e) {
+
+                }
+
 
             }
-
-
-        }});
+        });
 
         //ARAYA BASILIR ISE HOSTORY EKLE
         searcicon.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { if (editText.getText().toString().length()>SEARCH_MIN_LENGHT)addtohistory(); }});
+            public void onClick(View v) {
+                if (editText.getText().toString().length() > SEARCH_MIN_LENGHT) addtohistory();
+            }
+        });
 
 
     }
@@ -181,6 +194,7 @@ public class SearchMainFragment extends Fragment {
         editText.setAdapter(historyAdapter);
 
         historyAdapter.notifyDataSetChanged();
+
     }
 
 

@@ -52,12 +52,7 @@ public class PreSets {
 
     public static final int MAXVIDEOCAOUNT = 50;
 
-    public static final int ICONCOUNT = 56;
-
-    public static final int TYPE_MAIN_COLLECTION = 0;
-    public static final int TYPE_SUB_COLLECTION = 1;
-    public static final int TYPE_PLACE = 2;
-    public static final int TYPE_EVENT = 3;
+    public static final int ICONCOUNT = 117;
 
     public static final int TODAY_HOURS_MEANS = 1 * DAY_MILLIS;
 
@@ -1562,6 +1557,74 @@ public class PreSets {
                 R.drawable.z053,
                 R.drawable.z054,
                 R.drawable.z055,
+                R.drawable.z056,
+                R.drawable.z057,
+                R.drawable.z058,
+                R.drawable.z059,
+
+                R.drawable.z060,
+                R.drawable.z061,
+                R.drawable.z062,
+                R.drawable.z063,
+                R.drawable.z064,
+                R.drawable.z065,
+                R.drawable.z066,
+                R.drawable.z067,
+                R.drawable.z068,
+                R.drawable.z069,
+
+                R.drawable.z070,
+                R.drawable.z071,
+                R.drawable.z072,
+                R.drawable.z073,
+                R.drawable.z074,
+                R.drawable.z075,
+                R.drawable.z076,
+                R.drawable.z077,
+                R.drawable.z078,
+                R.drawable.z079,
+
+                R.drawable.z080,
+                R.drawable.z081,
+                R.drawable.z082,
+                R.drawable.z083,
+                R.drawable.z084,
+                R.drawable.z085,
+                R.drawable.z086,
+                R.drawable.z087,
+                R.drawable.z088,
+                R.drawable.z089,
+
+                R.drawable.z090,
+                R.drawable.z091,
+                R.drawable.z092,
+                R.drawable.z093,
+                R.drawable.z094,
+                R.drawable.z095,
+                R.drawable.z096,
+                R.drawable.z097,
+                R.drawable.z098,
+                R.drawable.z099,
+
+
+                R.drawable.z100,
+                R.drawable.z101,
+                R.drawable.z102,
+                R.drawable.z103,
+                R.drawable.z104,
+                R.drawable.z105,
+                R.drawable.z106,
+                R.drawable.z107,
+                R.drawable.z108,
+                R.drawable.z109,
+
+                R.drawable.z110,
+                R.drawable.z111,
+                R.drawable.z112,
+                R.drawable.z113,
+                R.drawable.z114,
+                R.drawable.z115,
+                R.drawable.z116,
 
         };
 

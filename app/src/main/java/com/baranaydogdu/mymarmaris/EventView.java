@@ -516,7 +516,7 @@ public class EventView extends AppCompatActivity implements LocationListener {
         String[] instas= {"Instagram","Instagram","Instagram","Instagram","Instagram",};
         String[] mails = {"Mail","Mail","Mail","Mail","Mail",};
         String[] buytickets = {"Buy Ticket", "Bilet Al", "Buy Ticket", "Buy Ticket", "Buy Ticket"};
-        String[] nextdaystext = {"Planned Dates", "Planlı traihler", "Planned Dates", "Planned Dates", "Planned Dates"};
+        String[] nextdaystext = {"Planned Dates", "Planlı tarihler", "Planned Dates", "Planned Dates", "Planned Dates"};
 
 
         nextdays_edx.setText(nextdaystext[selected_language]);
