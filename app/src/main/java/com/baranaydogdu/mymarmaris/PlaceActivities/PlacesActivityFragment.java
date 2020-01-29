@@ -252,8 +252,8 @@ public class PlacesActivityFragment extends Fragment {
             int now= (Calendar.getInstance().get(Calendar.HOUR)*100) + (Calendar.getInstance().get(Calendar.MINUTE));
             if (Calendar.getInstance().get(Calendar.AM_PM)==Calendar.PM) now=now+1200;
 
-            String[] opentext={"OPEN","AÇIK","OPEN","OPEN","OPEN"};
-            String[] closetext={"CLOSE","KAPALI", "CLOSE","CLOSE","CLOSE"};
+            String[] opentext={"Open","Açık","открытый","ανοιχτό","Öffnen"};
+            String[] closetext={"Close","Kapalı", "близко","κλειστό","Geschlossen"};
 
             if (opentime<now && now<closetime){ //ACIK ISE
 
@@ -266,8 +266,8 @@ public class PlacesActivityFragment extends Fragment {
             }
 
 
+            String[] neww={"New","Yeni","новый","νέος","Neu"};
 
-            String[] neww={"NEW","YENİ","NEW","NEW","NEW"};
             holder.new_tv.setText(neww[selected_language]);
             if (mplace.getNew_end_time()< Calendar.getInstance().getTime().getTime()){
 

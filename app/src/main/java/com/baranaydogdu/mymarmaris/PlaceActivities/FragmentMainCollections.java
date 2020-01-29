@@ -111,7 +111,8 @@ public class FragmentMainCollections extends Fragment {
         event_recyclerview.setAdapter(todayeventAdapter);
         event_recyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        String[] actualevents={"Actual Events","Güncel Etkinlikler","Actual Events","Actual Events","Actual Events"};
+
+        String[] actualevents={"Current Events","Güncel Etkinlikler","Текущие события","Τρέχοντα γεγονότα","Aktuelle Ereignisse"};
         today_events_edx.setText(actualevents[selected_language]);
 
     }

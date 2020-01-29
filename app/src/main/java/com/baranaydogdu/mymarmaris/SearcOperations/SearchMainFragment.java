@@ -42,9 +42,12 @@ public class SearchMainFragment extends Fragment {
     public static final int SEARCH_MIN_LENGHT=2;
     int selected_language;
     SharedPreferences sharedPreferences;
-    String[] searctext={"Search","Ara","Search","Search","Search",};
-    String[] placestext={"Places","İşletmeler","Places","Places","Places"};
-    String[] eventstext={"Events","Etkinlikler","Events","Events","Events"};
+
+
+    String[] searctext={"Search","Ara","Поиск","Αναζήτηση","Suche",};
+    String[] placestext={"Places","İşletmeler","места","Μέρη","Orte"};
+
+    String[] eventstext={"Events","Etkinlikler","события","δραστηριότητες","Aktivitäten"};
     String fisrteventname,firstplacename;
 
     public static SearchMainFragment instance;

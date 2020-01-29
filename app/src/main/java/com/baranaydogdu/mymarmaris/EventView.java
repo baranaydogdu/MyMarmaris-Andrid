@@ -507,17 +507,17 @@ public class EventView extends AppCompatActivity implements LocationListener {
 
     private void setlanguage(){
 
-        String[] adresses = {"Address","Adres","адрес","διεύθυνση","Address"};
-        String[] seetheroutes={"See the route","Yol tarifi al","посмотреть маршрут","δείτε τη διαδρομή","siehe die Route"};
-        String[] phones = {"Phone", "Telefon","Телефон","τηλέφωνο","Telefon"};
-        String[] whatsapps={"Whatsapp","Whatsapp","Whatsapp","Whatsapp","Whatsapp"};
-        String[] webs = {"WEB","İnternet Sitesi","Веб-сайт","δικτυακός τόπος","Webseite"};
-        String[] faces = {"Facebook","Facebook","Facebook","Facebook","Facebook"};
-        String[] instas= {"Instagram","Instagram","Instagram","Instagram","Instagram",};
-        String[] mails = {"Mail","Mail","Mail","Mail","Mail",};
-        String[] buytickets = {"Buy Ticket", "Bilet Al", "Buy Ticket", "Buy Ticket", "Buy Ticket"};
-        String[] nextdaystext = {"Planned Dates", "Planlı tarihler", "Planned Dates", "Planned Dates", "Planned Dates"};
 
+        String[] adresses = {"Address", "Adres", "адрес", "διεύθυνση", "Address"};
+        String[] seetheroutes = {"Get Directions", "Yol tarifi al", "Проложить маршрут", "Λήψη οδηγιών", "Anweisungen bekommen"};
+        String[] phones = {"Telephone", "Telefon", "телефон", "τηλέφωνο", "Telefon"};
+        String[] whatsapps = {"Whatsapp", "Whatsapp", "Whatsapp", "Whatsapp", "Whatsapp"};
+        String[] webs = {"WEB Page", "İnternet Sitesi", "WEB страница", "Ιστοσελίδα", "Webseite"};
+        String[] faces = {"Facebook", "Facebook", "Facebook", "Facebook", "Facebook"};
+        String[] instas = {"Instagram", "Instagram", "Instagram", "Instagram", "Instagram"};
+        String[] mails = {"E-mail", "E-posta", "Электронная почта", "E-mail", "Email"};
+        String[] buytickets = {"Buy Ticket", "Bilet Al", "Купить билет", "Αγοράστε εισιτήριο", "Kauf ein Ticket"};
+        String[] nextdaystext = {"Planned Dates", "Planlı Tarihler", "Запланированные даты", "Προγραμματισμένες ημερομηνίες", "Geplante Termine"};
 
         nextdays_edx.setText(nextdaystext[selected_language]);
         adresse_edx.setText(adresses[selected_language]);

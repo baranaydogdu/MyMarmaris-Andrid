@@ -34,11 +34,8 @@ public class SettingFragment extends Fragment {
     Activity activity;
     EditText clear_tv,clear_fav_tv;
     Switch auto_video_switch,auto_image_switch;
-    String[] allhistorydeleted={"All history deleted","Arama geçmişi silindi","All history deleted","All history deleted","All history deleted"};
-    String[] allfavlist_deleted={"Favorite list deleted","Favori listesi silindi","Favorite list deleted","Favorite list deleted","Favorite list deleted"};
-
-
-
+    String[] allhistorydeleted={"All History Deleted","Arama Geçmişi Silindi","Вся история удалена","Όλη η ιστορία διαγράφηκε","Suchverlauf gelöscht"};
+    String[] allfavlist_deleted={"Favorite list Deleted","Favori Listesi Silindi","Список избранных удален","Αγαπημένη λίστα διαγράφηκε","Favorit gelöscht"};
 
 
     public static SettingFragment instance;
@@ -158,12 +155,14 @@ public class SettingFragment extends Fragment {
 
     private void setlanguages() {
 
-        String[] select_language={"Select Language","Dil seç","Select Language","Select Language","Select Language"};
-        String[] clearhistory={"Clear search history","Arama geçmişini temizle","Clear search history","Clear search history","Clear search history"};
-        String[] clearfavlisttext={"Clear favorite list","Favori listesini temizle","Clear favorite list","Clear favorite list","Clear favorite list"};
-        String[] autovideotext={"Auto play video","Videoları otamatik oynat","Auto play video","Auto play video","Auto play video"};
-        String[] autoimagetext={"Auto image video","Fotoğrafları otomatik oynat","Auto image video","Auto image video","Auto image video",};
-        String[] settings={"Settings","Ayarlar","Settings","Settings","Settings"};
+
+        String[] select_language={"Select language","Dil seç","Выберите язык","Επιλέξτε γλώσσα","Sprache auswählen"};
+        String[] clearhistory={"Clean Search History","Arama geçmişini temizle","Очистить историю поиска","Καθαρίστε το Ιστορικό αναζήτησης","Suchverlauf löschen"};
+        String[] clearfavlisttext={"Clean Favorite List","Favori Listesini Temizle","Чистый список избранного","Καθαρισμός λίστας αγαπημένων","Favorit löschen"};
+        String[] autovideotext={"Auto Play Video","Videoyu Otomatik Oynat","Автоматическое воспроизведение видео","Αυτόματη αναπαραγωγή βίντεο","Video automatisch abspielen"};
+
+        String[] autoimagetext={"Auto Slide Images","Fotoğrafları otomatik oynat","Авто слайд изображения","Αυτόματες εικόνες διαφάνειας","Bilder automatisch schieben",};
+        String[] settings={"Settings","Ayarlar","настройки","ρυθμίσεις","die Einstellungen"};
 
         int[] flag={R.drawable.flag_english,R.drawable.flag_turkish,R.drawable.flag_russian,
                         R.drawable.flag_greek,R.drawable.flag_german};

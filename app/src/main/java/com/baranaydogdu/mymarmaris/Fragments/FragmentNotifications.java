@@ -106,7 +106,7 @@ public class FragmentNotifications extends Fragment {
         notification_list_tv = view.findViewById(R.id.notification_list_tv);
         notification_recyclerview = view.findViewById(R.id.notification_recyclerview);
 
-        String[] notificationsettingstext={"Notification Settings","Bildirim ayarları","Notification Settings","Notification Settings","Notification Settings"};
+        String[] notificationsettingstext={"Notification Settings","Bildirim Ayarları","Настройки уведомлений","Ρυθμίσεις ειδοποιήσεων","Benachrichtigungseinstellungen"};
 
         notification_list_tv.setText(notificationsettingstext[selected_language]);
 

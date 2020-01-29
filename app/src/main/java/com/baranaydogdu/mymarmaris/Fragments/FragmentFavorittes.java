@@ -93,8 +93,9 @@ public class FragmentFavorittes extends Fragment implements LocationListener {
 
         favlist_tv=view.findViewById(R.id.favorite_list_tv);
 
-        String[] favlisttext={"Favorite list","Favori listesi","Favorite list","Favorite list","Favorite list"};
+        String[] favlisttext={"Favorite list","Favori listesi","Список избранного","Λίστα αγαπημένων","Liebling"};
         favlist_tv.setText(favlisttext[selected_language]);
+
 
 
     }
@@ -255,8 +256,13 @@ public class FragmentFavorittes extends Fragment implements LocationListener {
             int now= (Calendar.getInstance().get(Calendar.HOUR)*100) + (Calendar.getInstance().get(Calendar.MINUTE));
             if (Calendar.getInstance().get(Calendar.AM_PM)==Calendar.PM) now=now+1200;
 
-            String[] opentext={"OPEN","AÇIK","OPEN","OPEN","OPEN"};
-            String[] closetext={"CLOSE","KAPALI", "CLOSE","CLOSE","CLOSE"};
+            String[] opentext={"Open","Açık","открытый","ανοιχτό","Öffnen"};
+            String[] closetext={"Close","Kapalı", "близко","κλειστό","Geschlossen"};
+
+
+
+
+
 
             if (opentime<now && now<closetime){ //ACIK ISE
 
@@ -269,7 +275,8 @@ public class FragmentFavorittes extends Fragment implements LocationListener {
             }
 
 
-            String[] neww={"NEW","YENİ","NEW","NEW","NEW"};
+
+            String[] neww={"New","Yeni","новый","νέος","Neu"};
             holder.new_tv.setText(neww[selected_language]);
             if (mplace.getNew_end_time()< Calendar.getInstance().getTime().getTime()){
 

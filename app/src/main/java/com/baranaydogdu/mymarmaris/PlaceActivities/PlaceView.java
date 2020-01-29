@@ -893,20 +893,21 @@ public class PlaceView extends AppCompatActivity implements LocationListener {
 
     private void setlanguage() {
 
+
         String[] adresses = {"Address", "Adres", "адрес", "διεύθυνση", "Address"};
-        String[] seetheroutes = {"See the route", "Yol tarifi al", "посмотреть маршрут", "δείτε τη διαδρομή", "siehe die Route"};
-        String[] phones = {"Phone", "Telefon", "Телефон", "τηλέφωνο", "Telefon"};
+        String[] seetheroutes = {"Get Directions", "Yol tarifi al", "Проложить маршрут", "Λήψη οδηγιών", "Anweisungen bekommen"};
+        String[] phones = {"Telephone", "Telefon", "телефон", "τηλέφωνο", "Telefon"};
         String[] whatsapps = {"Whatsapp", "Whatsapp", "Whatsapp", "Whatsapp", "Whatsapp"};
-        String[] webs = {"WEB", "İnternet Sitesi", "Веб-сайт", "δικτυακός τόπος", "Webseite"};
+        String[] webs = {"WEB Page", "İnternet Sitesi", "WEB страница", "Ιστοσελίδα", "Webseite"};
         String[] faces = {"Facebook", "Facebook", "Facebook", "Facebook", "Facebook"};
         String[] instas = {"Instagram", "Instagram", "Instagram", "Instagram", "Instagram"};
-        String[] mails = {"Mail", "Mail", "Mail", "Mail", "Mail"};
-        String[] buytickets = {"Buy Ticket", "Bilet Al", "Buy Ticket", "Buy Ticket", "Buy Ticket"};
+        String[] mails = {"E-mail", "E-posta", "Электронная почта", "E-mail", "Email"};
+        String[] buytickets = {"Buy Ticket", "Bilet Al", "Купить билет", "Αγοράστε εισιτήριο", "Kauf ein Ticket"};
 
-        String[] neww = {"NEW", "YENİ", "NEW", "NEW", "NEW"};
-        String[] open = {"OPEN", "AÇIK", "OPEN", "OPEN", "OPEN"};
-        String[] close = {"CLOSE", "KAPALI", "CLOSE", "CLOSE", "CLOSE"};
-        String[] worktimes = {"Work Times", "Çalışma Saatleri", "Work Times", "Work Times", "Work Times"};
+        String[] neww={"New","Yeni","новый","νέος","Neu"};
+        String[] open ={"Open","Açık","открытый","ανοιχτό","Öffnen"};
+        String[] close ={"Close","Kapalı", "близко","κλειστό","Geschlossen"};
+        String[] worktimes = {"Work Times", "Çalışma Saatleri", "Время работы", "Ώρες εργασίας", "Arbeitszeit"};
         String[] evenst     ={"Events","Etkinlikler","Events","Events","Events"};
 
         String[] monday     ={"Monday" ,  "Pazartesi" ,"понедельник" ,"Δευτέρα" ,    "Montag"   };

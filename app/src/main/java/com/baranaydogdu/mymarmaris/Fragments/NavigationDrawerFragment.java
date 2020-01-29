@@ -128,11 +128,11 @@ public class NavigationDrawerFragment extends Fragment {
 
     private void setlanguages() {
 
-        String[] phones = {"Phone", "Telefon", "Телефон", "τηλέφωνο", "Telefon"};
+        String[] phones = {"Telephone", "Telefon", "телефон", "τηλέφωνο", "Telefon"};
         String[] whatsapps = {"Whatsapp", "Whatsapp", "Whatsapp", "Whatsapp", "Whatsapp"};
         String[] faces = {"Facebook", "Facebook", "Facebook", "Facebook", "Facebook"};
         String[] instas = {"Instagram", "Instagram", "Instagram", "Instagram", "Instagram"};
-        String[] mails = {"Mail", "Mail", "Mail", "Mail", "Mail"};
+        String[] mails = {"E-mail", "E-posta", "Электронная почта", "E-mail", "Email"};
         String[] marmarisrehberi = {"Marmaris Guide", "Marnaris Rehberi", "Путеводитель по Мармарису", "Οδηγός Μαρμαρίς", "Marmaris-Führer"};
         String[] digerapps = {"Other Applications", "Diğer Uygulamalarımız", "Другие приложения", "Άλλες εφαρμογές", "Andere Anwendungen"};
 
