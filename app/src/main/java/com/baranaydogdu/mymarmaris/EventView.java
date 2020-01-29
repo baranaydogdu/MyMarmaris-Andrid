@@ -105,6 +105,11 @@ public class EventView extends AppCompatActivity implements LocationListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_view);
 
+
+        sharedPreferences = this.getSharedPreferences("com.baranaydogdu.mymarmaris", Context.MODE_PRIVATE);
+        selected_language = sharedPreferences.getInt("language", 0);
+
+
         fragmentlist = new ArrayList<>();
         activity = this;
         intent = getIntent();
@@ -115,9 +120,7 @@ public class EventView extends AppCompatActivity implements LocationListener {
 
         builder = new AlertDialog.Builder(this);
 
-        sharedPreferences = this.getSharedPreferences("com.baranaydogdu.mymarmaris", Context.MODE_PRIVATE);
-        selected_language = sharedPreferences.getInt("language", 0);
-
+        System.out.println("EVENTVİEW LANGUAGE : "+ selected_language);
 
         adapter = new ImageSlıdeAdapter(getSupportFragmentManager());
 

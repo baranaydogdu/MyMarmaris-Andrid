@@ -908,7 +908,8 @@ public class PlaceView extends AppCompatActivity implements LocationListener {
         String[] open ={"Open","Açık","открытый","ανοιχτό","Öffnen"};
         String[] close ={"Close","Kapalı", "близко","κλειστό","Geschlossen"};
         String[] worktimes = {"Work Times", "Çalışma Saatleri", "Время работы", "Ώρες εργασίας", "Arbeitszeit"};
-        String[] evenst     ={"Events","Etkinlikler","Events","Events","Events"};
+
+        String[] evenst     ={"Events","Etkinlikler","события","δραστηριότητες","Aktivitäten"};
 
         String[] monday     ={"Monday" ,  "Pazartesi" ,"понедельник" ,"Δευτέρα" ,    "Montag"   };
         String[] Tuesday    ={"Tuesday",  "Salı"  ,    "вторник" ,    "Τρίτι",       "Dienstag"  };
