@@ -249,22 +249,43 @@ public class FragmentFavorittes extends Fragment implements LocationListener {
             });
 
 
+            int opentime = mplace.getOpentime().get(today);
+            int closetime = mplace.getClosetime().get(today);
+            int now = (Calendar.getInstance().get(Calendar.HOUR) * 100) + (Calendar.getInstance().get(Calendar.MINUTE));
+            if (Calendar.getInstance().get(Calendar.AM_PM) == Calendar.PM) now = now + 1200;
+
+            String[] opentext = {"Open", "Açık", "открытый", "ανοιχτό", "Öffnen"};
+            String[] closetext = {"Close", "Kapalı", "близко", "κλειστό", "Geschlossen"};
+
+            Boolean isopen;
 
 
-            int opentime=mplace.getOpentime().get(today);
-            int closetime=mplace.getClosetime().get(today);
-            int now= (Calendar.getInstance().get(Calendar.HOUR)*100) + (Calendar.getInstance().get(Calendar.MINUTE));
-            if (Calendar.getInstance().get(Calendar.AM_PM)==Calendar.PM) now=now+1200;
+            if (opentime < closetime){
 
-            String[] opentext={"Open","Açık","открытый","ανοιχτό","Öffnen"};
-            String[] closetext={"Close","Kapalı", "близко","κλειστό","Geschlossen"};
+                if (opentime<now && now<closetime){ //ACIK ISE
 
+                    isopen = true;
 
+                } else {
+                    isopen = false;
 
+                }
 
+            } else {
 
+                if (opentime<now || now<closetime){ //ACIK ISE
 
-            if (opentime<now && now<closetime){ //ACIK ISE
+                    isopen = true;
+
+                } else {
+                    isopen = false;
+
+                }
+
+            }
+
+            if (isopen) {
+
 
                 holder.close_tv.setText(opentext[selected_language]);
                 holder.close_tv.setBackgroundResource(R.drawable.shape_new_edittext);
@@ -272,13 +293,17 @@ public class FragmentFavorittes extends Fragment implements LocationListener {
             } else {
                 holder.close_tv.setText(closetext[selected_language]);
                 holder.close_tv.setBackgroundResource(R.drawable.shape_close);
+
             }
 
+            System.out.println("TAAAAAAAAAAAAAAA");
 
 
-            String[] neww={"New","Yeni","новый","νέος","Neu"};
+
+
+            String[] neww = {"New", "Yeni", "новый", "νέος", "Neu"};
             holder.new_tv.setText(neww[selected_language]);
-            if (mplace.getNew_end_time()< Calendar.getInstance().getTime().getTime()){
+            if (mplace.getNew_end_time() < Calendar.getInstance().getTime().getTime()) {
 
                 holder.new_tv.setVisibility(View.INVISIBLE);
             } else {

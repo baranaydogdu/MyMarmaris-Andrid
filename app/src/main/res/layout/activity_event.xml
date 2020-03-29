@@ -14,7 +14,7 @@
         android:background="#F3F6F7"
         android:fontFamily="@font/galada"
         android:gravity="center"
-        android:text="mymarmaris"
+        android:text="My Marmaris"
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textColor="@color/colorAccent"
         android:textSize="30sp"

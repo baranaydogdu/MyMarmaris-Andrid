@@ -551,7 +551,7 @@ public class PlaceAddorEditSinglePlace extends AppCompatActivity {
                             builder.setMessage("Upload success");
                             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 @Override
-                                public void onClick(DialogInterface dialog, int which) {
+                                public void onClick(DialogInterface g, int which) {
                                     finish();
                                 }
                             });

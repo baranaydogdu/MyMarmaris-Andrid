@@ -133,7 +133,7 @@ public class NavigationDrawerFragment extends Fragment {
         String[] faces = {"Facebook", "Facebook", "Facebook", "Facebook", "Facebook"};
         String[] instas = {"Instagram", "Instagram", "Instagram", "Instagram", "Instagram"};
         String[] mails = {"E-mail", "E-posta", "Электронная почта", "E-mail", "Email"};
-        String[] marmarisrehberi = {"Marmaris Guide", "Marnaris Rehberi", "Путеводитель по Мармарису", "Οδηγός Μαρμαρίς", "Marmaris-Führer"};
+        String[] marmarisrehberi = {"Marmaris Guide", "Marmaris Rehberi", "Путеводитель по Мармарису", "Οδηγός Μαρμαρίς", "Marmaris-Führer"};
         String[] digerapps = {"Other Applications", "Diğer Uygulamalarımız", "Другие приложения", "Άλλες εφαρμογές", "Andere Anwendungen"};
 
         phone_edx.setText(phones[selected_language]);
@@ -219,7 +219,7 @@ public class NavigationDrawerFragment extends Fragment {
 
     private void faceIntent() {
 
-        String url = "www.facebook.com";
+        String url = "https://www.facebook.com/mymarmarisnet/";
         if (!url.startsWith("http://") && !url.startsWith("https://"))
             url = "http://" + url;
 
@@ -243,7 +243,7 @@ public class NavigationDrawerFragment extends Fragment {
 
     private void instaIntent() {
 
-        String url = "www.instagram.com";
+        String url = "https://www.instagram.com/mymarmarisnet/";
         if (!url.startsWith("http://") && !url.startsWith("https://"))
             url = "http://" + url;
 
@@ -265,7 +265,7 @@ public class NavigationDrawerFragment extends Fragment {
 
     private void mailIntent() {
 
-        String emailadres = "mymarmaristeam@gmail.com";
+        String emailadres = "mymarmarisnet@gmail.com";
 
         try {           //SEND EMAIL        //SEND EMAIL        //SEND EMAIL        //SEND EMAIL        //SEND EMAIL
             //Intent emailIntent = new Intent(Intent.ACTION_SEND);

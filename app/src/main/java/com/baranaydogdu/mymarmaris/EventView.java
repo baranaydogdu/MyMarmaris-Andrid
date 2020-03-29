@@ -542,6 +542,16 @@ public class EventView extends AppCompatActivity implements LocationListener {
 
     private void settherouteIntent() {
 
+        Uri gmmIntentUri = Uri.parse("google.navigation:q="+event.getLocation().getLat()+","+event.getLocation().getLog());
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+        if (mapIntent.resolveActivity(getPackageManager()) != null) {
+            startActivity(mapIntent);
+        } else {
+            Toast.makeText(this, "Please install a maps application", Toast.LENGTH_LONG).show();
+
+        }
+        /*
         String uri = String.format(Locale.getDefault(), "http://maps.google.com/maps?daddr=%f,%f (%s)",
                 event.getLocation().getLat(),event.getLocation().getLog(), PreSets.setlanguage_name(activity,event));
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
@@ -562,6 +572,8 @@ public class EventView extends AppCompatActivity implements LocationListener {
                 Toast.makeText(this, "Please install a maps application", Toast.LENGTH_LONG).show();
             }
         }
+
+         */
     }
 
     private void phoneIntent() {

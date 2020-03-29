@@ -431,7 +431,27 @@ public class PharmaciesActivity extends AppCompatActivity implements LocationLis
 
     private void settherouteIntent(PharmacyClass pharmacy) {
 
-        String uri = String.format(Locale.getDefault(), "http://maps.google.com/maps?daddr=%f,%f (%s)", pharmacy.getLocatin().getLat(),pharmacy.getLocatin().getLog(), pharmacy.getName());
+        Uri gmmIntentUri = Uri.parse("google.navigation:q="+pharmacy.getLocatin().getLat()+","+pharmacy.getLocatin().getLog());
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+        if (mapIntent.resolveActivity(getPackageManager()) != null) {
+            startActivity(mapIntent);
+        } else {
+            Toast.makeText(this, "Please install a maps application", Toast.LENGTH_LONG).show();
+
+        }
+
+        /*
+         Uri gmmIntentUri = Uri.parse("geo:"+pharmacy.getLocatin().getLat()+","+pharmacy.getLocatin().getLog()+"?q=test");
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+        startActivity(mapIntent);
+
+
+
+
+        String uri = String.format(Locale.getDefault(), "http://maps.google.com/maps?daddr=%f,%f (%s)",
+                pharmacy.getLocatin().getLat(),pharmacy.getLocatin().getLog(), pharmacy.getName());
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
         intent.setPackage("com.google.android.apps.maps");
         try
@@ -450,6 +470,8 @@ public class PharmaciesActivity extends AppCompatActivity implements LocationLis
                 Toast.makeText(this, "Please install a maps application", Toast.LENGTH_LONG).show();
             }
         }
+        */
+
     }
 
     private void phoneIntent(PharmacyClass pharmacy) {

@@ -27,7 +27,7 @@ public class NotificationClass {
     public static final String TO_NONE      = "nowhere";
 
     ArrayList<String> title,body;
-    ArrayList<String> to_who;
+    public ArrayList<String> to_who;
     String iconnumber;
     String click_action, click_id;
     int topicnumber;
@@ -56,6 +56,7 @@ public class NotificationClass {
 
             jsonParam.put("to", "/topics/topic" + topicnumber);
             jsonParam.put("sender", SENDER_ID);
+            jsonParam.put("priority", "high");
 
             for (int i = 0; i < 5; i++) {
                 data.put("title" + i, title.get(i));
@@ -79,6 +80,71 @@ public class NotificationClass {
 
 
         return jsonParam.toString();
+
+    }
+
+    public ArrayList<String> getIosNotificationText(){
+
+        ArrayList<String> singlenotifications = new ArrayList<>();
+        singlenotifications.clear();
+
+        for (int i = 0; i<5;i++){
+            JSONObject jsonParam = new JSONObject();
+            JSONObject notification = new JSONObject();
+            JSONObject data = new JSONObject();
+
+            try {
+
+                String towhotext = "";
+                for (int j=0;j<to_who.size();j++){
+
+                    if (j != to_who.size() -1 ){
+                        towhotext = towhotext + "'"+to_who.get(j) + i + "' in topics || ";
+                    } else {
+                        towhotext = towhotext + "'"+to_who.get(j) + i + "' in topics";
+
+                    }
+
+                }
+
+                jsonParam.put("condition", towhotext);
+                jsonParam.put("sender", SENDER_ID);
+                jsonParam.put("content_available", true);
+                jsonParam.put("priority", "high");
+
+                if (title.get(i).equals("")) {
+                    notification.put("title", title.get(0));
+
+                } else {
+                    notification.put("title", title.get(i));
+
+                }
+
+                if (body.get(i).equals("")){
+                    notification.put("body" , body.get(0));
+
+                }else {
+                    notification.put("body" , body.get(i));
+
+                }
+                notification.put("sound" , "default");
+
+                data.put("iconnumber",iconnumber);
+                data.put("click_action", click_action);
+                data.put("click_id", click_id);
+
+                jsonParam.put("data", data);
+                jsonParam.put("notification", notification);
+
+            } catch (Exception e) {
+
+                e.printStackTrace();
+            }
+
+            singlenotifications.add(jsonParam.toString());
+        }
+
+        return singlenotifications;
 
     }
 

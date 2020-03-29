@@ -53,7 +53,7 @@ public class NotificationCreate extends AppCompatActivity {
     ImageView    notification_icon;
     EditText     ll1,ll2,ll3,ll4,ll5,ee1,ee2,ee3,ee4,ee5;
     Button       click_button_place,click_button_event,click_button_main;
-    Button       click_button_sub,click_button_none,send_notification_button;
+    Button       click_button_sub,click_button_none,send_notification_button, send_notification_ios_button;
     LinearLayout to_cons;
     ProgressBar  progressBar;
 
@@ -61,7 +61,7 @@ public class NotificationCreate extends AppCompatActivity {
     Query query;
     SharedPreferences sharedPreferences;
     ArrayList<NotificationClass> notificationClassArrayList;
-
+    NotificationClass ios_Notifications;
     int usercount=0;
     String progress="";
     int topicindex=0;
@@ -190,6 +190,12 @@ public class NotificationCreate extends AppCompatActivity {
             }
         });
 
+        send_notification_ios_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                send_Ios_notification();
+            }
+        });
 
 
 
@@ -267,6 +273,60 @@ public class NotificationCreate extends AppCompatActivity {
 
     }
 
+
+    private void send_Ios_notification() {
+
+
+        if ((ll1.getText().toString().equals("") || ee1.getText().toString().equals(""))
+                || sendingcollection.size()==0){
+
+            setfailuremessage("Notification title and body can not be emty. At least one category must be chosen");
+
+        } else{
+
+            ArrayList<String> title=new ArrayList<>();
+
+            title.add(ll1.getText().toString());
+            title.add(ll2.getText().toString());
+            title.add(ll3.getText().toString());
+            title.add(ll4.getText().toString());
+            title.add(ll5.getText().toString());
+
+            ArrayList<String> bodyy=new ArrayList<>();
+
+            bodyy.add(ee1.getText().toString());
+            bodyy.add(ee2.getText().toString());
+            bodyy.add(ee3.getText().toString());
+            bodyy.add(ee4.getText().toString());
+            bodyy.add(ee5.getText().toString());
+
+            String iconnumber = ""+sharedPreferences.getInt("notificationiconnumber",0);
+            String click_action=sharedPreferences.getString("click_action", NotificationClass.TO_NONE);
+            String click_id=sharedPreferences.getString("click_id","default");
+
+            notificationClassArrayList.clear();
+
+            ioscount = 4;
+            ios_Notifications = new NotificationClass(title,bodyy,sendingcollection,iconnumber,
+                    click_action,click_id,0);
+
+            if (ios_Notifications.to_who.size() > 5){
+                setfailuremessage("You can not send more than five category.");
+
+            } else {
+
+                addprogress("Creating Ios Notification...");
+                startsmth();
+                new IosAsynTask().execute("https://fcm.googleapis.com/fcm/send");
+
+            }
+
+
+
+        }
+
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -328,6 +388,7 @@ public class NotificationCreate extends AppCompatActivity {
         click_button_sub            = findViewById(R.id.click_button_sub        );
         click_button_none           = findViewById(R.id.click_button_none       );
         send_notification_button    = findViewById(R.id.send_notification_button);
+        send_notification_ios_button= findViewById(R.id.send_notification_ios_button);
         to_cons                     = findViewById(R.id.to_cons                 );
         progressBar                 = findViewById(R.id.progressBar             );
     }
@@ -453,6 +514,105 @@ public class NotificationCreate extends AppCompatActivity {
 
                 DataOutputStream wr = new DataOutputStream(urlConnection.getOutputStream ());
                 wr.writeBytes(notificationClassArrayList.get(topicindex).getnotification_text());
+                wr.flush();
+                wr.close();
+
+
+                int responseCode = urlConnection.getResponseCode();
+
+                responseMessage=urlConnection.getResponseMessage();
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+
+                    server_response = readStream(urlConnection.getInputStream());
+
+                }
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return server_response;
+        }
+
+
+        // Converting InputStream to String
+        private String readStream(InputStream in) {
+            BufferedReader reader = null;
+            StringBuffer response = new StringBuffer();
+            try {
+                reader = new BufferedReader(new InputStreamReader(in));
+                String line = "";
+                while ((line = reader.readLine()) != null) {
+                    response.append(line);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (reader != null) {
+                    try {
+                        reader.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            return response.toString();
+        }
+    }
+
+
+
+
+    int ioscount = 4;
+    public class IosAsynTask extends AsyncTask<String, Void, String> {
+        String server_response;
+        String  responseMessage;
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+            addprogress("IosServer: "+responseMessage+"\nResponse: "+server_response);
+            responseMessage="";
+            server_response="";
+
+            if(ioscount==0){
+                addprogress("Notification sended.\n");
+                setsuccessmessage("Notification sended");
+                finishsmth();
+                ioscount = 4;
+
+            } else {
+                ioscount--;
+                new IosAsynTask().execute("https://fcm.googleapis.com/fcm/send");
+            }
+        }
+
+
+        @Override
+        protected String doInBackground(String... strings) {
+
+            URL url = null;
+            HttpURLConnection urlConnection = null;
+
+
+            try {
+                url = new URL(strings[0]);
+
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.addRequestProperty("Authorization",NotificationClass.AUTH_KEY);
+                urlConnection.addRequestProperty("Content-Type","application/json");
+
+                urlConnection.setDoOutput(true);
+                urlConnection.setDoInput(true);
+                urlConnection.setInstanceFollowRedirects(false);
+                urlConnection.setUseCaches (false);
+                urlConnection.setRequestMethod("POST");
+
+                DataOutputStream wr = new DataOutputStream(urlConnection.getOutputStream ());
+                wr.writeBytes(ios_Notifications.getIosNotificationText().get(ioscount));
                 wr.flush();
                 wr.close();
 

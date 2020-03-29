@@ -301,59 +301,52 @@ public class SerachPlaceFragment extends Fragment implements LocationListener{
                 }
             });
 
-
-
             int today= Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
             if (today==1) today=6;else today=today-2;
 
             int opentime=mplace.getOpentime().get(today);
-            int openhour=opentime/100;
-            int openminute=opentime-(openhour*100);
-            int openAM_PM;
-            if (openhour>11){
-                openhour=openhour-12;
-                openAM_PM=Calendar.PM;
-            } else {openAM_PM=Calendar.AM;
-
-            }
-
-            Calendar cal_open=Calendar.getInstance();
-            cal_open.set(Calendar.HOUR,openhour);cal_open.set(Calendar.MINUTE,openminute);cal_open.set(Calendar.AM_PM,openAM_PM);
-
             int closetime=mplace.getClosetime().get(today);
-            int closehour=closetime/100;
-            int closeminute=closetime-(closehour*100);
-            int closeAM_PM;
-            if (closehour>11) {
-                closehour=closehour-12;closeAM_PM=Calendar.PM;
-            } else closeAM_PM=Calendar.AM;
+            int now= (Calendar.getInstance().get(Calendar.HOUR)*100) + (Calendar.getInstance().get(Calendar.MINUTE));
+            if (Calendar.getInstance().get(Calendar.AM_PM)==Calendar.PM) now=now+1200;
 
-            Calendar cal_close=Calendar.getInstance();
-            cal_close.set(Calendar.HOUR,closehour);cal_open.set(Calendar.MINUTE,closeminute);cal_close.set(Calendar.AM_PM,closeAM_PM);
+            String[] opentext = {"Open", "Açık", "открытый", "ανοιχτό", "Öffnen"};
+            String[] closetext = {"Close", "Kapalı", "близко", "κλειστό", "Geschlossen"};
 
-            String[] opentext={"OPEN","AÇIK","OPEN","OPEN","OPEN"};
-            String[] closetext={"CLOSE","KAPALI", "CLOSE","CLOSE","CLOSE"};
+            Boolean isopen;
 
-            if (!cal_open.getTime().after(Calendar.getInstance().getTime())) {
+            if (opentime < closetime){
 
-                if (!Calendar.getInstance().getTime().after(cal_close.getTime())){
+                if (opentime<now && now<closetime){ //ACIK ISE
 
-                    holder.close_tv.setText(opentext[selected_language]);
-                    holder.close_tv.setBackgroundResource(R.drawable.shape_new_edittext);
-                }else {
+                    isopen = true;
 
-                    holder.close_tv.setText(closetext[selected_language]);
-                    holder.close_tv.setBackgroundResource(R.drawable.shape_close);
+                } else {
+                    isopen = false;
+
                 }
 
-            }else {
+            } else {
 
-                holder.close_tv.setText(closetext[selected_language]);
-                holder.close_tv.setBackgroundResource(R.drawable.shape_close);
+                if (opentime<now || now<closetime){ //ACIK ISE
+
+                    isopen = true;
+
+                } else {
+                    isopen = false;
+
+                }
+
             }
 
+            if (isopen) {
+                holder.close_tv.setBackgroundResource(R.drawable.shape_new_edittext);
 
-            String[] neww={"NEW","YENİ","NEW","NEW","NEW"};
+            } else {
+                holder.close_tv.setBackgroundResource(R.drawable.shape_close);
+
+            }
+
+            String[] neww = {"New", "Yeni", "новый", "νέος", "Neu"};
             holder.new_tv.setText(neww[selected_language]);
             if (mplace.getNew_end_time()< Calendar.getInstance().getTime().getTime()){
 

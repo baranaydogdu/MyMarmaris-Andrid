@@ -196,6 +196,7 @@
                         android:clickable="false"
                         android:enabled="false"
                         android:focusable="false"
+                        android:fontFamily="sans-serif-black"
                         android:longClickable="false"
                         android:maxLines="1"
                         android:paddingLeft="2dp"

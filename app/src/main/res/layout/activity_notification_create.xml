@@ -501,17 +501,33 @@
                 android:orientation="vertical" />
 
             <Button
+                android:id="@+id/send_notification_ios_button"
+                style="@android:style/Widget.Button.Toggle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="0dp"
+                android:background="@drawable/shape_ios_borders"
+                android:fontFamily="@font/alfa_slab_one"
+                android:text="Send notification (Ios)"
+                android:textColor="#FFF"
+                android:textSize="18sp"
+                tools:layout_editor_absoluteY="1103dp" />
+
+            <Button
                 android:id="@+id/send_notification_button"
                 style="@android:style/Widget.Button.Toggle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/shape_signinbutton"
                 android:fontFamily="@font/alfa_slab_one"
-                android:text="Send notification"
+                android:text="Send notification (Android)"
                 android:textColor="#000"
                 android:textSize="18sp"
                 tools:layout_editor_absoluteY="1103dp" />
@@ -519,7 +535,7 @@
             <TextView
                 android:id="@+id/progress_text"
                 android:layout_width="match_parent"
-                android:layout_height="600dp"
+                android:layout_height="2000dp"
                 android:layout_marginTop="32dp"
                 android:gravity="left"
                 android:padding="16dp"

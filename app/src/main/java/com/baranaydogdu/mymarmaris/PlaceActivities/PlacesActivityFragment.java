@@ -39,7 +39,6 @@ import com.baranaydogdu.mymarmaris.PreSets;
 
 public class PlacesActivityFragment extends Fragment {
 
-
     PlaceCollectionClass subcollection;
     RecyclerView recyclerView;
     public PlacesActivityAdapter placesActivityAdapter;
@@ -55,8 +54,6 @@ public class PlacesActivityFragment extends Fragment {
         this.sub_id=sub_id;
         // Required empty public constructor
     }
-
-
 
 
     @Override
@@ -255,10 +252,37 @@ public class PlacesActivityFragment extends Fragment {
             String[] opentext={"Open","Açık","открытый","ανοιχτό","Öffnen"};
             String[] closetext={"Close","Kapalı", "близко","κλειστό","Geschlossen"};
 
-            if (opentime<now && now<closetime){ //ACIK ISE
+            Boolean isopen;
+
+            if (opentime < closetime){
+
+                if (opentime<now && now<closetime){ //ACIK ISE
+
+                    isopen = true;
+
+                } else {
+                    isopen = false;
+
+                }
+
+            } else {
+
+                if (opentime<now || now<closetime){ //ACIK ISE
+
+                    isopen = true;
+
+                } else {
+                    isopen = false;
+
+                }
+
+            }
+
+            if (isopen){
 
                 holder.close_tv.setText(opentext[selected_language]);
                 holder.close_tv.setBackgroundResource(R.drawable.shape_new_edittext);
+
 
             } else {
                 holder.close_tv.setText(closetext[selected_language]);

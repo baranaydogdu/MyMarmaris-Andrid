@@ -52,8 +52,10 @@ public class PlaceAddorEditCollection extends AppCompatActivity {
     ImageView popupimage;
     Activity activity;
     ConstraintLayout add_place_subcons;
-    Switch is_inside_switch;
+    Switch is_inside_switch,is_pharmacy_switch ;
     int collection_type;
+
+    //
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +85,7 @@ public class PlaceAddorEditCollection extends AppCompatActivity {
         addoredit=findViewById(R.id.addorplace_textview);
         add_place_subcons=findViewById(R.id.add_place_subcons);
         is_inside_switch=findViewById(R.id.is_inside_switch);
+        is_pharmacy_switch=findViewById(R.id.is_pharmacy_switch);
 
         delete_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,12 +132,21 @@ public class PlaceAddorEditCollection extends AppCompatActivity {
                 add_place_subcons.removeView(delete_button);
             }
 
-            if (oldmaincollection.getType()==PlaceCollectionClass.INSIDE_LINKKED_COLLECTION){
-                is_inside_switch.setChecked(true);
+            if (oldmaincollection.getType() ==PlaceCollectionClass.INSIDE_LINKKED_COLLECTION ||
+                    oldmaincollection.getType() ==PlaceCollectionClass.OUTSIDE_LINKKED_COLLECTION ||
+                    oldmaincollection.getType() ==PlaceCollectionClass.PHARMACY) {
 
-            } else if (oldmaincollection.getType()==PlaceCollectionClass.OUTSIDE_LINKKED_COLLECTION) {
-                is_inside_switch.setChecked(false);
+                System.out.println("-------->> ");
+                is_pharmacy_switch.setVisibility(View.VISIBLE);
+
+
+
+            } else {
+
+                System.out.println("?????");
+                is_pharmacy_switch.setVisibility(View.INVISIBLE);
             }
+
 
         } else { //YENI GELDIK
 
@@ -144,11 +156,24 @@ public class PlaceAddorEditCollection extends AppCompatActivity {
 
         }
 
+        if (oldmaincollection.getType()==PlaceCollectionClass.INSIDE_LINKKED_COLLECTION){
+            is_inside_switch.setChecked(true);
+
+        } else if (oldmaincollection.getType()==PlaceCollectionClass.OUTSIDE_LINKKED_COLLECTION) {
+            is_inside_switch.setChecked(false);
+        }
+
+        if (oldmaincollection.getType() == PlaceCollectionClass.PHARMACY) {
+            is_pharmacy_switch.setChecked(true);
+        } else {
+            is_pharmacy_switch.setChecked(false);
+
+        }
+
         collection_link_edx.setVisibility(View.INVISIBLE);
         is_inside_switch.setVisibility(View.INVISIBLE);
 
         collection_type_icon.setVisibility(View.VISIBLE);
-
         if (collection_type == PlaceCollectionClass.COLLECTION_WITH_SUB) {
             collection_type_icon.setImageResource(R.drawable.maincollection);
 
@@ -157,21 +182,44 @@ public class PlaceAddorEditCollection extends AppCompatActivity {
 
         } else if (collection_type == PlaceCollectionClass.INSIDE_LINKKED_COLLECTION ||
                 collection_type == PlaceCollectionClass.OUTSIDE_LINKKED_COLLECTION) {
+
             collection_type_icon.setImageResource(R.drawable.linked);
             collection_link_edx.setVisibility(View.VISIBLE);
             is_inside_switch.setVisibility(View.VISIBLE);
+            is_pharmacy_switch.setVisibility(View.VISIBLE);
 
-            is_inside_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-                    if (is_inside_switch.isChecked()) collection_type=PlaceCollectionClass.INSIDE_LINKKED_COLLECTION;
-                    else collection_type=PlaceCollectionClass.OUTSIDE_LINKKED_COLLECTION;
-                }
-            });
 
         } else collection_type_icon.setVisibility(View.INVISIBLE);
 
+        is_inside_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if (is_inside_switch.isChecked()) collection_type=PlaceCollectionClass.INSIDE_LINKKED_COLLECTION;
+                else collection_type=PlaceCollectionClass.OUTSIDE_LINKKED_COLLECTION;
+            }
+        });
+
+        is_pharmacy_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if (is_pharmacy_switch.isChecked()) {
+                    collection_type_icon.setVisibility(View.INVISIBLE);
+                    collection_link_edx.setVisibility(View.INVISIBLE);
+                    is_inside_switch.setVisibility(View.INVISIBLE);
+                    collection_type=PlaceCollectionClass.PHARMACY;
+
+                }
+                else {
+                    collection_type_icon.setVisibility(View.VISIBLE);
+                    collection_link_edx.setVisibility(View.VISIBLE);
+                    is_inside_switch.setVisibility(View.VISIBLE);
+                    collection_type=PlaceCollectionClass.OUTSIDE_LINKKED_COLLECTION;
+                }
+            }
+        });
 
 
     }

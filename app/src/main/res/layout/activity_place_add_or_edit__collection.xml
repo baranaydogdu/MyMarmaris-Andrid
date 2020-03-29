@@ -269,10 +269,10 @@
                 android:id="@+id/addplace_image"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/is_pharmacy_switch"
                 app:srcCompat="@drawable/app_logo" />
 
             <TextView
@@ -308,6 +308,19 @@
                 app:layout_constraintBottom_toTopOf="@+id/collection_link_edx"
                 app:layout_constraintEnd_toEndOf="@+id/collection_link_edx"
                 app:layout_constraintStart_toEndOf="@+id/addplace_image" />
+
+            <Switch
+                android:id="@+id/is_pharmacy_switch"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:shadowColor="#FFF"
+                android:text="is Phamacy?"
+                android:textSize="24sp"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

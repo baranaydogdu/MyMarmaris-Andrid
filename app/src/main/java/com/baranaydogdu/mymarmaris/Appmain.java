@@ -32,12 +32,12 @@ public class Appmain extends Application {
         int free       = (int) (Runtime.getRuntime().freeMemory()/100000);
 
 
-        System.out.println("--------- ******** ------------");
-        System.out.println("available : "+available+ " used : "+used+ " free : "+free+"  "+when);
+        //System.out.println("--------- ******** ------------");
+        //System.out.println("available : "+available+ " used : "+used+ " free : "+free+"  "+when);
 
-        System.out.println("livingactivitycount : "+livingactivity.size());
+        //System.out.println("livingactivitycount : "+livingactivity.size());
         for (Activity activity:livingactivity){
-            System.out.println("live : "+activity.getLocalClassName());
+            //System.out.println("live : "+activity.getLocalClassName());
         }
 
 

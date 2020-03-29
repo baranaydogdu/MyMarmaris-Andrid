@@ -118,11 +118,11 @@ public class PlaceView extends AppCompatActivity implements LocationListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_view);
 
-        intent=getIntent();
-        place_id=intent.getStringExtra("id");
+        intent = getIntent();
+        place_id = intent.getStringExtra("id");
         initviews();
 
-        eventsList=new ArrayList<>();
+        eventsList = new ArrayList<>();
         fragmentlist = new ArrayList<>();
         activity = this;
         mediaController = new MyMediaController(activity);
@@ -142,7 +142,7 @@ public class PlaceView extends AppCompatActivity implements LocationListener {
 
             for (int i = 0; i < place.getTopphotos().size(); i++) {
 
-                fragmentlist.add(new ImageSlideFragment( place.getId(), i));
+                fragmentlist.add(new ImageSlideFragment(place.getId(), i));
 
             }
 
@@ -257,55 +257,48 @@ public class PlaceView extends AppCompatActivity implements LocationListener {
         });
 
 
+        int today = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+        if (today == 1) today = 6;
+        else today = today - 2;
 
-        int today= Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
-        if (today==1) today=6;else today=today-2;
+        int opentime = place.getOpentime().get(today);
+        int closetime = place.getClosetime().get(today);
+        int now= (Calendar.getInstance().get(Calendar.HOUR)*100) + (Calendar.getInstance().get(Calendar.MINUTE));
+        if (Calendar.getInstance().get(Calendar.AM_PM)==Calendar.PM) now=now+1200;
 
-        int opentime=place.getOpentime().get(today);
-        int openhour=opentime/100;
-        int openminute=opentime-(openhour*100);
-        int openAM_PM;
-        if (openhour>11){
-            openhour=openhour-12;
-            openAM_PM=Calendar.PM;
-        } else {openAM_PM=Calendar.AM;
 
-        }
+        if (opentime < closetime){
 
-        Calendar cal_open=Calendar.getInstance();
-        cal_open.set(Calendar.HOUR,openhour);cal_open.set(Calendar.MINUTE,openminute);cal_open.set(Calendar.AM_PM,openAM_PM);
+            if (opentime<now && now<closetime){ //ACIK ISE
 
-        int closetime=place.getClosetime().get(today);
-        int closehour=closetime/100;
-        int closeminute=closetime-(closehour*100);
-        int closeAM_PM;
-        if (closehour>11) {
-            closehour=closehour-12;closeAM_PM=Calendar.PM;
-        } else closeAM_PM=Calendar.AM;
+                isopen = true;
 
-        Calendar cal_close=Calendar.getInstance();
-        cal_close.set(Calendar.HOUR,closehour);cal_open.set(Calendar.MINUTE,closeminute);cal_close.set(Calendar.AM_PM,closeAM_PM);
+            } else {
+                isopen = false;
 
-        if (!cal_open.getTime().after(Calendar.getInstance().getTime())) {
-
-            if (!Calendar.getInstance().getTime().after(cal_close.getTime())){
-
-                isopen=true;
-                close_tv.setBackgroundResource(R.drawable.shape_new_edittext);
-            }else {
-
-                isopen=false;
-                close_tv.setBackgroundResource(R.drawable.shape_close);
             }
 
-        }else {
+        } else {
 
-            isopen=false;
-            close_tv.setBackgroundResource(R.drawable.shape_close);
+            if (opentime<now || now<closetime){ //ACIK ISE
+
+                isopen = true;
+
+            } else {
+                isopen = false;
+
+            }
+
         }
 
+        if (isopen) {
+            close_tv.setBackgroundResource(R.drawable.shape_new_edittext);
+        } else {
+            close_tv.setBackgroundResource(R.drawable.shape_close);
 
-        if (place.getNew_end_time()< Calendar.getInstance().getTime().getTime()){
+        }
+
+        if (place.getNew_end_time() < Calendar.getInstance().getTime().getTime()) {
             new_tv.setVisibility(View.INVISIBLE);
 
         } else {
@@ -314,20 +307,19 @@ public class PlaceView extends AppCompatActivity implements LocationListener {
         }
 
 
-
         setfavicon();
 
         hearticon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (PreSets.isfav(activity,place_id)){
+                if (PreSets.isfav(activity, place_id)) {
 
-                    PreSets.delete_item_from_favlist(activity,place.getId());
+                    PreSets.delete_item_from_favlist(activity, place.getId());
 
-                }else {
+                } else {
 
-                    PreSets.add_item_to_favlist(activity,place.getId());
+                    PreSets.add_item_to_favlist(activity, place.getId());
                 }
 
                 setfavicon();
@@ -336,22 +328,21 @@ public class PlaceView extends AppCompatActivity implements LocationListener {
         });
 
 
+        eventsList = PreSets.getEventIdlist_from_placeId(activity, place.getId());
 
-        eventsList=PreSets.getEventIdlist_from_placeId(activity,place.getId());
-
-        System.out.println("list size: "+eventsList.size());
-        extendeteventlist_for_sort=new ArrayList<>();
+        //System.out.println("list size: " + eventsList.size());
+        extendeteventlist_for_sort = new ArrayList<>();
         extendeteventlist_for_sort.clear();
 
-        for (int i=0;i<eventsList.size();i++){
+        for (int i = 0; i < eventsList.size(); i++) {
 
-            EventClass fulldays_event=PreSets.get_Event(activity,eventsList.get(i));
+            EventClass fulldays_event = PreSets.get_Event(activity, eventsList.get(i));
 
-            for (int j=0;j<fulldays_event.seethe_nextdays().size();j++){
+            for (int j = 0; j < fulldays_event.seethe_nextdays().size(); j++) {
 
-                EventTimes singletime=fulldays_event.seethe_nextdays().get(j);
+                EventTimes singletime = fulldays_event.seethe_nextdays().get(j);
 
-                EventClass extented_sinle_event=PreSets.get_Event(activity,fulldays_event.getId());
+                EventClass extented_sinle_event = PreSets.get_Event(activity, fulldays_event.getId());
                 extented_sinle_event.times.clear();
                 extented_sinle_event.times.add(singletime);
 
@@ -361,7 +352,7 @@ public class PlaceView extends AppCompatActivity implements LocationListener {
 
         }
 
-        System.out.println("extendeteventlist_for_sort.size() : "+extendeteventlist_for_sort.size());
+        //System.out.println("extendeteventlist_for_sort.size() : " + extendeteventlist_for_sort.size());
 
         Collections.sort(extendeteventlist_for_sort, new Comparator<EventClass>() {
             @Override
@@ -374,15 +365,17 @@ public class PlaceView extends AppCompatActivity implements LocationListener {
 
         save_video();
 
-        LinkedPlaceAdapter linkedadapter =new LinkedPlaceAdapter();
+        LinkedPlaceAdapter linkedadapter = new LinkedPlaceAdapter();
         eventrecyclerview.setAdapter(linkedadapter);
         eventrecyclerview.setLayoutManager(new LinearLayoutManager(activity));
 
         if (place.getTopphotos().size() == 0) layout.removeView(viewpager_cons);
         if (PreSets.setlanguage_name(activity, place).equals("")) layout.removeView(event_name);
-        if (PreSets.setlanguage_explain(activity, place).equals(""))  layout.removeView(event_explain);
+        if (PreSets.setlanguage_explain(activity, place).equals(""))
+            layout.removeView(event_explain);
         if (place.getVideoversion().equals("default")) layout.removeView(videocons);
-        if (PreSets.setlanguage_adress(activity, place).equals(""))  layout.removeView(adress_carview);
+        if (PreSets.setlanguage_adress(activity, place).equals(""))
+            layout.removeView(adress_carview);
         if (place.getContactinfo().getPhonenumber().equals("")) layout.removeView(phone_cardview);
         if (place.getContactinfo().getWhatsapp().equals("")) layout.removeView(whastapp_cardview);
         if (place.getContactinfo().getWebsite().equals("")) layout.removeView(web_cardview);
@@ -391,7 +384,7 @@ public class PlaceView extends AppCompatActivity implements LocationListener {
         if (place.getContactinfo().getMailadress().equals("")) layout.removeView(mail_cardview);
         if (place.getContactinfo().getBuyticket().equals("")) layout.removeView(buyticket);
         if (place.getDownphotos().size() == 0) layout.removeView(down_photo_linear);
-        if (extendeteventlist_for_sort.size()==0) layout.removeView(place_events);
+        if (extendeteventlist_for_sort.size() == 0) layout.removeView(place_events);
         if (place.getMapphotoversion().equals("default")) layout.removeView(map_image);
 
         setlanguage();
@@ -593,6 +586,17 @@ public class PlaceView extends AppCompatActivity implements LocationListener {
 
     private void settherouteIntent() {
 
+        Uri gmmIntentUri = Uri.parse("google.navigation:q="+place.getLocation().getLat()+","+place.getLocation().getLog());
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+        if (mapIntent.resolveActivity(getPackageManager()) != null) {
+            startActivity(mapIntent);
+        } else {
+            Toast.makeText(this, "Please install a maps application", Toast.LENGTH_LONG).show();
+
+        }
+
+        /*
         String uri = String.format(Locale.getDefault(), "http://maps.google.com/maps?daddr=%f,%f (%s)",
                 place.getLocation().getLat(), place.getLocation().getLog(), PreSets.setlanguage_name(activity, place));
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
@@ -607,6 +611,8 @@ public class PlaceView extends AppCompatActivity implements LocationListener {
                 Toast.makeText(activity, "Please install a maps application", Toast.LENGTH_LONG).show();
             }
         }
+
+         */
     }
 
     private void phoneIntent() {
