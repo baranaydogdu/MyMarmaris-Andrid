@@ -540,6 +540,9 @@ public class EventView extends AppCompatActivity implements LocationListener {
 
     }
 
+
+
+
     private void settherouteIntent() {
 
         Uri gmmIntentUri = Uri.parse("google.navigation:q="+event.getLocation().getLat()+","+event.getLocation().getLog());
@@ -605,6 +608,8 @@ public class EventView extends AppCompatActivity implements LocationListener {
         }
     }
 
+
+    
     private void webIntent() {
 
         String url = event.getContactinfo().getWebsite();

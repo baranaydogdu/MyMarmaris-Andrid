@@ -1166,6 +1166,8 @@ public class PreSets {
 
                         for (DataSnapshot placesds : subcollection_ds.child("places").getChildren()) { //PLACES
 
+                            System.out.println("placesds.getValue : "+ placesds.getValue());
+
                             PlaceClass place = placesds.getValue(PlaceClass.class);
                             placelist_forcache.add(place);
 
