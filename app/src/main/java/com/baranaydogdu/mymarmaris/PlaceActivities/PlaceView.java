@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
+
 import android.Manifest;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
@@ -20,14 +21,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteStatement;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -43,20 +42,24 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
+
 import com.baranaydogdu.mymarmaris.Classes.EventClass;
-import com.baranaydogdu.mymarmaris.Classes.EventTimes;
+import com.baranaydogdu.mymarmaris.Classes.EventForRealm;
+import com.baranaydogdu.mymarmaris.Classes.FavoritteRealm;
 import com.baranaydogdu.mymarmaris.Classes.MyMediaController;
 import com.baranaydogdu.mymarmaris.Classes.PlaceClass;
+import com.baranaydogdu.mymarmaris.Classes.PlaceForRealm;
 import com.baranaydogdu.mymarmaris.EventView;
+import com.baranaydogdu.mymarmaris.LanguagePack;
 import com.baranaydogdu.mymarmaris.PreSets;
 import com.baranaydogdu.mymarmaris.R;
 import com.baranaydogdu.mymarmaris.VideoFullScrenn;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.storage.FileDownloadTask;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
-import com.google.firebase.storage.StorageReference;
+
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -66,6 +69,9 @@ import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import io.realm.Realm;
+import io.realm.RealmResults;
+
 public class PlaceView extends AppCompatActivity implements LocationListener {
 
     Intent intent;
@@ -73,14 +79,14 @@ public class PlaceView extends AppCompatActivity implements LocationListener {
     LocationManager locationManager;
     public static final int LOCATIONMILISECOND = 1000;
     public PlaceClass place;
-    int selected_language;
+    int lan;
     public TextView main_tv, event_range;
     public LinearLayout layout;
     public EditText event_name, event_explain;
     public SharedPreferences sharedPreferences;
     public CardView adress_carview, phone_cardview, whastapp_cardview, web_cardview, insta_cardview, face_cardview, mail_cardview, buyticket;
     public EditText adress;
-    public EditText adresse_edx, adres_seeroute_edx, phone_edx, whatsapp_edx, web_edx, face_edx, insta_edx, mail_edx,buyticket_edx;
+    public EditText adresse_edx, adres_seeroute_edx, phone_edx, whatsapp_edx, web_edx, face_edx, insta_edx, mail_edx, buyticket_edx;
     public AlertDialog.Builder builder;
     public ImageSlıdeAdapter adapter;
     public ViewPager viewpager;
@@ -93,25 +99,27 @@ public class PlaceView extends AppCompatActivity implements LocationListener {
     public Timer timer;
     public ScrollView scrollview;
     public int viewpagerposition = 0;
-    public MyMediaController mediaController;
     public ConstraintLayout eventview_maincons;
     public View view;
     public ArrayList<ImageSlideFragment> fragmentlist;
     String place_id;
     ImageView hearticon;
-    TextView close_tv,new_tv;
-    Boolean isopen=true;
+    TextView close_tv, new_tv;
+    Boolean isopen = true;
     EditText work_times_edx;
-    TextView tv_open,tv_close,tv_monday,tv_tuesday,tv_wednesday,tv_thursday,tv_friday,tv_saturday,tv_sunday;
-    EditText edx_open0,edx_open1,edx_open2,edx_open3,edx_open4,edx_open5,edx_open6;
-    EditText edx_close0,edx_close1,edx_close2,edx_close3,edx_close4,edx_close5,edx_close6;
+    TextView tv_open, tv_close, tv_monday, tv_tuesday, tv_wednesday, tv_thursday, tv_friday, tv_saturday, tv_sunday;
+    EditText edx_open0, edx_open1, edx_open2, edx_open3, edx_open4, edx_open5, edx_open6;
+    EditText edx_close0, edx_close1, edx_close2, edx_close3, edx_close4, edx_close5, edx_close6;
     RecyclerView eventrecyclerview;
     EditText events_edx;
-    ArrayList<String> eventsList;
+    ArrayList<EventClass> eventsList = new ArrayList<>();
     LinearLayout place_events;
-    ArrayList<EventClass> extendeteventlist_for_sort;
     ImageView fullscrenn_icon;
-    Boolean isvideo_okey=false;
+    Boolean isvideo_okey = false;
+    MyMediaController mediaController;
+
+    LanguagePack languagePack = new LanguagePack();
+    Realm realm = Realm.getDefaultInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,28 +135,29 @@ public class PlaceView extends AppCompatActivity implements LocationListener {
         activity = this;
         mediaController = new MyMediaController(activity);
 
-        place = PreSets.getPlace(activity, place_id);
-
-        initviews();
-
-        builder = new AlertDialog.Builder(activity);
-
         sharedPreferences = activity.getSharedPreferences("com.baranaydogdu.mymarmaris", Context.MODE_PRIVATE);
-        selected_language = sharedPreferences.getInt("language", 0);
+        lan = sharedPreferences.getInt("language", 0);
 
         adapter = new ImageSlıdeAdapter(getSupportFragmentManager());
 
+        RealmResults<PlaceForRealm> placeRealm = realm.where(PlaceForRealm.class).equalTo("id", place_id).findAll();
+        if (placeRealm.size() > 0) {
+            place = placeRealm.first().toPlace();
+
+        } else {
+            place = new PlaceClass();
+
+        }
+
+        initviews();
+
+
         if (place.getTopphotos().size() > 0) {
-
             for (int i = 0; i < place.getTopphotos().size(); i++) {
-
-                fragmentlist.add(new ImageSlideFragment(place.getId(), i));
-
+                fragmentlist.add(new ImageSlideFragment(this,place.topphotos.get(i)));
             }
-
             if (place.getTopphotos().size() > 1) {
                 createImageSlider();
-
             } else {
                 layout.removeView(viewpager_linear);
             }
@@ -167,22 +176,24 @@ public class PlaceView extends AppCompatActivity implements LocationListener {
 
             views.add(layoutInflater.inflate(R.layout.image_cons_layout, down_photo_linear, false));
             images.add((ImageView) views.get(i).findViewById(R.id.down_photos_image));
-            PreSets.set_DOWN_photo(images.get(i), place.getId(), i);
+            new PreSets().setImage(this,images.get(i),place.downphotos.get(i));
             down_photo_linear.addView(views.get(i));
 
         }
 
-
-        PreSets.set_MAP_photo(map_image, place.getId());
-        map_image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (place.getLocation().getLat() == 0 || place.getLocation().getLat() == 0.0) {
-                } else {
-                    settherouteIntent();
+        if (place.mapphotoversion == "") {layout.removeView(map_image);
+        } else {
+            new PreSets().setImage(this, map_image, place.mapphotoversion);
+            map_image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (place.getLocation().getLat() == 0 || place.getLocation().getLat() == 0.0) {
+                    } else {
+                        settherouteIntent();
+                    }
                 }
-            }
-        });
+            });
+        }
 
         mediaController.setAnchorView(videocons);
         videoView.setMediaController(mediaController);
@@ -263,13 +274,12 @@ public class PlaceView extends AppCompatActivity implements LocationListener {
 
         int opentime = place.getOpentime().get(today);
         int closetime = place.getClosetime().get(today);
-        int now= (Calendar.getInstance().get(Calendar.HOUR)*100) + (Calendar.getInstance().get(Calendar.MINUTE));
-        if (Calendar.getInstance().get(Calendar.AM_PM)==Calendar.PM) now=now+1200;
+        int now = (Calendar.getInstance().get(Calendar.HOUR) * 100) + (Calendar.getInstance().get(Calendar.MINUTE));
+        if (Calendar.getInstance().get(Calendar.AM_PM) == Calendar.PM) now = now + 1200;
 
+        if (opentime < closetime) {
 
-        if (opentime < closetime){
-
-            if (opentime<now && now<closetime){ //ACIK ISE
+            if (opentime < now && now < closetime) { //ACIK ISE
 
                 isopen = true;
 
@@ -280,7 +290,7 @@ public class PlaceView extends AppCompatActivity implements LocationListener {
 
         } else {
 
-            if (opentime<now || now<closetime){ //ACIK ISE
+            if (opentime < now || now < closetime) { //ACIK ISE
 
                 isopen = true;
 
@@ -313,14 +323,7 @@ public class PlaceView extends AppCompatActivity implements LocationListener {
             @Override
             public void onClick(View v) {
 
-                if (PreSets.isfav(activity, place_id)) {
-
-                    PreSets.delete_item_from_favlist(activity, place.getId());
-
-                } else {
-
-                    PreSets.add_item_to_favlist(activity, place.getId());
-                }
+                FavoritteRealm.addOrDeleteFav(place.id);
 
                 setfavicon();
 
@@ -328,54 +331,42 @@ public class PlaceView extends AppCompatActivity implements LocationListener {
         });
 
 
-        eventsList = PreSets.getEventIdlist_from_placeId(activity, place.getId());
 
-        //System.out.println("list size: " + eventsList.size());
-        extendeteventlist_for_sort = new ArrayList<>();
-        extendeteventlist_for_sort.clear();
+        eventsList.clear();
 
-        for (int i = 0; i < eventsList.size(); i++) {
+        RealmResults<EventForRealm> eventForRealms = realm.where(EventForRealm.class).equalTo("linked_place",place.id).findAll();
+        RealmResults<EventForRealm> eventForRealms2 = realm.where(EventForRealm.class).equalTo("linked_management",place.id).findAll();
 
-            EventClass fulldays_event = PreSets.get_Event(activity, eventsList.get(i));
-
-            for (int j = 0; j < fulldays_event.seethe_nextdays().size(); j++) {
-
-                EventTimes singletime = fulldays_event.seethe_nextdays().get(j);
-
-                EventClass extented_sinle_event = PreSets.get_Event(activity, fulldays_event.getId());
-                extented_sinle_event.times.clear();
-                extented_sinle_event.times.add(singletime);
-
-                extendeteventlist_for_sort.add(extented_sinle_event);
-
+        for (EventForRealm eventRealm : eventForRealms) {
+            for (EventClass singleTimeEvent : eventRealm.multiple()) {
+                eventsList.add(singleTimeEvent);
             }
-
         }
 
-        //System.out.println("extendeteventlist_for_sort.size() : " + extendeteventlist_for_sort.size());
+        for (EventForRealm eventRealm : eventForRealms2) {
+            for (EventClass singleTimeEvent : eventRealm.multiple()) {
+                eventsList.add(singleTimeEvent);
+            }
+        }
 
-        Collections.sort(extendeteventlist_for_sort, new Comparator<EventClass>() {
+        Collections.sort(eventsList, new Comparator<EventClass>() {
             @Override
             public int compare(EventClass o1, EventClass o2) {
-                return (new Date(o1.seethe_nextdays().get(0).getStart_time())).
-                        compareTo(new Date(o2.seethe_nextdays().get(0).getStart_time()));
+                return (new Date(o1.times.get(0).getStart_time())).compareTo(new Date(o2.times.get(0).getStart_time()));
             }
         });
 
-
-        save_video();
+        if (!place.getVideoversion().equals("default")) save_video();
 
         LinkedPlaceAdapter linkedadapter = new LinkedPlaceAdapter();
         eventrecyclerview.setAdapter(linkedadapter);
         eventrecyclerview.setLayoutManager(new LinearLayoutManager(activity));
 
         if (place.getTopphotos().size() == 0) layout.removeView(viewpager_cons);
-        if (PreSets.setlanguage_name(activity, place).equals("")) layout.removeView(event_name);
-        if (PreSets.setlanguage_explain(activity, place).equals(""))
-            layout.removeView(event_explain);
-        if (place.getVideoversion().equals("default")) layout.removeView(videocons);
-        if (PreSets.setlanguage_adress(activity, place).equals(""))
-            layout.removeView(adress_carview);
+        if (LanguagePack.getLanguage(place.name,lan).equals("")) layout.removeView(event_name);
+        if (LanguagePack.getLanguage(place.explain,lan).equals("")) layout.removeView(event_explain);
+        if (place.getVideoversion().equals("")) layout.removeView(videocons);
+        if (LanguagePack.getLanguage(place.adres,lan).equals("")) layout.removeView(adress_carview);
         if (place.getContactinfo().getPhonenumber().equals("")) layout.removeView(phone_cardview);
         if (place.getContactinfo().getWhatsapp().equals("")) layout.removeView(whastapp_cardview);
         if (place.getContactinfo().getWebsite().equals("")) layout.removeView(web_cardview);
@@ -384,8 +375,8 @@ public class PlaceView extends AppCompatActivity implements LocationListener {
         if (place.getContactinfo().getMailadress().equals("")) layout.removeView(mail_cardview);
         if (place.getContactinfo().getBuyticket().equals("")) layout.removeView(buyticket);
         if (place.getDownphotos().size() == 0) layout.removeView(down_photo_linear);
-        if (extendeteventlist_for_sort.size() == 0) layout.removeView(place_events);
-        if (place.getMapphotoversion().equals("default")) layout.removeView(map_image);
+        if (eventsList.size() == 0) layout.removeView(place_events);
+        if (place.getMapphotoversion().equals("")) layout.removeView(map_image);
 
         setlanguage();
 
@@ -400,106 +391,113 @@ public class PlaceView extends AppCompatActivity implements LocationListener {
 
     private void initviews() {
 
-        fullscrenn_icon     = findViewById(R.id.fullscrenn_icon2);
+        fullscrenn_icon = findViewById(R.id.fullscrenn_icon2);
 
-        place_events        = findViewById(R.id.place_events);
-        eventrecyclerview   = findViewById(R.id.eventrecyclerview);
-        events_edx          = findViewById(R.id.events_edx);
+        place_events = findViewById(R.id.place_events);
+        eventrecyclerview = findViewById(R.id.eventrecyclerview);
+        events_edx = findViewById(R.id.events_edx);
 
-        tv_open             = findViewById(R.id.textView15);
-        tv_close            = findViewById(R.id.textView16);
+        tv_open = findViewById(R.id.textView15);
+        tv_close = findViewById(R.id.textView16);
 
-        tv_monday           = findViewById(R.id.textView17);
-        tv_tuesday          = findViewById(R.id.textView18);
-        tv_wednesday        = findViewById(R.id.textView19);
-        tv_thursday         = findViewById(R.id.textView20);
-        tv_friday           = findViewById(R.id.textView24);
-        tv_saturday         = findViewById(R.id.textView25);
-        tv_sunday           = findViewById(R.id.textView26);
+        tv_monday = findViewById(R.id.textView17);
+        tv_tuesday = findViewById(R.id.textView18);
+        tv_wednesday = findViewById(R.id.textView19);
+        tv_thursday = findViewById(R.id.textView20);
+        tv_friday = findViewById(R.id.textView24);
+        tv_saturday = findViewById(R.id.textView25);
+        tv_sunday = findViewById(R.id.textView26);
 
-        edx_open0           = findViewById(R.id.open0);
-        edx_open1           = findViewById(R.id.open1);
-        edx_open2           = findViewById(R.id.open2);
-        edx_open3           = findViewById(R.id.open3);
-        edx_open4           = findViewById(R.id.open4);
-        edx_open5           = findViewById(R.id.open5);
-        edx_open6           = findViewById(R.id.open6);
-        edx_close0          = findViewById(R.id.close0);
-        edx_close1          = findViewById(R.id.close1);
-        edx_close2          = findViewById(R.id.close2);
-        edx_close3          = findViewById(R.id.close3);
-        edx_close4          = findViewById(R.id.close4);
-        edx_close5          = findViewById(R.id.close5);
-        edx_close6          = findViewById(R.id.close6);
+        edx_open0 = findViewById(R.id.open0);
+        edx_open1 = findViewById(R.id.open1);
+        edx_open2 = findViewById(R.id.open2);
+        edx_open3 = findViewById(R.id.open3);
+        edx_open4 = findViewById(R.id.open4);
+        edx_open5 = findViewById(R.id.open5);
+        edx_open6 = findViewById(R.id.open6);
+        edx_close0 = findViewById(R.id.close0);
+        edx_close1 = findViewById(R.id.close1);
+        edx_close2 = findViewById(R.id.close2);
+        edx_close3 = findViewById(R.id.close3);
+        edx_close4 = findViewById(R.id.close4);
+        edx_close5 = findViewById(R.id.close5);
+        edx_close6 = findViewById(R.id.close6);
 
-        work_times_edx  = findViewById(R.id.work_times_edx);
-        hearticon       = findViewById(R.id.hearticon);
-        new_tv          = findViewById(R.id.new_tv);
-        close_tv        = findViewById(R.id.close_tv);
+        work_times_edx = findViewById(R.id.work_times_edx);
+        hearticon = findViewById(R.id.hearticon);
+        new_tv = findViewById(R.id.new_tv);
+        close_tv = findViewById(R.id.close_tv);
 
-        eventview_maincons  = findViewById(R.id.eventview_maincons);
-        scrollview          = findViewById(R.id.scrollview);
-        down_photo_linear   = findViewById(R.id.down_photo_linear);
-        map_image           = findViewById(R.id.map_image);
-        videoView           = findViewById(R.id.videoView2);
-        videoprogress       = findViewById(R.id.videoprogress);
-        videocons           = findViewById(R.id.video_cons);
+        eventview_maincons = findViewById(R.id.eventview_maincons);
+        scrollview = findViewById(R.id.scrollview);
+        down_photo_linear = findViewById(R.id.down_photo_linear);
+        map_image = findViewById(R.id.map_image);
+        videoView = findViewById(R.id.videoView2);
+        videoprogress = findViewById(R.id.videoprogress);
+        videocons = findViewById(R.id.video_cons);
 
-        viewpager_linear    = findViewById(R.id.viewpager_linear);
-        viewpager           = findViewById(R.id.viewPager);
-        main_tv             = findViewById(R.id.main_textView2);
-        layout              = findViewById(R.id.layout);
-        videoimage          = findViewById(R.id.videoimage);
+        viewpager_linear = findViewById(R.id.viewpager_linear);
+        viewpager = findViewById(R.id.viewPager);
+        main_tv = findViewById(R.id.main_textView2);
+        layout = findViewById(R.id.layout);
+        videoimage = findViewById(R.id.videoimage);
 
-        viewpager_cons      = findViewById(R.id.viewpager_cons);
-        event_range         = findViewById(R.id.place_rance_tv2);
-        event_name          = findViewById(R.id.place_name2);
-        event_explain       = findViewById(R.id.place_explain2);
+        viewpager_cons = findViewById(R.id.viewpager_cons);
+        event_range = findViewById(R.id.place_rance_tv2);
+        event_name = findViewById(R.id.place_name2);
+        event_explain = findViewById(R.id.place_explain2);
 
-        adress_carview      = findViewById(R.id.adresscarview);
-        phone_cardview      = findViewById(R.id.phone_carvdiew);
-        whastapp_cardview   = findViewById(R.id.whatsapp_carview);
-        web_cardview        = findViewById(R.id.web_carview);
-        insta_cardview      = findViewById(R.id.insta_carview);
-        face_cardview       = findViewById(R.id.facebook_carview);
-        mail_cardview       = findViewById(R.id.mail_carview);
-        buyticket           = findViewById(R.id.ticket_carview);
+        adress_carview = findViewById(R.id.adresscarview);
+        phone_cardview = findViewById(R.id.phone_carvdiew);
+        whastapp_cardview = findViewById(R.id.whatsapp_carview);
+        web_cardview = findViewById(R.id.web_carview);
+        insta_cardview = findViewById(R.id.insta_carview);
+        face_cardview = findViewById(R.id.facebook_carview);
+        mail_cardview = findViewById(R.id.mail_carview);
+        buyticket = findViewById(R.id.ticket_carview);
 
-        adress              = findViewById(R.id.adress);
+        adress = findViewById(R.id.adress);
 
-        adresse_edx         = findViewById(R.id.adresse_edx);
-        adres_seeroute_edx  = findViewById(R.id.adres_seeroute_edx);
+        adresse_edx = findViewById(R.id.adresse_edx);
+        adres_seeroute_edx = findViewById(R.id.adres_seeroute_edx);
 
-        phone_edx           = findViewById(R.id.phone_edx);
-        whatsapp_edx        = findViewById(R.id.whatsapp_edx);
-        web_edx             = findViewById(R.id.web_edx);
-        face_edx            = findViewById(R.id.face_edx);
-        insta_edx           = findViewById(R.id.insta_edx);
-        mail_edx            = findViewById(R.id.mail_edx);
-        buyticket_edx       = findViewById(R.id.ticket_edx);
+        phone_edx = findViewById(R.id.phone_edx);
+        whatsapp_edx = findViewById(R.id.whatsapp_edx);
+        web_edx = findViewById(R.id.web_edx);
+        face_edx = findViewById(R.id.face_edx);
+        insta_edx = findViewById(R.id.insta_edx);
+        mail_edx = findViewById(R.id.mail_edx);
+        buyticket_edx = findViewById(R.id.ticket_edx);
 
 
     }
 
 
-    public void setfavicon(){
-        if (PreSets.isfav(activity,place_id)){
+    public void setfavicon() {
+        hearticon.setImageResource(R.drawable.heart_filled);
+
+
+        if (FavoritteRealm.isFav(place.id)){
             hearticon.setImageResource(R.drawable.heart_filled);
         }else {
             hearticon.setImageResource(R.drawable.heart_emty);
         }
+
+
     }
 
-    public String setopenclosetime(int time){
+    public String setopenclosetime(int time) {
 
-        String htext,mtext;
-        int hour=time/100;
-        int minute= time - (hour*100);
+        String htext, mtext;
+        int hour = time / 100;
+        int minute = time - (hour * 100);
 
-        if (hour<10) htext="0"+hour; else htext=""+hour;
-        if (minute<10) mtext="0"+(int)minute; else mtext=""+(int)minute;
+        if (hour < 10) htext = "0" + hour;
+        else htext = "" + hour;
+        if (minute < 10) mtext = "0" + (int) minute;
+        else mtext = "" + (int) minute;
 
-        return htext+":"+mtext;
+        return htext + ":" + mtext;
 
     }
 
@@ -532,7 +530,6 @@ public class PlaceView extends AppCompatActivity implements LocationListener {
         }
 
 
-
         viewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -558,35 +555,34 @@ public class PlaceView extends AppCompatActivity implements LocationListener {
         });
 
 
-        if (sharedPreferences.getBoolean("auto_images",true)){
+        if (sharedPreferences.getBoolean("auto_images", true)) {
 
-            final Handler handler=new Handler();
-            final Runnable runnable=new Runnable() {
+            final Handler handler = new Handler();
+            final Runnable runnable = new Runnable() {
                 @Override
                 public void run() {
-                    if (viewpagerposition==fragmentlist.size())
-                        viewpagerposition=0;
-                    viewpager.setCurrentItem(viewpagerposition++,true);
+                    if (viewpagerposition == fragmentlist.size())
+                        viewpagerposition = 0;
+                    viewpager.setCurrentItem(viewpagerposition++, true);
                 }
             };
 
-            timer=new Timer();
+            timer = new Timer();
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
 
                     handler.post(runnable);
                 }
-            },250,2500);
+            }, 250, 2500);
         }
-
 
 
     }
 
     private void settherouteIntent() {
 
-        Uri gmmIntentUri = Uri.parse("google.navigation:q="+place.getLocation().getLat()+","+place.getLocation().getLog());
+        Uri gmmIntentUri = Uri.parse("google.navigation:q=" + place.getLocation().getLat() + "," + place.getLocation().getLog());
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
         mapIntent.setPackage("com.google.android.apps.maps");
         if (mapIntent.resolveActivity(getPackageManager()) != null) {
@@ -596,9 +592,9 @@ public class PlaceView extends AppCompatActivity implements LocationListener {
 
         }
 
-        /*
+
         String uri = String.format(Locale.getDefault(), "http://maps.google.com/maps?daddr=%f,%f (%s)",
-                place.getLocation().getLat(), place.getLocation().getLog(), PreSets.setlanguage_name(activity, place));
+                place.getLocation().getLat(), place.getLocation().getLog(), LanguagePack.getLanguage(place.name,lan));
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
         intent.setPackage("com.google.android.apps.maps");
         try {
@@ -612,7 +608,7 @@ public class PlaceView extends AppCompatActivity implements LocationListener {
             }
         }
 
-         */
+
     }
 
     private void phoneIntent() {
@@ -623,6 +619,7 @@ public class PlaceView extends AppCompatActivity implements LocationListener {
         Intent intent = new Intent(Intent.ACTION_DIAL);
         intent.setData(Uri.parse("tel:" + number));
         startActivity(intent);
+
     }
 
     private void whatsappIntent() {
@@ -713,7 +710,6 @@ public class PlaceView extends AppCompatActivity implements LocationListener {
             startActivity(Intent.createChooser(emailIntent, "Chooser Title"));
 
 
-
         } catch (ActivityNotFoundException ex) {
             Toast.makeText(activity, "No available mail account", Toast.LENGTH_SHORT).show();
         }
@@ -732,12 +728,12 @@ public class PlaceView extends AppCompatActivity implements LocationListener {
         startActivity(new Intent(Intent.ACTION_VIEW, uri));
     }
 
-    public void setrange(Location location){
+    public void setrange(Location location) {
 
         Double lat = place.getLocation().getLat();
         Double log = place.getLocation().getLog();
 
-        if (location!=null){
+        if (location != null) {
 
             if (lat != 0 && log != 0) {
                 Location place_location = new Location("place");
@@ -788,7 +784,7 @@ public class PlaceView extends AppCompatActivity implements LocationListener {
 
     }
 
-    public class LinkedPlaceAdapter extends RecyclerView.Adapter<LinkedPlaceAdapter.LinkedPlaceViewHolder>{
+    public class LinkedPlaceAdapter extends RecyclerView.Adapter<LinkedPlaceAdapter.LinkedPlaceViewHolder> {
 
         public LinkedPlaceAdapter() {
 
@@ -804,15 +800,15 @@ public class PlaceView extends AppCompatActivity implements LocationListener {
         @Override
         public void onBindViewHolder(@NonNull LinkedPlaceViewHolder holder, int position) {
 
-            final EventClass event=extendeteventlist_for_sort.get(position);
+            final EventClass event = eventsList.get(position);
 
             holder.mainlineer.removeView(holder.date_carvdiew);
             holder.mainlineer.removeView(holder.event_cons);
 
-            if (position!=0){
+            if (position != 0) {
 
-                if (PreSets.getlanguages_date(activity,event.getTimes().get(0).getStart_time())
-                        .equals(PreSets.getlanguages_date(activity,extendeteventlist_for_sort.get(position-1).getTimes().get(0).getStart_time()))){
+                if (LanguagePack.getlanguages_date(activity, event.getTimes().get(0).getStart_time())
+                        .equals(LanguagePack.getlanguages_date(activity, eventsList.get(position - 1).getTimes().get(0).getStart_time()))) {
 
                     holder.mainlineer.addView(holder.event_cons);
 
@@ -829,26 +825,28 @@ public class PlaceView extends AppCompatActivity implements LocationListener {
             }
 
 
-            Calendar calendar=Calendar.getInstance();
+            Calendar calendar = Calendar.getInstance();
             calendar.setTime(new Date(event.getTimes().get(0).getStart_time()));
             String minute;
-            if (calendar.get(Calendar.MINUTE)<10){
+            if (calendar.get(Calendar.MINUTE) < 10) {
 
-                minute="0"+calendar.get(Calendar.MINUTE);
-            }else minute=""+calendar.get(Calendar.MINUTE);
+                minute = "0" + calendar.get(Calendar.MINUTE);
+            } else minute = "" + calendar.get(Calendar.MINUTE);
 
-            holder.time_edx.setText(PreSets.gethour(event.seethe_nextdays().get(0).getStart_time())+":"+ minute);
+            holder.time_edx.setText(LanguagePack.gethour(event.times.get(0).getStart_time()) + ":" + minute);
 
-            holder.event_name.setText(PreSets.setlanguage_name(activity,event));
-            holder.event_explain.setText(PreSets.setlanguage_explain(activity,event));
-            PreSets.set_MAIN_photo(holder.event_logo,event.getId());
-            holder.date_tv.setText(PreSets.getlanguages_date(activity,event.seethe_nextdays().get(0).getStart_time()));
+            holder.event_name.setText(LanguagePack.getLanguage(event.name,lan));
+            holder.event_explain.setText(LanguagePack.getLanguage(event.explain,lan));
+            if (event.topphotos.size() > 0) new PreSets().setImage(activity,holder.event_logo,event.topphotos.get(0));
+            else new PreSets().setImage(activity,holder.event_logo,"");
+
+            holder.date_tv.setText(LanguagePack.getlanguages_date(activity, event.times.get(0).getStart_time()));
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent=new Intent(activity, EventView.class);
-                    intent.putExtra("id",event.getId());
+                    Intent intent = new Intent(activity, EventView.class);
+                    intent.putExtra("id", event.getId());
                     startActivity(intent);
                 }
             });
@@ -857,103 +855,72 @@ public class PlaceView extends AppCompatActivity implements LocationListener {
 
         @Override
         public int getItemCount() {
-            return extendeteventlist_for_sort.size();
+            return eventsList.size();
         }
 
         public class LinkedPlaceViewHolder extends RecyclerView.ViewHolder {
 
             TextView date_tv;
             ImageView event_logo;
-            EditText time_edx,event_name,event_explain;
+            EditText time_edx, event_name, event_explain;
             LinearLayout mainlineer;
             ConstraintLayout event_cons;
-            CardView date_carvdiew,link_carvdiew;
+            CardView date_carvdiew, link_carvdiew;
             EditText linked_edx;
 
             public LinkedPlaceViewHolder(View itemView) {
                 super(itemView);
 
                 event_logo = itemView.findViewById(R.id.custum_place_imageView);
-                date_tv    = itemView.findViewById(R.id.date_tv);
-                time_edx   = itemView.findViewById(R.id.custum_event_hour);
+                date_tv = itemView.findViewById(R.id.date_tv);
+                time_edx = itemView.findViewById(R.id.custum_event_hour);
                 event_name = itemView.findViewById(R.id.custum_place_name);
                 event_explain = itemView.findViewById(R.id.custum_place_explain);
                 mainlineer = itemView.findViewById(R.id.mainlineer);
                 event_cons = itemView.findViewById(R.id.event_cons);
-                date_carvdiew=itemView.findViewById(R.id.date_carvdiew);
-                link_carvdiew=itemView.findViewById(R.id.link_carvdiew);
-                linked_edx=itemView.findViewById(R.id.linked_edx);
+                date_carvdiew = itemView.findViewById(R.id.date_carvdiew);
+                link_carvdiew = itemView.findViewById(R.id.link_carvdiew);
+                linked_edx = itemView.findViewById(R.id.linked_edx);
                 link_carvdiew.setVisibility(View.INVISIBLE);
 
             }
         }
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-
-
-    }
-
 
     private void setlanguage() {
 
 
-        String[] adresses = {"Address", "Adres", "адрес", "διεύθυνση", "Address"};
-        String[] seetheroutes = {"Get Directions", "Yol tarifi al", "Проложить маршрут", "Λήψη οδηγιών", "Anweisungen bekommen"};
-        String[] phones = {"Telephone", "Telefon", "телефон", "τηλέφωνο", "Telefon"};
-        String[] whatsapps = {"Whatsapp", "Whatsapp", "Whatsapp", "Whatsapp", "Whatsapp"};
-        String[] webs = {"WEB Page", "İnternet Sitesi", "WEB страница", "Ιστοσελίδα", "Webseite"};
-        String[] faces = {"Facebook", "Facebook", "Facebook", "Facebook", "Facebook"};
-        String[] instas = {"Instagram", "Instagram", "Instagram", "Instagram", "Instagram"};
-        String[] mails = {"E-mail", "E-posta", "Электронная почта", "E-mail", "Email"};
-        String[] buytickets = {"Buy Ticket", "Bilet Al", "Купить билет", "Αγοράστε εισιτήριο", "Kauf ein Ticket"};
+        events_edx.setText(languagePack.eventstext[lan]);
+        adresse_edx.setText(languagePack.adresses[lan]);
+        adres_seeroute_edx.setText(languagePack.seetheroutes[lan]);
+        phone_edx.setText(languagePack.phones[lan]);
+        whatsapp_edx.setText(languagePack.whatsapps[lan]);
+        web_edx.setText(languagePack.webs[lan]);
+        face_edx.setText(languagePack.faces[lan]);
+        insta_edx.setText(languagePack.instas[lan]);
+        mail_edx.setText(languagePack.mails[lan]);
+        buyticket_edx.setText(languagePack.buytickets[lan]);
+        new_tv.setText(languagePack.neww[lan]);
 
-        String[] neww={"New","Yeni","новый","νέος","Neu"};
-        String[] open ={"Open","Açık","открытый","ανοιχτό","Öffnen"};
-        String[] close ={"Close","Kapalı", "близко","κλειστό","Geschlossen"};
-        String[] worktimes = {"Work Times", "Çalışma Saatleri", "Время работы", "Ώρες εργασίας", "Arbeitszeit"};
+        if (isopen) close_tv.setText(languagePack.open[lan]);
+        else close_tv.setText(languagePack.close[lan]);
+        work_times_edx.setText(languagePack.worktimes[lan]);
 
-        String[] evenst     ={"Events","Etkinlikler","события","δραστηριότητες","Aktivitäten"};
+        event_name.setText(LanguagePack.getLanguage(place.name,lan));
+        event_explain.setText(LanguagePack.getLanguage(place.explain,lan));
+        adress.setText(LanguagePack.getLanguage(place.adres,lan));
 
-        String[] monday     ={"Monday" ,  "Pazartesi" ,"понедельник" ,"Δευτέρα" ,    "Montag"   };
-        String[] Tuesday    ={"Tuesday",  "Salı"  ,    "вторник" ,    "Τρίτι",       "Dienstag"  };
-        String[] Wednesday  ={"Wednesday","Çarşamba"  ,"среда" ,      "Τετάρτη"     ,"Mittwoch"     };
-        String[] Thursday   ={"Thursday" ,"Perşembe"  ,"четверг" ,    "Πέμπτη"      ,"Donnerstag"    };
-        String[] Friday     ={"Friday"   ,"Cuma"  ,    "пятница" ,    "Παρασκευή"   ,"Freitag"      };
-        String[] Saturday   ={"Saturday" ,"Cumartesi", "суббота" ,    "Σάββατο"     ,"Samstag" }    ;
-        String[] Sunday     ={"Sunday"   ,"Pazar" ,    "воскресенье" ,"Κυριακή"     ,"Sonntag"     };
+        tv_open.setText(languagePack.open[lan]);
+        tv_close.setText(languagePack.close[lan]);
+        tv_monday.setText(languagePack.monday[lan]);
+        tv_tuesday.setText(languagePack.Tuesday[lan]);
+        tv_wednesday.setText(languagePack.Wednesday[lan]);
+        tv_thursday.setText(languagePack.Thursday[lan]);
+        tv_friday.setText(languagePack.Friday[lan]);
+        tv_saturday.setText(languagePack.Saturday[lan]);
+        tv_sunday.setText(languagePack.Sunday[lan]);
 
-        events_edx.setText(evenst[selected_language]);
-        adresse_edx.setText(adresses[selected_language]);
-        adres_seeroute_edx.setText(seetheroutes[selected_language]);
-        phone_edx.setText(phones[selected_language]);
-        whatsapp_edx.setText(whatsapps[selected_language]);
-        web_edx.setText(webs[selected_language]);
-        face_edx.setText(faces[selected_language]);
-        insta_edx.setText(instas[selected_language]);
-        mail_edx.setText(mails[selected_language]);
-        buyticket_edx.setText(buytickets[selected_language]);
-
-        new_tv.setText(neww[selected_language]);
-        if (isopen) close_tv.setText(open[selected_language]);
-        else close_tv.setText(close[selected_language]);
-        work_times_edx.setText(worktimes[selected_language]);
-
-        event_name.setText(PreSets.setlanguage_name(activity, place));
-        event_explain.setText(PreSets.setlanguage_explain(activity, place));
-        adress.setText(PreSets.setlanguage_adress(activity, place));
-
-        tv_open     .setText(open     [selected_language]);
-        tv_close    .setText(close    [selected_language]);
-        tv_monday   .setText(monday   [selected_language]);
-        tv_tuesday  .setText(Tuesday  [selected_language]);
-        tv_wednesday.setText(Wednesday[selected_language]);
-        tv_thursday .setText(Thursday [selected_language]);
-        tv_friday   .setText(Friday   [selected_language]);
-        tv_saturday .setText(Saturday [selected_language]);
-        tv_sunday   .setText(Sunday   [selected_language]);
 
     }
 
@@ -961,7 +928,7 @@ public class PlaceView extends AppCompatActivity implements LocationListener {
     protected void onResume() {
         super.onResume();
 
-        if (isvideo_okey){
+        if (isvideo_okey) {
             videoView.seekTo(1000);
         }
 
@@ -1013,175 +980,102 @@ public class PlaceView extends AppCompatActivity implements LocationListener {
 
     public void save_video() {
 
-        final SQLiteDatabase database = PreSets.open_saved_video_database_database(activity);
+        final String filename = "/data/user/0/com.baranaydogdu.mymarmaris/cache/" + place.videoversion
+                .replaceAll(":", "")
+                .replaceAll("/", "") + ".mp4";
 
-        String selectmainQuery = "SELECT * FROM saved_video_database WHERE file_Id= '" + place.getId() + "'";
-        Cursor cursor = database.rawQuery(selectmainQuery, null);
+        final File file = new File(filename);
 
-        int videoversion_Ix = cursor.getColumnIndex("videoversion");
-        int vsavedsortnumber_Ix = cursor.getColumnIndex("vsavedsortnumber");
+        if (file.exists()) {
+            playvideo();
 
-        cursor.moveToFirst();
+        } else {
 
-        if (cursor.getCount() > 0) {    //DATABASE DE VAR ISE
+            new DownloadAsynTask( place.videoversion, file).execute();
 
-            String videoversion = cursor.getString(videoversion_Ix);
-            int vsavedsortnumber = Integer.parseInt(cursor.getString(vsavedsortnumber_Ix));
+        }
 
-            if ((videoversion.equals(place.getVideoversion()))) {    //VIDEO GUNCEL ISE
+    }
 
+    public class DownloadAsynTask extends AsyncTask<String, Void, String> {
 
-                if (vsavedsortnumber > 0) {    //DAHA ONCE INDIRMIS ISEK
-                    if (PreSets.getvideo_File(place.getId()).exists()) {    //VIDEO DA VAR ISE
+        Boolean taskComp = false;
+        String url = "";
+        File file;
 
-                        playvideo();
+        public DownloadAsynTask( String url, File file) {
+            this.url = url;
+            this.file = file;
 
-                    } else {    //VIDEO DOSYASI YOK ISE
+        }
 
-                        database.execSQL("UPDATE saved_video_database SET vsavedsortnumber = '" + (PreSets.UNDOWNLOADED) + "' WHERE file_Id = '" + place.getId() + "' ");
-                        download_video();
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
 
-                    }
-
-                } else {        //VIDEO DOWNLOAD EDILMEMIS ISE
-
-                    if (vsavedsortnumber == PreSets.EMPTYVIDEO) {// VIDEO FIREBASE DE YOK ISE
-                        if (PreSets.getvideo_File(place.getId()).exists()) {     //BIZDE VAR ISE DE SIL
-                            PreSets.getvideo_File(place.getId()).delete();
-
-                        }
-                        //HIC BISEY YAPMA
-
-                    } else {    //VIDEO VAR ISE
-
-                        database.execSQL("UPDATE saved_video_database SET vsavedsortnumber = '" + (PreSets.UNDOWNLOADED) + "' WHERE file_Id = '" + place.getId() + "' ");
-                        download_video();
-                    }
-                }
-
-            } else {     //VIDEO GUNCELLENMIS ISE
-
-                if (place.getVideoversion().equals("default")) { //VIDEO SILINMIS ISE
-
-                    database.execSQL("UPDATE saved_video_database SET vsavedsortnumber = '" + String.valueOf(PreSets.EMPTYVIDEO) + "' WHERE file_Id = '" + place.getId() + "' ");
-                    database.execSQL("UPDATE saved_video_database SET videoversion = '" + place.getVideoversion() + "' WHERE file_Id = '" + place.getId() + "' ");
-
-
-                    if (PreSets.getvideo_File(place.getId()).exists()) {     //BIZDE VAR ISE DE SIL
-                        PreSets.getvideo_File(place.getId()).delete();
-                    }
-
-                } else {    //VIDEO DEGISMIS ISE
-
-                    database.execSQL("UPDATE saved_video_database SET videoversion = '" + place.getVideoversion() + "' WHERE file_Id = '" + place.getId() + "' ");
-                    database.execSQL("UPDATE saved_video_database SET vsavedsortnumber = '" + String.valueOf(PreSets.UNDOWNLOADED) + "' WHERE file_Id = '" + place.getId() + "' ");
-                    download_video();
-
-
-                }
-
-            }
-
-        } else {        //VIDEO YENI ISE
-
-
-            if (place.getVideoversion().equals("default")) { //VIDEO YOK ISE
-
-                String sqlstring = PreSets.get_saved_video_database_insertString();
-                SQLiteStatement sqLiteStatement = database.compileStatement(sqlstring);
-
-                sqLiteStatement.bindString(1, place.getId());
-                sqLiteStatement.bindString(2, place.getVideoversion());
-                sqLiteStatement.bindString(3, String.valueOf(PreSets.EMPTYVIDEO));
-                sqLiteStatement.execute();
-
+            if (taskComp) {
+                System.out.println("VIDEO DOWNLOADED");
+                playvideo();
             } else {
 
-                String sqlstring = PreSets.get_saved_video_database_insertString();
-                SQLiteStatement sqLiteStatement = database.compileStatement(sqlstring);
+                try {
+                    layout.removeView(videocons);
+                    if (file.exists()) file.delete();
 
-                sqLiteStatement.bindString(1, place.getId());
-                sqLiteStatement.bindString(2, place.getVideoversion());
-                sqLiteStatement.bindString(3, String.valueOf(PreSets.UNDOWNLOADED));
-                sqLiteStatement.execute();
+                } catch (Exception ex) {
+                    System.out.println("File Error : " + ex.getLocalizedMessage());
+                }
 
-                download_video();
             }
+
         }
-        database.close();
+
+        @Override
+        protected String doInBackground(String... strings) {
+
+            try {
+                URL u = new URL(url);
+                InputStream is = u.openStream();
+
+                DataInputStream dis = new DataInputStream(is);
+
+                byte[] buffer = new byte[1024];
+                int length;
+
+                FileOutputStream fos = new FileOutputStream(file);
+                while ((length = dis.read(buffer)) > 0) {
+                    fos.write(buffer, 0, length);
+                }
+                taskComp = true;
+
+            } catch (Exception ex) {
+                taskComp = false;
+                System.out.println("Download Error : " + ex.getLocalizedMessage() + "url : "+url);
+                try {
+                    if (file.exists()) file.delete();
+
+                } catch (Exception ex1) {
+                    System.out.println("File Error : " + ex1.getLocalizedMessage());
+                }
+            }
+
+            return "";
+        }
     }
 
-    private void download_video() {
-
-        System.out.println("download video ---- ");
-
-
-
-        if (PreSets.networkConnection(activity)) {
-
-            final SQLiteDatabase database = PreSets.open_saved_video_database_database(activity);
-
-            database.execSQL("UPDATE saved_video_database SET vsavedsortnumber = '" + String.valueOf(PreSets.CONTINUE) + "' WHERE file_Id = '" + place.getId() + "' ");
-
-                final String videoFirebaseposition = PreSets.firebase_videoname(place.getId());
-                StorageReference newstorageReference = FirebaseStorage.getInstance().getReference().child(videoFirebaseposition);
-                newstorageReference.getFile(PreSets.getvideo_File(place.getId())).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-
-
-                        Cursor cursor = database.rawQuery("SELECT * FROM saved_video_database ", null);
-                        int vsavednumber_Ix = cursor.getColumnIndex("vsavedsortnumber");
-                        cursor.moveToFirst();
-
-                        int sort = 1;
-                        while (!cursor.isAfterLast()) {
-
-                            int databasesort = Integer.valueOf(cursor.getString(vsavednumber_Ix));
-
-                            if (databasesort > sort) sort = databasesort;
-
-                            cursor.moveToNext();
-                        }
-
-                        database.execSQL("UPDATE saved_video_database SET vsavedsortnumber = '" + (sort + 1) + "' WHERE file_Id = '" + place.getId() + "' ");
-                        database.execSQL("UPDATE saved_video_database SET videoversion = '" + place.getVideoversion() + "' WHERE file_Id = '" + place.getId() + "' ");
-
-                        playvideo();
-                        database.close();
-
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-
-                        layout.addView(videocons);
-
-                    }
-                }).addOnProgressListener(new OnProgressListener<FileDownloadTask.TaskSnapshot>() {
-                    @Override
-                    public void onProgress(@NonNull FileDownloadTask.TaskSnapshot taskSnapshot) {
-
-                        double progress = (double) 100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount();
-
-                    }
-                });
-
-
-
-
-
-        } else layout.removeView(videocons);
-
-
-    }
 
     public void playvideo() {
 
-        mediaController=new MyMediaController(activity);
-        mediaController.setAnchorView(videoView);
-        videoView.setMediaController(mediaController);
-        videoView.setVideoURI(Uri.fromFile(PreSets.getvideo_File(place.getId())));
+        final String filename = "/data/user/0/com.baranaydogdu.mymarmaris/cache/" + place.videoversion
+                .replaceAll(":", "")
+                .replaceAll("/", "") + ".mp4";
+
+        final File file = new File(filename);
+
+       mediaController=new MyMediaController(activity);
+       mediaController.setAnchorView(videoView);
+       videoView.setMediaController(mediaController);
+        videoView.setVideoURI( Uri.fromFile(file) );
         videoprogress.setVisibility(View.INVISIBLE);
 
 
@@ -1233,14 +1127,11 @@ public class PlaceView extends AppCompatActivity implements LocationListener {
             public void onClick(View v) {
                 videoView.pause();
                 Intent intent=new Intent(activity, VideoFullScrenn.class);
-                intent.putExtra("id",place.getId());
+                intent.putExtra("filename",filename);
                 intent.putExtra("seektime",videoView.getCurrentPosition());
                 startActivity(intent);
             }
         });
-
-
-
     }
 
 

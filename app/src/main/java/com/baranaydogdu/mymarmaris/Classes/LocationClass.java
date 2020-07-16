@@ -1,10 +1,10 @@
 package com.baranaydogdu.mymarmaris.Classes;
 
-import java.io.Serializable;
+public class LocationClass  {
 
-public class LocationClass implements Serializable {
+    public Double lat = 0.0;
+    public Double log = 0.0;
 
-    private Double lat,log;
 
     public LocationClass() {
     }

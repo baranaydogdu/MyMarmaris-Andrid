@@ -30,7 +30,12 @@
 
     </style>
 
-    <style name="Theme_MusicPlayer" parent="Theme.AppCompat">
+    <style name="Theme_MusicPlayer" parent="Theme.AppCompat"></style>
+
+    <style name="AppTheme.ProgressBarTheme">
+        <item name="colorAccent">@color/color_theme_orange</item> <!-- Whatever color you want-->
     </style>
+
+
 
 </resources>

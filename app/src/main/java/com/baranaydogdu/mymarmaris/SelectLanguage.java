@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.baranaydogdu.mymarmaris.TabbarFragments.MainPage;
+
 public class SelectLanguage extends AppCompatActivity {
 
     public static final int NOTSELECTED=6;
@@ -22,7 +24,6 @@ public class SelectLanguage extends AppCompatActivity {
     LinearLayout english_button, turkish_button, russian_button, greekbutton, german_button;
     public int selected_language=NOTSELECTED;
     Activity activity;
-
 
     SharedPreferences sharedPreferences;
 

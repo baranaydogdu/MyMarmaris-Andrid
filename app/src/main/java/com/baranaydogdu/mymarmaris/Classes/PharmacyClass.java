@@ -2,34 +2,22 @@ package com.baranaydogdu.mymarmaris.Classes;
 
 public class PharmacyClass {
 
-    private String name;
-    private LocationClass locatin;
-    private String phonenumber;
-    private String adress;
-    private int distance;
+    public String name = "";
+    public LocationClass locatin=new LocationClass();
+    public String phonenumber="";
+    public String adress="";
+    public int distance= 0;
 
     public PharmacyClass() {
 
     }
 
-    public PharmacyClass(String name, LocationClass locatin, String phonenumber, String adress) {
+    public PharmacyClass(String name, LocationClass locatin, String phonenumber, String adress, int distance) {
         this.name = name;
         this.locatin = locatin;
         this.phonenumber = phonenumber;
         this.adress = adress;
-        distance=0;
-    }
-
-    public int getDistance() {
-        return distance;
-    }
-
-    public void setDistance(int distance) {
         this.distance = distance;
-    }
-
-    public void setDistance(float distance) {
-        this.distance = (int)distance;
     }
 
     public String getName() {
@@ -62,5 +50,13 @@ public class PharmacyClass {
 
     public void setAdress(String adress) {
         this.adress = adress;
+    }
+
+    public int getDistance() {
+        return distance;
+    }
+
+    public void setDistance(int distance) {
+        this.distance = distance;
     }
 }

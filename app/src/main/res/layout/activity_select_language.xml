@@ -115,7 +115,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/galada"
-                android:text="русский"
+                android:text="Pусский"
                 android:textColor="@color/colorAccent"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -147,7 +147,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/galada"
-                android:text="ελληνικά"
+                android:text="Ελληνικά"
                 android:textColor="@color/colorAccent"
                 android:textSize="18sp"
                 android:textStyle="bold" />

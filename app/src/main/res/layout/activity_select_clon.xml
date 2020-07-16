@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".SelectClon">
+    tools:context=".AdminPages.SelectClon">
 
     <TextView
         android:id="@+id/select_tv"
@@ -14,7 +14,7 @@
         android:background="@color/face_white"
         android:fontFamily="sans-serif"
         android:gravity="center"
-        android:text="Select Place"
+        android:text="Select"
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textColor="@color/colorAccent"
         android:textSize="24sp"

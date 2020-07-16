@@ -66,11 +66,11 @@ public class PharmaciesActivity extends AppCompatActivity implements LocationLis
         recyclerView.setAdapter(pharmacyAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        if (PreSets.networkConnection(this)){
+     //   if (PreSets.networkConnection(this)){
 
             new AsynTask().execute("https://www.eczaneler.gen.tr/iframe.php?lokasyon=1517");
 
-        }
+     //   }
          //new AsynTask().execute("https://enyakinatm.bkm.com.tr/assets/js/scripts.js");
         //new AsynTask().execute("https://maps.googleapis.com/maps/api/js?key=AIzaSyAMR2F9V9efC0GI2j_HXhIBzjv1tptCbYI&callback=bkm.enyakinatm.initialize&v=3.27");
 
@@ -137,8 +137,8 @@ public class PharmaciesActivity extends AppCompatActivity implements LocationLis
             pharmacy_location.setLongitude(log);
             pharmacy_location.setLatitude(lat);
 
-            float distance = location.distanceTo(pharmacy_location);
-            pharmacieslist.get(i).setDistance(distance);
+            int distance = (int) location.distanceTo(pharmacy_location);
+           pharmacieslist.get(i).setDistance(distance);
 
             i++;
         }

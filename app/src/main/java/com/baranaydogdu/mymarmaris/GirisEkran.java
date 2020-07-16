@@ -1,6 +1,7 @@
 package com.baranaydogdu.mymarmaris;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,8 +9,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.Handler;
 import android.view.WindowManager;
+
+import com.baranaydogdu.mymarmaris.TabbarFragments.MainPage;
 
 import java.util.Timer;
 import java.util.TimerTask;

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context="com.baranaydogdu.mymarmaris.AdminPageEnterence">
+    tools:context="com.baranaydogdu.mymarmaris.AdminPages.AdminPageEnterence">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -149,53 +149,12 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:id="@+id/places_button"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginLeft="32dp"
-                android:layout_marginTop="64dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginRight="32dp"
-                android:background="@drawable/shape_signinbutton"
-                android:fontFamily="@font/alfa_slab_one"
-                android:text="Places"
-                android:textAllCaps="false"
-                android:textColor="#000"
-                android:textSize="24sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/auth_tv" />
-
-            <Button
-                android:id="@+id/events_button"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginLeft="32dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginRight="32dp"
-                android:background="@drawable/shape_signinbutton"
-                android:fontFamily="@font/alfa_slab_one"
-                android:text="Events"
-                android:textAllCaps="false"
-                android:textColor="#000"
-                android:textSize="24sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/places_button" />
-
-            <Button
                 android:id="@+id/notification_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
-                android:layout_marginLeft="32dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="32dp"
-                android:layout_marginRight="32dp"
                 android:background="@drawable/shape_signinbutton"
                 android:fontFamily="@font/alfa_slab_one"
                 android:text="Notifications"
@@ -205,7 +164,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/events_button" />
+                app:layout_constraintTop_toBottomOf="@+id/auth_tv" />
 
             <Button
                 android:id="@+id/sign_out_button"

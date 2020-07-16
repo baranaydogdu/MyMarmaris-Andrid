@@ -11,8 +11,11 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 
+import com.baranaydogdu.mymarmaris.Classes.FavoritteRealm;
 import com.baranaydogdu.mymarmaris.Classes.PlaceCollectionClass;
-import com.baranaydogdu.mymarmaris.Classes.PlaceDistanceClass;
+import com.baranaydogdu.mymarmaris.Classes.PlaceCollectionForRealm;
+import com.baranaydogdu.mymarmaris.Classes.PlaceForRealm;
+import com.baranaydogdu.mymarmaris.LanguagePack;
 import com.baranaydogdu.mymarmaris.R;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -35,157 +38,107 @@ import java.util.Comparator;
 
 import com.baranaydogdu.mymarmaris.PreSets;
 
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 
 public class PlacesActivityFragment extends Fragment {
 
-    PlaceCollectionClass subcollection;
     RecyclerView recyclerView;
+
     public PlacesActivityAdapter placesActivityAdapter;
-    ArrayList<PlaceDistanceClass> placelist, favplacelist, nonfavplacelist, distanceClasses, nondistanceClasses;
+    PlaceCollectionForRealm subcollection;
+    RealmResults<PlaceForRealm> placelist;
+    ArrayList<PlaceClass> sortedPlaceList = new ArrayList<>();
+
     SharedPreferences sharedPreferences;
-    int selected_language = 0;
-    Activity activity;
-    String sub_id;
+    int lan = 0;
     int today;
+    Realm realm;
+    Location lastlocation;
+    LanguagePack languagePack = new LanguagePack();
 
-    public PlacesActivityFragment(String sub_id) {
+    public PlacesActivityFragment(PlaceCollectionForRealm subcollection, Location lastlocation) {
+        this.subcollection = subcollection;
+        this.lastlocation = lastlocation;
+        realm = Realm.getDefaultInstance();
 
-        this.sub_id=sub_id;
-        // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_places_activity, container, false);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {  //MAGIC IS HERE
 
-        today=Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
-        if (today==1) today=6;else today=today-2;
+        today = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+        if (today == 1) today = 6;
+        else today = today - 2;
 
-        activity=getActivity();
-        placelist = new ArrayList<>();
-        favplacelist = new ArrayList<>();
-        nonfavplacelist = new ArrayList<>();
-        distanceClasses = new ArrayList<>();
-        nondistanceClasses = new ArrayList<>();
-        sharedPreferences = activity.getSharedPreferences("com.baranaydogdu.mymarmaris", Context.MODE_PRIVATE);
-        selected_language = sharedPreferences.getInt("language", 0);
+        placelist = realm.where(PlaceForRealm.class).equalTo("subid", subcollection.id).findAll().sort("sortnumber");
 
-        subcollection = PreSets.getSubcollection_from_SubCollecsitonId(activity,sub_id);
+        sharedPreferences = getActivity().getSharedPreferences("com.baranaydogdu.mymarmaris", Context.MODE_PRIVATE);
+        lan = sharedPreferences.getInt("language", 0);
 
         recyclerView = view.findViewById(R.id.places_recyclerview);
         placesActivityAdapter = new PlacesActivityAdapter();
         recyclerView.setAdapter(placesActivityAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(activity));
-
-        setPlaces(null);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        setPlaces(lastlocation);
     }
-
 
     public void setPlaces(Location location) {
 
-        placelist.clear();
-        favplacelist.clear();
-        nonfavplacelist.clear();
-        distanceClasses.clear();
-        nondistanceClasses.clear();
+        sortedPlaceList.clear();
+        ArrayList<PlaceClass> distanceList = new ArrayList<>();
+        ArrayList<PlaceClass> nondistanceList = new ArrayList<>();
 
-        for (PlaceClass place:PreSets.getAllPlaces_from_subcollection(activity,subcollection.getId())){
+        for (PlaceForRealm single : placelist) {
+            if (single.isactive) {
+                if (single.sortnumber != 100000) {
+                    PlaceClass favPlace = single.toPlace();
 
-            if (place.getIsactive()) {
+                    if (location != null && favPlace.location.lat != 0 && favPlace.location.log != 0) {
+                        Location placeLoc = new Location("");
+                        placeLoc.setLatitude(favPlace.location.lat);
+                        placeLoc.setLongitude(favPlace.location.log);
+                        favPlace.distance = location.distanceTo(placeLoc);
+                    }
+                    sortedPlaceList.add(favPlace);
+                } else {
 
-                Float distance = 0f;
-
-                if (location!=null) {
-
-                    if (place.getLocation().getLat() != 0 && place.getLocation().getLog() != 0 &&
-                            location.getLongitude() != 0 && location.getLatitude() != 0) {
-
-                        Location place_location = new Location("place_location");
-                        place_location.setLatitude(place.getLocation().getLat());
-                        place_location.setLongitude(place.getLocation().getLog());
-
-                        distance = location.distanceTo(place_location);
-
+                    if (single.lat != 0 && single.log != 0) {
+                        PlaceClass disPlace = single.toPlace();
+                        if (location != null) {
+                            Location place_location = new Location("place_location");
+                            place_location.setLatitude(disPlace.getLocation().getLat());
+                            place_location.setLongitude(disPlace.getLocation().getLog());
+                            disPlace.distance = location.distanceTo(place_location);
+                        }
+                        distanceList.add(disPlace);
+                    } else {
+                        nondistanceList.add(single.toPlace());
                     }
                 }
-
-                PlaceDistanceClass placeDistanceClass = new PlaceDistanceClass(place, distance);
-
-                placelist.add(placeDistanceClass);
             }
         }
 
-        //FAVORI YADA DEGIL AYIR-----
-        for (PlaceDistanceClass singleplace : placelist) {
-
-            if (singleplace.getPlace().getSortnumber() == PlaceClass.FAVORIDEGIL) {//FAVORI DEGIL ISE
-
-                nonfavplacelist.add(singleplace);
-
-            } else { //FAVORI ISE
-
-                favplacelist.add(singleplace);
-
-            }
-
-        }
-
-        //FAVIRILERI SIRALA
-        Collections.sort(favplacelist, new Comparator<PlaceDistanceClass>() {
+        Collections.sort(distanceList, new Comparator<PlaceClass>() {
             @Override
-            public int compare(PlaceDistanceClass o1, PlaceDistanceClass o2) {
-                return o1.getPlace().getSortnumber() - o2.getPlace().getSortnumber();
+            public int compare(PlaceClass o1, PlaceClass o2) {
+                return (int) o1.distance - (int) o2.distance;
             }
         });
 
-        //FAVORI OLMAYANLARI DISTANCE YADA NONDISTANCE AYARLA
-        for (PlaceDistanceClass singleplace : nonfavplacelist) {
+        for (PlaceClass place :distanceList) sortedPlaceList.add(place);
+        for (PlaceClass place :nondistanceList) sortedPlaceList.add(place);
 
-            if (singleplace.getDistance() != 0) {
-                distanceClasses.add(singleplace);
-            } else {
-                nondistanceClasses.add(singleplace);
-            }
-        }
+        placesActivityAdapter.notifyDataSetChanged();
 
-
-        //MESAFESI OLANLARI SIRALA
-        Collections.sort(distanceClasses, new Comparator<PlaceDistanceClass>() {
-            @Override
-            public int compare(PlaceDistanceClass o1, PlaceDistanceClass o2) {
-                return o1.getDistance() - o2.getDistance();
-            }
-        });
-
-
-        placelist.clear();
-        for (PlaceDistanceClass placeDistanceClass:favplacelist){
-
-            placelist.add(placeDistanceClass);
-        }
-
-        for (PlaceDistanceClass placeDistanceClass:distanceClasses){
-
-            placelist.add(placeDistanceClass);
-        }
-
-        for (PlaceDistanceClass placeDistanceClass:nondistanceClasses){
-
-            placelist.add(placeDistanceClass);
-        }
-
-       placesActivityAdapter.notifyDataSetChanged();
     }
-
-
 
 
     public class PlacesActivityAdapter extends RecyclerView.Adapter<PlacesActivityAdapter.PlaceActivityViewHolder> {
@@ -204,9 +157,9 @@ public class PlacesActivityFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull PlaceActivityViewHolder holder, final int position) {
 
-            final PlaceClass mplace = placelist.get(position).getPlace();
+            final PlaceClass mplace = sortedPlaceList.get(position);
 
-            float distance = placelist.get(position).getDistance();
+            float distance = mplace.distance;
 
             if (distance != 0) {
 
@@ -225,38 +178,34 @@ public class PlacesActivityFragment extends Fragment {
 
             }
 
-            holder.isfav_icon.setVisibility(View.INVISIBLE);
+            if (mplace.topphotos.size() > 0)
+                new PreSets().setImage(getContext(), holder.placeimage, mplace.topphotos.get(0));
+            else new PreSets().setImage(getContext(), holder.placeimage, "");
 
-            PreSets.set_MAIN_photo(holder.placeimage, mplace.getId());
-
-            holder.placename.setText(PreSets.setlanguage_name(activity, mplace));
-
-            holder.placeexplanation.setText(PreSets.setlanguage_explain(activity, mplace));
+            holder.placename.setText(LanguagePack.getLanguage(mplace.name,lan));
+            holder.placeexplanation.setText(LanguagePack.getLanguage(mplace.explain,lan));
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    Intent intent = new Intent(activity, PlaceView.class);
-                    intent.putExtra("id", placelist.get(position).getPlace().getId());
+                    Intent intent = new Intent(getActivity(), PlaceView.class);
+                    intent.putExtra("id", mplace.id);
 
-                    activity.startActivity(intent);
+                    getActivity().startActivity(intent);
                 }
             });
 
-            int opentime=mplace.getOpentime().get(today);
-            int closetime=mplace.getClosetime().get(today);
-            int now= (Calendar.getInstance().get(Calendar.HOUR)*100) + (Calendar.getInstance().get(Calendar.MINUTE));
-            if (Calendar.getInstance().get(Calendar.AM_PM)==Calendar.PM) now=now+1200;
-
-            String[] opentext={"Open","Açık","открытый","ανοιχτό","Öffnen"};
-            String[] closetext={"Close","Kapalı", "близко","κλειστό","Geschlossen"};
+            int opentime = mplace.getOpentime().get(today);
+            int closetime = mplace.getClosetime().get(today);
+            int now = (Calendar.getInstance().get(Calendar.HOUR) * 100) + (Calendar.getInstance().get(Calendar.MINUTE));
+            if (Calendar.getInstance().get(Calendar.AM_PM) == Calendar.PM) now = now + 1200;
 
             Boolean isopen;
 
-            if (opentime < closetime){
+            if (opentime < closetime) {
 
-                if (opentime<now && now<closetime){ //ACIK ISE
+                if (opentime < now && now < closetime) { //ACIK ISE
 
                     isopen = true;
 
@@ -267,7 +216,7 @@ public class PlacesActivityFragment extends Fragment {
 
             } else {
 
-                if (opentime<now || now<closetime){ //ACIK ISE
+                if (opentime < now || now < closetime) { //ACIK ISE
 
                     isopen = true;
 
@@ -278,22 +227,21 @@ public class PlacesActivityFragment extends Fragment {
 
             }
 
-            if (isopen){
+            if (isopen) {
 
-                holder.close_tv.setText(opentext[selected_language]);
+                holder.close_tv.setText(languagePack.opentext[lan]);
                 holder.close_tv.setBackgroundResource(R.drawable.shape_new_edittext);
 
 
             } else {
-                holder.close_tv.setText(closetext[selected_language]);
+                holder.close_tv.setText(languagePack.closetext[lan]);
                 holder.close_tv.setBackgroundResource(R.drawable.shape_close);
             }
 
 
-            String[] neww={"New","Yeni","новый","νέος","Neu"};
 
-            holder.new_tv.setText(neww[selected_language]);
-            if (mplace.getNew_end_time()< Calendar.getInstance().getTime().getTime()){
+            holder.new_tv.setText(languagePack.neww[lan]);
+            if (mplace.getNew_end_time() < Calendar.getInstance().getTime().getTime()) {
 
                 holder.new_tv.setVisibility(View.INVISIBLE);
             } else {
@@ -312,22 +260,21 @@ public class PlacesActivityFragment extends Fragment {
 
         public class PlaceActivityViewHolder extends RecyclerView.ViewHolder {
 
-            ImageView placeimage, isfav_icon;
+            ImageView placeimage;
             TextView placerange;
             EditText placename, placeexplanation;
-            TextView new_tv,close_tv;
+            TextView new_tv, close_tv;
 
             public PlaceActivityViewHolder(View itemView) {
                 super(itemView);
 
                 placeimage = itemView.findViewById(R.id.custum_place_imageView);
-                isfav_icon = itemView.findViewById(R.id.isfav_icon);
                 placerange = itemView.findViewById(R.id.custum_place_range);
                 placename = itemView.findViewById(R.id.custum_place_name);
                 placeexplanation = itemView.findViewById(R.id.custum_place_explain);
 
-                new_tv= itemView.findViewById(R.id.new_tv2);
-                close_tv=itemView.findViewById(R.id.close_tv2);
+                new_tv = itemView.findViewById(R.id.new_tv2);
+                close_tv = itemView.findViewById(R.id.close_tv2);
                 close_tv.setVisibility(View.VISIBLE);
 
             }

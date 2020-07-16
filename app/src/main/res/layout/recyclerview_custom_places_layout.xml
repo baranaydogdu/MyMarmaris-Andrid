@@ -35,15 +35,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageView
-        android:id="@+id/isfav_icon"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/custum_place_imageView"
-        app:layout_constraintStart_toStartOf="@+id/custum_place_imageView"
-        app:srcCompat="@drawable/icon_favorite" />
-
     <View
         android:id="@+id/divider6"
         android:layout_width="0dp"

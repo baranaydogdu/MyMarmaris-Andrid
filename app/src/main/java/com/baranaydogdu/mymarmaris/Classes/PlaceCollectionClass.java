@@ -1,15 +1,15 @@
 package com.baranaydogdu.mymarmaris.Classes;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
-public class PlaceCollectionClass implements Serializable {
+public class PlaceCollectionClass {
 
-    String id;
-    ArrayList<String> name;
-    int iconnumber,sortnumber;
-    int type;
-    String link;
+    public String id = "";
+    public ArrayList<String> name = new ArrayList<>();
+    public String icon = "";
+    public int sortnumber = 0;
+    public int type = 0;
+    public String link = "";
 
     public static final int COLLECTION_WITH_SUB=0;
     public static final int COLLECTION_NON_SUB=1;
@@ -20,58 +20,15 @@ public class PlaceCollectionClass implements Serializable {
     public static final int SUBCOLLECTION=6;
 
     public PlaceCollectionClass() {
+
     }
 
-    public PlaceCollectionClass(String id, ArrayList<String> name, int iconnumber, int sortnumber, int type, String link) {
+    public PlaceCollectionClass(String id, ArrayList<String> name, String icon, int sortnumber, int type, String link) {
         this.id = id;
         this.name = name;
-        this.iconnumber = iconnumber;
+        this.icon = icon;
         this.sortnumber = sortnumber;
         this.type = type;
-        this.link = link;
-        if (link==null) this.link="";
-    }
-
-    public PlaceCollectionClass(String id, ArrayList<String> name, int iconnumber, int sortnumber, int type) {
-        this.id = id;
-        this.name = name;
-        this.iconnumber = iconnumber;
-        this.sortnumber = sortnumber;
-        this.type = type;
-        this.link="";
-    }
-
-    public PlaceCollectionClass(String id, ArrayList<String> name, int iconnumber, int sortnumber) {
-        this.id = id;
-        this.name = name;
-        this.iconnumber = iconnumber;
-        this.sortnumber = sortnumber;
-        this.type = SUBCOLLECTION;
-        this.link="";
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setName(ArrayList<String> name) {
-        this.name = name;
-    }
-
-    public void setIconnumber(int iconnumber) {
-        this.iconnumber = iconnumber;
-    }
-
-    public void setSortnumber(int sortnumber) {
-        this.sortnumber = sortnumber;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
-
-    public void setLink(String link) {
-        if (link==null) link="";
         this.link = link;
     }
 
@@ -79,24 +36,48 @@ public class PlaceCollectionClass implements Serializable {
         return id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public ArrayList<String> getName() {
         return name;
     }
 
-    public int getIconnumber() {
-        return iconnumber;
+    public void setName(ArrayList<String> name) {
+        this.name = name;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
     public int getSortnumber() {
         return sortnumber;
     }
 
+    public void setSortnumber(int sortnumber) {
+        this.sortnumber = sortnumber;
+    }
+
     public int getType() {
         return type;
     }
 
+    public void setType(int type) {
+        this.type = type;
+    }
+
     public String getLink() {
-        if (link==null) link="";
         return link;
     }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
 }

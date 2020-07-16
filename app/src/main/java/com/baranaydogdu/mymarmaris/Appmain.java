@@ -7,9 +7,11 @@ import android.os.Bundle;
 
 import java.util.ArrayList;
 
+import io.realm.Realm;
+
 public class Appmain extends Application {
 
-    public static int visiblecount = 0;
+    //public static int visiblecount = 0;
     public static Activity activity;
     public static Activity mainContext;
     ArrayList<Activity> livingactivity;
@@ -17,14 +19,28 @@ public class Appmain extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        // Required initialization logic here!
 
         System.out.println("APP CREATED");
+        Realm.init(this);
         livingactivity=new ArrayList<>();
         registerActivityLifecycleCallbacks(new MyLifecycleHandler());
 
     }
 
+       /*
+        notEqualTo
+Compare integer fields: lessThan, biggerThan, etc.
+Calculations on integer fields, eg. 2 * field1 > field2
+does contains/startsWith/endsWith work on multiple fields?
+
+equalToField(field1, field2);
+greaterThanField(field1, field2);
+greaterThanOrEqualToField(field1, field2);
+lessThanField(field1, field2);
+lessThanOrEqualToField(field1, field2);
+notEqualToField(field1, field2);
+         */
+    /*
     public void checkmemory( String when){
 
         int available  = (int) (Runtime.getRuntime().maxMemory()/100000);
@@ -43,6 +59,8 @@ public class Appmain extends Application {
 
     }
 
+     */
+
 
 
 
@@ -53,7 +71,6 @@ public class Appmain extends Application {
         @Override
         public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
 
-            livingactivity.add(activity);
             if (activity.getLocalClassName().equals("MainPage")){
                 mainContext=activity;
             }
@@ -61,8 +78,6 @@ public class Appmain extends Application {
 
         @Override
         public void onActivityDestroyed(Activity activity) {
-
-            livingactivity.remove(activity);
 
             if (activity.getLocalClassName().equals("MainPage")){
                 mainContext=null;
@@ -72,19 +87,11 @@ public class Appmain extends Application {
 
         @Override
         public void onActivityResumed(Activity activity) {
-            checkmemory("Resume");
-
-            Appmain.visiblecount++;
-            //System.out.println("RESUMED ACTIVITY : "+activity.getLocalClassName());
             Appmain.activity=activity;
-
         }
 
         @Override
         public void onActivityPaused(Activity activity) {
-
-            Appmain.visiblecount--;
-
         }
 
         @Override
@@ -102,16 +109,6 @@ public class Appmain extends Application {
 
         }
     }
-
-    public static Boolean isforeground() {
-
-        if (Appmain.visiblecount > 0) return true;
-        else return false;
-
-    }
-
-
-
 
 }
 

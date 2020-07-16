@@ -3,98 +3,35 @@ package com.baranaydogdu.mymarmaris.Classes;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class PlaceClass implements Serializable {
+public class PlaceClass {
 
-    String id;      //GENERATED
-    int sortnumber;
+    public String id = "";
+    int sortnumber = 100000;
+    public Boolean isactive = true;
 
-    ArrayList<String> name, explain, adres;
-    Contactinfo contactinfo;
-    LocationClass location;
+    public ArrayList<String> name = new ArrayList<>();
+    public ArrayList<String> explain = new ArrayList<>();
+    public ArrayList<String> adres = new ArrayList<>();
 
-    public ArrayList<Integer> opentime,closetime;
-    public ArrayList<String> topphotos,downphotos;
-    String videoversion,mapphotoversion;
-    Long new_end_time;
-    Boolean isactive;
+    public Contactinfo contactinfo = new Contactinfo();
+    public LocationClass location = new LocationClass();
 
-    public static final int ACTIVE_PLACE=0;
-    public static final int INACTIVE_PLACE=1;
+    public ArrayList<Integer> opentime = new ArrayList<>();
+    public ArrayList<Integer> closetime = new ArrayList<>();
 
+    public String videoversion = "";
+    public String mapphotoversion = "";
 
-    public static final int FAVORIDEGIL=100000;
+    public ArrayList<String> topphotos= new ArrayList<>();
+    public ArrayList<String> downphotos = new ArrayList<>();
 
-    public PlaceClass() {
+    public Long new_end_time = 0l;
 
+    public float distance = 0f;
 
-    }
+    public PlaceClass() { }
 
-    public PlaceClass(String id,ArrayList<String> names) {
-
-        this.id = id;
-        this.sortnumber = 0;
-        ArrayList emty=new ArrayList();
-        emty.add("");emty.add("");emty.add("");emty.add("");emty.add("");
-        this.name = names;
-        this.explain = emty;
-        this.adres = emty;
-        Contactinfo contactinfo=new Contactinfo("","","","","","","");
-        this.contactinfo = contactinfo;
-        LocationClass locationemty=new LocationClass(0.0,0.0);
-        this.location = locationemty;
-        ArrayList<Integer> opentimeemty=new ArrayList<>();
-        opentimeemty.add(2000);opentimeemty.add(2000);opentimeemty.add(2000);opentimeemty.add(2000);opentimeemty.add(2000);opentimeemty.add(2000);opentimeemty.add(2000);
-        this.opentime = opentimeemty;
-        this.closetime = opentimeemty;
-        this.topphotos = null;
-        this.downphotos = null;
-        this.videoversion = "default";
-        this.mapphotoversion = "default";
-        this.new_end_time = 0l;
-        this.isactive = false;
-
-    }
-
-    public PlaceClass(String id,String name0,String adres0,String phonenumer, Double lat, Double log) {
-
-        this.id = id;
-        this.sortnumber = FAVORIDEGIL;
-        ArrayList emty=new ArrayList();
-        emty.add("");emty.add("");emty.add("");emty.add("");emty.add("");
-        ArrayList namesss=new ArrayList();
-        namesss.add(name0);namesss.add("");namesss.add("");namesss.add("");namesss.add("");
-        this.name = namesss;
-        ArrayList explainsss=new ArrayList();
-        explainsss.add(adres0);explainsss.add("");explainsss.add("");explainsss.add("");explainsss.add("");
-        this.explain = explainsss;
-        ArrayList<String> adresssss=new ArrayList<>();
-        adresssss.add(adres0);adresssss.add("");adresssss.add("");adresssss.add("");adresssss.add("");
-        this.adres = adresssss;
-        Contactinfo contactinfo=new Contactinfo(phonenumer,"","","","","","");
-        this.contactinfo = contactinfo;
-        LocationClass locationemty=new LocationClass(lat,log);
-        this.location = locationemty;
-        ArrayList<Integer> opentimeemty=new ArrayList<>();
-        opentimeemty.add(0001);opentimeemty.add(0001);opentimeemty.add(0001);opentimeemty.add(0001);opentimeemty.add(0001);opentimeemty.add(0001);opentimeemty.add(0001);
-        ArrayList<Integer> closetimeemty=new ArrayList<>();
-        closetimeemty.add(2359);closetimeemty.add(2359);closetimeemty.add(2359);closetimeemty.add(2359);closetimeemty.add(2359);closetimeemty.add(2359);closetimeemty.add(2359);
-        this.opentime = opentimeemty;
-        this.closetime = closetimeemty;
-        this.topphotos = null;
-        this.downphotos = null;
-        this.videoversion = "default";
-        this.mapphotoversion = "default";
-        this.new_end_time = 0l;
-        this.isactive = true;
-
-    }
-
-    public PlaceClass(String id, int sortnumber, ArrayList<String> name, ArrayList<String> explain,
-                      ArrayList<String> adres, Contactinfo contactinfo, LocationClass location,
-                      ArrayList<Integer> opentime, ArrayList<Integer> closetime, ArrayList<String> topphotos,
-                      ArrayList<String> downphotos, String videoversion, String mapphotoversion,
-                      Long new_end_time, Boolean isactive) {
-
+    public PlaceClass(String id, int sortnumber, ArrayList<String> name, ArrayList<String> explain, ArrayList<String> adres, Contactinfo contactinfo, LocationClass location, ArrayList<Integer> opentime, ArrayList<Integer> closetime, ArrayList<String> topphotos, ArrayList<String> downphotos, String videoversion, String mapphotoversion, Long new_end_time, Boolean isactive) {
         this.id = id;
         this.sortnumber = sortnumber;
         this.name = name;
@@ -110,12 +47,7 @@ public class PlaceClass implements Serializable {
         this.mapphotoversion = mapphotoversion;
         this.new_end_time = new_end_time;
         this.isactive = isactive;
-        if (topphotos==null) this.topphotos=new ArrayList<>();
-        if (downphotos==null) this.downphotos=new ArrayList<>();
-
     }
-
-
 
     public String getId() {
         return id;
@@ -173,23 +105,35 @@ public class PlaceClass implements Serializable {
         this.location = location;
     }
 
+    public ArrayList<Integer> getOpentime() {
+        return opentime;
+    }
+
+    public void setOpentime(ArrayList<Integer> opentime) {
+        this.opentime = opentime;
+    }
+
+    public ArrayList<Integer> getClosetime() {
+        return closetime;
+    }
+
+    public void setClosetime(ArrayList<Integer> closetime) {
+        this.closetime = closetime;
+    }
+
     public ArrayList<String> getTopphotos() {
-        if (topphotos==null) topphotos=new ArrayList<>();
         return topphotos;
     }
 
     public void setTopphotos(ArrayList<String> topphotos) {
-        if (topphotos==null) topphotos=new ArrayList<>();
         this.topphotos = topphotos;
     }
 
     public ArrayList<String> getDownphotos() {
-        if (downphotos==null) downphotos=new ArrayList<>();
         return downphotos;
     }
 
     public void setDownphotos(ArrayList<String> downphotos) {
-        if (downphotos==null) downphotos=new ArrayList<>();
         this.downphotos = downphotos;
     }
 
@@ -223,21 +167,5 @@ public class PlaceClass implements Serializable {
 
     public void setIsactive(Boolean isactive) {
         this.isactive = isactive;
-    }
-
-    public ArrayList<Integer> getOpentime() {
-        return opentime;
-    }
-
-    public void setOpentime(ArrayList<Integer> opentime) {
-        this.opentime = opentime;
-    }
-
-    public ArrayList<Integer> getClosetime() {
-        return closetime;
-    }
-
-    public void setClosetime(ArrayList<Integer> closetime) {
-        this.closetime = closetime;
     }
 }

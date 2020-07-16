@@ -1,10 +1,14 @@
 package com.baranaydogdu.mymarmaris.Classes;
 
-import java.io.Serializable;
+public class Contactinfo {
 
-public class Contactinfo implements Serializable {
-
-    private String phonenumber,whatsapp,instagram,facebook,website,mailadress,buyticket;
+    public String phonenumber = "";
+    public String whatsapp = "";
+    public String instagram = "";
+    public String facebook = "";
+    public String website = "";
+    public String mailadress = "";
+    public String buyticket = "";
 
     public Contactinfo() {
 

@@ -1,4 +1,4 @@
-package com.baranaydogdu.mymarmaris.SearcOperations;
+package com.baranaydogdu.mymarmaris.TabbarFragments;
 
 import android.Manifest;
 import android.app.Activity;
@@ -10,12 +10,6 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -23,7 +17,16 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.baranaydogdu.mymarmaris.Classes.FavoritteRealm;
 import com.baranaydogdu.mymarmaris.Classes.PlaceClass;
+import com.baranaydogdu.mymarmaris.Classes.PlaceForRealm;
 import com.baranaydogdu.mymarmaris.LanguagePack;
 import com.baranaydogdu.mymarmaris.PlaceActivities.PlaceView;
 import com.baranaydogdu.mymarmaris.PreSets;
@@ -32,30 +35,36 @@ import com.baranaydogdu.mymarmaris.R;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 import static com.baranaydogdu.mymarmaris.PlaceActivities.PlaceView.LOCATIONMILISECOND;
 
-public class SerachPlaceFragment extends Fragment implements LocationListener {
+public class FragmentFavorittes extends Fragment implements LocationListener {
 
     RecyclerView recyclerView;
-    public PlacesActivityAdapter placesActivityAdapter  = new PlacesActivityAdapter();
+    public PlacesActivityAdapter placesActivityAdapter = new PlacesActivityAdapter();
     SharedPreferences sharedPreferences;
     int lan = 0;
+    Activity activity;
     LocationManager locationManager;
+    TextView favlist_tv;
     int today;
+    RealmResults<FavoritteRealm> idList;
     ArrayList<PlaceClass> placeList = new ArrayList<>();
     Location lastLoc;
     LanguagePack languagePack = new LanguagePack();
 
-    public SerachPlaceFragment() {
+    public FragmentFavorittes() {
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_serach_single, container, false);
+        return inflater.inflate(R.layout.fragment_favorittes, container, false);
     }
+
 
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
@@ -63,48 +72,53 @@ public class SerachPlaceFragment extends Fragment implements LocationListener {
         if (today == 1) today = 6;
         else today = today - 2;
 
+        activity = getActivity();
         locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-        sharedPreferences = getActivity().getSharedPreferences("com.baranaydogdu.mymarmaris", Context.MODE_PRIVATE);
+        sharedPreferences = activity.getSharedPreferences("com.baranaydogdu.mymarmaris", Context.MODE_PRIVATE);
         lan = sharedPreferences.getInt("language", 0);
 
-        recyclerView = view.findViewById(R.id.recyclerview);
+        recyclerView = view.findViewById(R.id.places_recyclerview);
         recyclerView.setAdapter(placesActivityAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(activity));
+
+        favlist_tv = view.findViewById(R.id.favorite_list_tv);
+
+        favlist_tv.setText(new LanguagePack().favlisttext[lan]);
     }
 
 
-    public void setlist(ArrayList<PlaceClass> searchedPlaceList) {
+    public void setlist() {
 
-        placeList = searchedPlaceList;
+        placeList.clear();
+        Realm realm = Realm.getDefaultInstance();
+
+        idList = realm.where(FavoritteRealm.class).findAll();
+        for (FavoritteRealm fav : idList) {
+            PlaceForRealm favRealm = realm.where(PlaceForRealm.class).equalTo("id", fav.favid).findFirst();
+            if (favRealm != null) placeList.add(favRealm.toPlace());
+        }
         onLocationChanged(lastLoc);
         placesActivityAdapter.notifyDataSetChanged();
-
-        System.out.println("placeList : "+placeList.size());
-        for (PlaceClass place : placeList) {
-            System.out.println("Name : "+ place.name.get(1));
-        }
     }
-
-
-
 
     Boolean isStartted = true;
     @Override
     public void onResume() {
         super.onResume();
 
-        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && isStartted) {
+        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && isStartted) {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,10 * LOCATIONMILISECOND, 0, this);
             isStartted = false;
         }
+        setlist();
 
     }
 
 
     @Override
     public void onLocationChanged(Location location) {
-
         lastLoc = location;
+
         if (lastLoc != null) {
             for (PlaceClass place : placeList) {
                 if (place.location.lat != 0 && place.location.log != 0) {
@@ -116,7 +130,6 @@ public class SerachPlaceFragment extends Fragment implements LocationListener {
             }
         }
         placesActivityAdapter.notifyDataSetChanged();
-
     }
 
     @Override
@@ -153,7 +166,6 @@ public class SerachPlaceFragment extends Fragment implements LocationListener {
             final PlaceClass mplace = placeList.get(position);
 
             float distance = mplace.distance;
-            System.out.println("Place name : "+ mplace.name.get(1));
 
             if (distance != 0) {
 

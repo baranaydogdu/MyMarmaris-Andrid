@@ -16,8 +16,10 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/app_logo"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".VideoFullScrenn"></activity>
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".AdminPages.SelectClon"></activity>
+        <activity android:name=".VideoFullScrenn" />
         <activity
             android:name=".GirisEkran"
             android:screenOrientation="portrait">
@@ -28,10 +30,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".NotificationCreate"
+            android:name=".AdminPages.NotificationCreate"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".AdminPageEnterence"
+            android:name=".AdminPages.AdminPageEnterence"
             android:screenOrientation="portrait" />
         <activity
             android:name=".PlaceActivities.PlaceView"
@@ -40,55 +42,22 @@
             android:name=".PlaceActivities.InsideLinkCollectionActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SelectClon"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".EventActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".EventView"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MainPage"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".EventsEdits.EventsEditAddorEdit"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".EventsEdits.EventsEdit"
+            android:name=".TabbarFragments.MainPage"
             android:screenOrientation="portrait" />
         <activity
             android:name=".PlaceActivities.PharmaciesActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".PlaceEdits.EditMediaEdits"
             android:screenOrientation="portrait" />
         <activity
             android:name=".PlaceActivities.PlacesActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".PlaceActivities.PlaceSubCollectionActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".PlaceEdits.PlaceAddorEditSinglePlace"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".PlaceEdits.PlaceEditSinglePlaces"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".PlaceCollectionEdits.PlaceAddorEditSubCollection"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".PlaceCollectionEdits.PlaceeditSubCollections"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".SelectIcon"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".PlaceCollectionEdits.PlaceAddorEditCollection"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".PlaceCollectionEdits.PlacesEditCollections"
             android:screenOrientation="portrait" />
         <activity
             android:name=".SelectLanguage"

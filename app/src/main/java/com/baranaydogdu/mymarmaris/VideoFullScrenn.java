@@ -7,18 +7,19 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
 import com.baranaydogdu.mymarmaris.Classes.MyMediaController;
+
+import java.io.File;
 
 public class VideoFullScrenn extends AppCompatActivity {
 
     MyMediaController mediaController;
     VideoView videoView;
     Intent intent;
-    String id;
+    String filename;
     int seektime;
     Activity activity;
 
@@ -29,18 +30,23 @@ public class VideoFullScrenn extends AppCompatActivity {
         setContentView(R.layout.activity_video_full_screnn);
 
         intent=getIntent();
-        id=intent.getStringExtra("id");
+        filename=intent.getStringExtra("filename");
         seektime=intent.getIntExtra("seektime",1000);
 
         if (savedInstanceState!=null){
             seektime=savedInstanceState.getInt("seektime",1000);
         }
 
+
+
+
+        final File file = new File(filename);
+
         videoView=findViewById(R.id.videoView3);
         mediaController=new MyMediaController(this);
         mediaController.setAnchorView(videoView);
         videoView.setMediaController(mediaController);
-        videoView.setVideoURI(Uri.fromFile(PreSets.getvideo_File(id)));
+        videoView.setVideoURI(Uri.fromFile(file));
 
         videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override

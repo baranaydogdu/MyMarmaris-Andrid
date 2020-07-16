@@ -1,13 +1,13 @@
 package com.baranaydogdu.mymarmaris.Classes;
 
-import java.io.Serializable;
+import io.realm.RealmObject;
 
-public class EventTimes implements Serializable {
+public class EventTimes extends RealmObject {
 
-    private Long start_time, end_time;
+    public Long start_time = 0l;
+    public Long end_time = 0l;
 
     public EventTimes() {
-        
     }
 
     public EventTimes(Long start_time, Long end_time) {
